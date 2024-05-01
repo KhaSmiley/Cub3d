@@ -33,7 +33,7 @@ all:	${NAME}
 $(NAME): $(DIR_OBJS) $(OBJS)
 	make -C libft
 	$(CC) $(CFLAGS) ${INC} $(CDFLAGS) $(OBJS) $(LIB)	 -o $(NAME)
-	@ echo "LET'S GO FOR A NEW ADVENTURE!"  | toilet -f future -F border --gay
+	@ echo "EYUP MATE YALRIGHT?"  | toilet -f future -F border --gay
 
 $(OBJS): | $(DIR_OBJS)
 
