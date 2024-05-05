@@ -2,13 +2,19 @@ NAME			=	cub3d
 
 LIBFT			=	libft.a
 
+MLX				=	mlx/libmlx_Linux.a
+
 DIR_SRCS		=	srcs
+
 DIR_SUBDIRS		=	parsing
 
 DIR_OBJS		=	.objs
 
 SRCS_NAMES		=	parsing/parsing.c \
 					parsing/parsing_utils.c \
+					parsing/init.c \
+					utils.c \
+					main.c \
 
 OBJS_NAMES		=	${SRCS_NAMES:.c=.o}
 
@@ -18,7 +24,7 @@ SRCS			=	$(addprefix $(DIR_SRCS)/,$(SRCS_NAMES))
 
 OBJS			=	$(addprefix $(DIR_OBJS)/,$(OBJS_NAMES))
 
-INC				=	-Iinclude -Ilibft/include
+INC				=	-Iinclude -Ilibft/include -Imlx #-I/usr/include -I.
 
 LIB				=	-Llibft -lft
 
@@ -26,14 +32,21 @@ CC				=	cc
 
 CDFLAGS 		= 	-MMD -MP
 
+MFLAGS			=	-lmlx_Linux -lXext -lX11 -lm -lz -Lmlx -L/usr/lib
+
 CFLAGS			=	-g3 -Wall -Werror -Wextra
 
 all:	${NAME}
 
-$(NAME): $(DIR_OBJS) $(OBJS)
-	make -C libft
-	$(CC) $(CFLAGS) ${INC} $(CDFLAGS) $(OBJS) $(LIB)	 -o $(NAME)
-	@ echo "LET'S GO FOR A NEW ADVENTURE!"  | toilet -f future -F border --gay
+$(NAME): $(DIR_OBJS) $(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) ${INC} $(CDFLAGS) $(MFLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@ echo "EYUP MATE YALRIGHT?"  | toilet -f future -F border --gay
+
+$(LIBFT):
+		make -C libft
+
+$(MLX):
+		make -C mlx
 
 $(OBJS): | $(DIR_OBJS)
 
@@ -52,11 +65,11 @@ $(DIR_OBJS):
 
 clean:
 	make clean -C libft
+	make clean -C mlx
 	rm -rf ${DIR_OBJS}
 
 fclean:	clean
 	make fclean -C libft
-	rm -rf ${LIBFT}
 	rm -rf ${NAME}
 
 re:	fclean all
