@@ -3,21 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:29:55 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/04/25 23:25:30 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/05/06 00:37:52 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	init_data(t_data *data, char **argv)
+int	parsing(t_data *data, char *arg)
 {
-	(void)argv;
-	data->nb_line = 0;
+	if (check_extension(arg) == FALSE)
+		return (1);
+	if (check_map_right_and_size(data, arg))
+		return (1);
+	push_map_to_struct(data, arg);
+	if (invalid_char_in_map(data))
+		return (1);
 	return (0);
 }
+
 void	push_map_to_struct(t_data *data, char *path)
 {
 	int		i;
@@ -83,36 +89,15 @@ int	invalid_char_in_map(t_data *data)
 		{
 			if (data->map[i][j] != '0' && data->map[i][j] != '1'
 				&& data->map[i][j] != 'N' && data->map[i][j] != 'S'
-				&& data->map[i][j] != 'E' && data->map[i][j] != 'W')
+				&& data->map[i][j] != 'E' && data->map[i][j] != 'W'
+				&& data->map[i][j] != ' ')
 			{
 				ft_printf("Error\nWrong char in map\n");
-				return (0);
+				return (1);
 			}
 			j++;
 		}
 		i++;
 	}
-	return (1);
-}
-
-int	main(int argc, char **argv)
-{
-	static t_data data;
-
-	if (argc == 2)
-	{
-		if (init_data(&data, argv))
-			return (0);
-		if (check_extension(argv[1]))
-			return (0);
-		if (check_map_right_and_size(&data, argv[1]))
-			return (0);
-		push_map_to_struct(&data, argv[1]);
-		if (invalid_char_in_map(&data))
-			return (0);
-	}
-	else
-		ft_printf("Error number of args\n");
-	free_tab(data.map);
 	return (0);
 }
