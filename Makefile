@@ -1,19 +1,20 @@
 NAME			=	cub3d
 
-LIBFT			=	libft.a
+LIBFT			=	libft/libft.a
 
 MLX				=	mlx/libmlx_Linux.a
 
 DIR_SRCS		=	srcs
 
-DIR_SUBDIRS		=	parsing
+DIR_SUBDIRS		=	parsing \
+					utils \
 
 DIR_OBJS		=	.objs
 
 SRCS_NAMES		=	parsing/parsing.c \
 					parsing/parsing_utils.c \
 					parsing/init.c \
-					utils.c \
+					utils/utils.c \
 					main.c \
 
 OBJS_NAMES		=	${SRCS_NAMES:.c=.o}
@@ -24,7 +25,9 @@ SRCS			=	$(addprefix $(DIR_SRCS)/,$(SRCS_NAMES))
 
 OBJS			=	$(addprefix $(DIR_OBJS)/,$(OBJS_NAMES))
 
-INC				=	-Iinclude -Ilibft/include -Imlx #-I/usr/include -I.
+INC				=	-Iinclude -Ilibft/include -Imlx -I/usr/include
+
+MFLAGS			=	-lmlx_Linux -lXext -lX11 -lm -lz -Lmlx -L/usr/lib
 
 LIB				=	-Llibft -lft
 
@@ -32,14 +35,12 @@ CC				=	cc
 
 CDFLAGS 		= 	-MMD -MP
 
-MFLAGS			=	-lmlx_Linux -lXext -lX11 -lm -lz -Lmlx -L/usr/lib
-
-CFLAGS			=	-g3 -Wall -Werror -Wextra
+CFLAGS			=	-g3 -Wall -Werror -Wextra -v
 
 all:	${NAME}
 
 $(NAME): $(DIR_OBJS) $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) ${INC} $(CDFLAGS) $(MFLAGS) $(OBJS) $(LIB) -o $(NAME)
+	$(CC) $(CFLAGS) -o $(NAME) $(INC) $(OBJS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
 	@ echo "EYUP MATE YALRIGHT?"  | toilet -f future -F border --gay
 
 $(LIBFT):

@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/06 20:26:14 by lbarry           ###   ########.fr       */
+/*   Created: 2024/05/06 19:12:14 by lbarry            #+#    #+#             */
+/*   Updated: 2024/05/06 20:25:46 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	main(int argc, char **argv)
+void	mlx_rectangle_put(void *mlx_ptr, void *win_ptr, int x, int y)
 {
-	static t_data data = {0};
+	int	i;
+	int	j;
 
-	printf("Khalau World\n");
-	if (argc == 2)
+	i = x;
+	while (i < x + 8)
 	{
-		if (init_data(&data))
-			return (0);
-		if (parsing(&data, argv[1]))
-			return (0);
-		init_player(&data);
-		print_arr(data.map);
-		init_window(&data);
-		free_tab(data.map);
+		j = y;
+		while (j < y + 8)
+		{
+			mlx_pixel_put(mlx_ptr, win_ptr, i, j, 0x00FF0000);
+			j++;
+		}
+		i++;
 	}
-	else
-		ft_printf("Error number of args\n");
-	return (0);
 }

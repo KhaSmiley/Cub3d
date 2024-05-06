@@ -1,0 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
+/*   Updated: 2024/05/06 19:57:45 by lbarry           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+typedef struct s_data // parsing info
+{
+	char	**map;
+	int		nb_line;
+	int		w_map; // map width
+	int		h_map; // map height
+	int		start_x; // player start x poisiton in the map
+	int		start_y; // player start y position in the map
+	char	player_dir; // player direction
+}	t_data;
+
+typedef struct s_player //the player structure
+{
+ int  player_x; // player x position in pixels
+ int  player_y; // player y position in pixels
+ double angle; // player angle
+ float fov_rd; // field of view in radians
+ int  rot; // rotation flag
+ int  l_r; // left right flag
+ int  u_d; // up down flag
+} t_player;
+
+typedef struct s_ray //the ray structure
+{
+ double ray_ngl; // ray angle
+ double distance; // distance to the wall
+ int  flag;  // flag for the wall
+} t_ray;
+
+typedef struct s_mlx //the mlx structure
+{
+ void	*img_ptr; // the image
+ void	*mlx_ptr; // the mlx pointer
+ void	*mlx_win; // the window pointer
+ t_ray   *ray; // the ray structure
+ t_data   *data; // the data structure
+ t_player  *player; // the player structure
+} t_mlx;
