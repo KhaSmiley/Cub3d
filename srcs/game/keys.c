@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/06 20:26:14 by lbarry           ###   ########.fr       */
+/*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
+/*   Updated: 2024/05/06 18:35:37 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
-int	main(int argc, char **argv)
-{
-	static t_data data = {0};
+// hook on function listening to key press
+// set variable to 1 when key being pressed
 
-	printf("Khalau World\n");
-	if (argc == 2)
-	{
-		if (init_data(&data))
-			return (0);
-		if (parsing(&data, argv[1]))
-			return (0);
-		init_player(&data);
-		print_arr(data.map);
-		init_window(&data);
-		free_tab(data.map);
-	}
-	else
-		ft_printf("Error number of args\n");
-	return (0);
-}
+// hook on function listening to key release
+// set variable to 0 when key released
+
+// swap images (?)

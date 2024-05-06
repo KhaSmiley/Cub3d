@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
+/*   Updated: 2024/05/06 20:04:15 by lbarry           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 #define CUB3D_H
 
@@ -9,33 +21,26 @@
 #include <X11/X.h>
 #include <X11/keysym.h>
 #include <math.h>
+#include "structs.h"
 
 # define FALSE -1
 # define TRUE 0
 
-# define S_W 1900 // screen width
-# define S_H 1000 // screen height
+# define S_W 1280 // screen width
+# define S_H 800 // screen height
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 4 // player speed
 
-typedef struct s_data
-{
-	char	**map;
-	int		nb_line;
-	// map width
-	// map height
-	// player start x poisiton
-	// player start y position
-}	t_data;
-
-// player structure t_player
-
-// mlx structure t_mlx
-
-// ray structure t_ray
-
+/* KEYCODES */
+# define KEY_ESC		65307
+# define KEY_W			119
+# define KEY_A			97
+# define KEY_S			115
+# define KEY_D			100
+# define KEY_LEFT		65361
+# define KEY_RIGHT		65363
 
 /* parsing .c */
 
@@ -53,5 +58,13 @@ size_t		ft_strlen_until_char(char *str, char c);
 /* utils.c */
 
 void		print_arr(char **arr);
+
+/* init.c */
+
+void		set_player_start_position(t_data *data);
+int			init_data(t_data *data);
+void		init_player(t_data *data);
+void		get_map_width_height(t_data *data);
+void		init_window(t_data *data);
 
 #endif
