@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/06 20:26:14 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/07 21:09:41 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 			return (0);
 		init_player(&data);
 		print_arr(data.map);
-		init_window(&data);
+		init_game(&data);
 		free_tab(data.map);
 	}
 	else

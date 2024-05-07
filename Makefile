@@ -8,6 +8,8 @@ DIR_SRCS		=	srcs
 
 DIR_SUBDIRS		=	parsing \
 					utils \
+					rays \
+					game \
 
 DIR_OBJS		=	.objs
 
@@ -15,6 +17,9 @@ SRCS_NAMES		=	parsing/parsing.c \
 					parsing/parsing_utils.c \
 					parsing/init.c \
 					utils/utils.c \
+					rays/pixels.c \
+					game/keys.c \
+					game/moves.c \
 					main.c \
 
 OBJS_NAMES		=	${SRCS_NAMES:.c=.o}
@@ -26,6 +31,10 @@ SRCS			=	$(addprefix $(DIR_SRCS)/,$(SRCS_NAMES))
 OBJS			=	$(addprefix $(DIR_OBJS)/,$(OBJS_NAMES))
 
 INC				=	-Iinclude -Ilibft/include -Imlx -I/usr/include
+# check our incl flags- this makefile error:
+# ignoring nonexistent directory "libft/include"
+# ignoring nonexistent directory "/include"
+# ignoring duplicate directory "/usr/include"
 
 MFLAGS			=	-lmlx_Linux -lXext -lX11 -lm -lz -Lmlx -L/usr/lib
 

@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/06 20:04:15 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/08 00:51:05 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@
 
 /* KEYCODES */
 # define KEY_ESC		65307
-# define KEY_W			119
-# define KEY_A			97
-# define KEY_S			115
-# define KEY_D			100
-# define KEY_LEFT		65361
-# define KEY_RIGHT		65363
+# define KEY_W			122 // move forwards
+# define KEY_A			113 // move left
+# define KEY_S			115 // move backwards
+# define KEY_D			100 // move right
+# define KEY_LEFT		65361 // look left
+# define KEY_RIGHT		65363 // look right
 
 /* parsing .c */
 
@@ -65,6 +65,22 @@ void		set_player_start_position(t_data *data);
 int			init_data(t_data *data);
 void		init_player(t_data *data);
 void		get_map_width_height(t_data *data);
-void		init_window(t_data *data);
+void		init_game(t_data *data);
+
+/* tests.c */
+void		mlx_rectangle_put(void *mlx_ptr, void *win_ptr, int x, int y);
+void		mlx_background(t_mlx *mlx_struct);
+
+/* keys.c */
+
+int			key_press(int keycode, t_mlx *mlx_struct);
+int			key_release(int keycode, t_mlx *mlx_struct);
+
+/* moves.c */
+
+void		move_forwards(t_mlx *mlx_struct, t_player *player);
+void		move_backwards(t_mlx *mlx_struct, t_player *player);
+void		move_left(t_mlx *mlx_struct, t_player *player);
+void		move_right(t_mlx *mlx_struct, t_player *player);
 
 #endif
