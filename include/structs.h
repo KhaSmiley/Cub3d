@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/07 22:09:10 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/08 17:32:44 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef struct s_ray //the ray structure
 
 typedef struct s_player //the player structure
 {
- int		player_x; // player x position in pixels
- int		player_y; // player y position in pixels
+ float		player_x; // player x position in pixels
+ float		player_y; // player y position in pixels
  double		angle; // player angle
  float		fov_rd; // field of view in radians
  int		rot; // rotation flag
@@ -32,7 +32,7 @@ typedef struct s_player //the player structure
 
 typedef struct s_mlx //the mlx structure
 {
- void		*img_ptr; // the image
+ void		*bckgrd_ptr; // the background (for now)
  void		*mlx_ptr; // the mlx pointer
  void		*mlx_win; // the window pointer
  t_player	*player; // the player structure

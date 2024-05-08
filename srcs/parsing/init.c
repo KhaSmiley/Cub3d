@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/08 00:52:09 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/08 17:34:26 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	init_game(t_data *data)
 		ft_printf("mlx window creation failed\n");
 		return ;
 	}
-	mlx_background(&mlx_struct);
+	img_background(&mlx_struct);
 	mlx_rectangle_put(mlx_struct.mlx_ptr, mlx_struct.mlx_win, data->player->player_x, data->player->player_y);
 	// mlx_loop_hook(mlx.mlx_p, &game_loop, &mlx); // game loop continuously call a specified function to update the game state and render the frames.
  	mlx_hook(mlx_struct.mlx_win, 2, 1L << 0, &key_press, &mlx_struct); // key press

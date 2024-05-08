@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/08 00:51:05 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/08 17:33:54 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define KEY_D			100 // move right
 # define KEY_LEFT		65361 // look left
 # define KEY_RIGHT		65363 // look right
+// add key press and release even no and masks as macros (press, press_mask, release, release_mask)
 
 /* parsing .c */
 
@@ -67,9 +68,10 @@ void		init_player(t_data *data);
 void		get_map_width_height(t_data *data);
 void		init_game(t_data *data);
 
-/* tests.c */
+/* pixels.c */
 void		mlx_rectangle_put(void *mlx_ptr, void *win_ptr, int x, int y);
-void		mlx_background(t_mlx *mlx_struct);
+void		mlx_put_background(t_mlx *mlx_struct);
+void		img_background(t_mlx *mlx_struct);
 
 /* keys.c */
 
