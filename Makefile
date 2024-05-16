@@ -18,8 +18,11 @@ SRCS_NAMES		=	parsing/parsing.c \
 					parsing/init.c \
 					utils/utils.c \
 					rays/pixels.c \
+					rays/maths.c \
+					rays/rays.c \
 					game/keys.c \
 					game/moves.c \
+					game/game.c \
 					main.c \
 
 OBJS_NAMES		=	${SRCS_NAMES:.c=.o}
