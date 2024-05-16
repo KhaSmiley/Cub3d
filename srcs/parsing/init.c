@@ -6,11 +6,21 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/08 17:34:26 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/16 19:57:23 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	init_ray(t_data *data)
+{
+	static t_ray	ray = {0};
+
+	ray.ray_angle = 0;
+	ray.distance = 0;
+	ray.flag = 0;
+	data->ray = &ray;
+}
 
 // (lines 25/26) By adding half of the tile size to the calculated positions, the player is placed at the center of the tile,
 // which is a common convention in tile-based games. This positioning ensures smoother movement and collision detection.
@@ -24,6 +34,8 @@ void	init_player(t_data *data)
 	ft_printf("Map width = %d, height = %d\n", data->w_map, data->h_map);
 	player.player_x = data->start_x * TILE_SIZE + TILE_SIZE / 2;
 	player.player_y = data->start_y * TILE_SIZE + TILE_SIZE / 2;
+	player.direction = 180;
+	player.fov_rd = (FOV * M_PI) / 180;
 	data->player = &player;
 }
 
@@ -70,6 +82,24 @@ void	get_map_width_height(t_data *data)
 	}
 	data->h_map = i;
 }
+void	display_map(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == '1')
+				put_tiles(data->mlx->mlx_ptr, data->mlx->mlx_win, j * TILE_SIZE, i * TILE_SIZE);
+			j++;
+		}
+		i++;
+	}
+}
 
 int	init_data(t_data *data)
 {
@@ -96,12 +126,8 @@ void	init_game(t_data *data)
 		return ;
 	}
 	img_background(&mlx_struct);
-	mlx_rectangle_put(mlx_struct.mlx_ptr, mlx_struct.mlx_win, data->player->player_x, data->player->player_y);
-	// mlx_loop_hook(mlx.mlx_p, &game_loop, &mlx); // game loop continuously call a specified function to update the game state and render the frames.
- 	mlx_hook(mlx_struct.mlx_win, 2, 1L << 0, &key_press, &mlx_struct); // key press
-	mlx_hook(data->mlx->mlx_win, 3, 1L << 1, &key_release, &mlx_struct); // key release
-	mlx_loop(mlx_struct.mlx_ptr);
-
+	display_map(data);
+	put_player(mlx_struct.mlx_ptr, mlx_struct.mlx_win, data->player->player_x, data->player->player_y);
 }
 
 // void	init_mlx(t_data *data)

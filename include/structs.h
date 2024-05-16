@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/08 17:32:44 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/16 19:58:06 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 typedef struct s_ray //the ray structure
 {
- double		ray_ngl; // ray angle
+ double		ray_angle; // ray angle
  double		distance; // distance to the wall
  int		flag;  // flag for the wall
 } t_ray;
@@ -23,7 +23,7 @@ typedef struct s_player //the player structure
 {
  float		player_x; // player x position in pixels
  float		player_y; // player y position in pixels
- double		angle; // player angle
+ double		direction; // in degrees
  float		fov_rd; // field of view in radians
  int		rot; // rotation flag
  int		l_r; // left right flag
@@ -46,7 +46,13 @@ typedef struct s_data // parsing info
 	int			h_map; // map height
 	int			start_x; // player start x poisiton in the map
 	int			start_y; // player start y position in the map
-	char		player_dir; // player direction
+	char		player_dir;
+	int			floor_colour;
+	int			ceiling_colour;
+	char 		*no_texture; //north texture
+	char 		*so_texture; //south texture
+	char 		*we_texture; //we get the idea
+	char 		*ea_texture;
 	t_mlx		*mlx; // the mlx structure
 	t_player	*player; // the player structure
 	t_ray		*ray; // the ray structure

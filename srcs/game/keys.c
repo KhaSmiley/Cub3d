@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/08 00:49:43 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/16 20:33:51 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,34 @@
 // hook on function listening to key press
 // set variable to 1 when key being pressed
 
-int	key_press(int keycode, t_mlx *mlx_struct)
+int	key_press(int keycode, t_data *data)
 {
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(mlx_struct->mlx_ptr, mlx_struct->mlx_win);
-		mlx_destroy_display(mlx_struct->mlx_ptr);
-		free(mlx_struct->mlx_ptr);
+		mlx_destroy_window(data->mlx->mlx_ptr, data->mlx->mlx_win);
+		mlx_destroy_display(data->mlx->mlx_ptr);
+		free(data->mlx->mlx_ptr);
 		exit(0);
 	}
 	// ft_printf("Keycode: %d\n", keycode);
 	if (keycode == KEY_W)
-		move_forwards(mlx_struct, mlx_struct->player);
+		move_forwards(data->mlx, data->mlx->player);
 	if (keycode == KEY_A)
-		move_left(mlx_struct, mlx_struct->player);
+		move_left(data->mlx, data->mlx->player);
 	if (keycode == KEY_S)
-		move_backwards(mlx_struct, mlx_struct->player);
+		move_backwards(data->mlx, data->mlx->player);
 	if (keycode == KEY_D)
-		move_right(mlx_struct, mlx_struct->player);
+		move_right(data->mlx, data->mlx->player);
 	if (keycode == KEY_LEFT)
-		ft_printf("look left\n");
+	{
+		data->player->rot = -1;
+		rotate_player(data->player);
+	}
 	if (keycode == KEY_RIGHT)
-		ft_printf("look right\n");
+	{
+		data->player->rot = 1;
+		rotate_player(data->player);
+	}
 	return (1);
 }
 
