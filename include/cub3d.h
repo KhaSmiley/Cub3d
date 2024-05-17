@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/16 20:38:11 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/17 20:43:30 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@
 int			invalid_char_in_map(t_data *data);
 int			check_map_right_and_size(t_data *data, char *path);
 void		push_map_to_struct(t_data *data, char *path);
-int			init_data(t_data *data);
 int			parsing(t_data *data, char *arg);
 
 /* parsing_utils.c */
@@ -62,11 +61,13 @@ void		print_arr(char **arr);
 
 /* init.c */
 
-void		set_player_start_position(t_data *data);
-int			init_data(t_data *data);
+void		set_start_position(t_data *data);
+void		set_start_direction(t_player *player, char dir);
+void		init_data(t_data *data);
 void		init_player(t_data *data);
 void		init_ray(t_data *data);
-void		init_game(t_data *data);
+void		init_mlx(t_data *data);
+void		init_game(t_data *data, t_mlx *mlx_struct);
 void		get_map_width_height(t_data *data);
 void		display_map(t_data *data);
 
@@ -87,6 +88,8 @@ void		calculate_angle(t_player *player);
 /* rays.c */
 
 int			cast_rays(t_data *data);
+void		put_rays_fov(t_data *data, t_ray *ray, float distance_to_wall);
+void		put_ray(t_data *data, t_player *player, float ray_end_x, float ray_end_y);
 
 /* keys.c */
 
