@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/16 19:57:23 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/17 20:45:24 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	init_ray(t_data *data)
 {
 	static t_ray	ray = {0};
 
-	ray.ray_angle = 0;
-	ray.distance = 0;
+	ray.ray_dir = data->player->direction;
+	ray.distance_to_wall = 0;
 	ray.flag = 0;
 	data->ray = &ray;
 }
@@ -28,15 +28,26 @@ void	init_player(t_data *data)
 {
 	static t_player	player = {0};
 
-	set_player_start_position(data);
-	ft_printf("Player start position: x = %d, y = %d, direction = %c\n", data->start_x, data->start_y, data->player_dir);
-	get_map_width_height(data);
-	ft_printf("Map width = %d, height = %d\n", data->w_map, data->h_map);
 	player.player_x = data->start_x * TILE_SIZE + TILE_SIZE / 2;
 	player.player_y = data->start_y * TILE_SIZE + TILE_SIZE / 2;
-	player.direction = 180;
 	player.fov_rd = (FOV * M_PI) / 180;
+	player.rot = 0;
+	player.l_r = 0;
+	player.f_b = 0;
 	data->player = &player;
+	set_start_direction(data->player, data->player_dir);
+}
+
+void	set_start_direction(t_player *player, char dir)
+{
+	if (dir == 'N')
+		player->direction = 90;
+	else if (dir == 'S')
+		player->direction = 270;
+	else if (dir == 'W')
+		player->direction = 180;
+	else if (dir == 'E')
+		player->direction = 0;
 }
 
 void	set_player_start_position(t_data *data)
@@ -101,17 +112,24 @@ void	display_map(t_data *data)
 	}
 }
 
-int	init_data(t_data *data)
+void	init_data(t_data *data)
 {
-	data->nb_line = 0;
-	return (0);
+	get_map_width_height(data);
+	set_player_start_position(data);
+	ft_printf("Player start position: x = %d, y = %d, direction = %c\n", data->start_x, data->start_y, data->player_dir);
+	ft_printf("Map width = %d, height = %d\n", data->w_map, data->h_map);
+	// floor_colour;
+	// ceiling_colour;
+	// north texture
+	// south texture
+	// west texture
+	// east texture;
 }
 
-void	init_game(t_data *data)
+void	init_mlx(t_data *data)
 {
 	static t_mlx	mlx_struct = {0};
 
-	data->mlx = &mlx_struct;
 	mlx_struct.player = data->player;
 	mlx_struct.mlx_ptr = mlx_init();
 	if (!mlx_struct.mlx_ptr)
@@ -126,8 +144,14 @@ void	init_game(t_data *data)
 		return ;
 	}
 	img_background(&mlx_struct);
+	data->mlx = &mlx_struct;
+}
+
+void	init_game(t_data *data, t_mlx *mlx_struct)
+{
+	mlx_put_image_to_window(mlx_struct->mlx_ptr, mlx_struct->mlx_win, mlx_struct->bckgrd_ptr, (0 + S_W / 2) - (835 / 2), (0 + S_H / 2) - (626 / 2));
 	display_map(data);
-	put_player(mlx_struct.mlx_ptr, mlx_struct.mlx_win, data->player->player_x, data->player->player_y);
+	put_player(mlx_struct->mlx_ptr, mlx_struct->mlx_win, data->player->player_x, data->player->player_y);
 }
 
 // void	init_mlx(t_data *data)

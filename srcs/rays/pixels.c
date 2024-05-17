@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:12:14 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/16 16:44:04 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/17 20:50:11 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	img_background(t_mlx *mlx_struct)
 	int i = 0;
 	int j = 0;
 	mlx_struct->bckgrd_ptr = mlx_xpm_file_to_image(mlx_struct->mlx_ptr, "./textures/khalidou.xpm", &i, &j);
-	mlx_put_image_to_window(mlx_struct->mlx_ptr, mlx_struct->mlx_win, mlx_struct->bckgrd_ptr, (0 + S_W / 2) - (835 / 2), (0 + S_H / 2) - (626 / 2));
 }
+
 // imagining a unit circle (radius = 1 unit) with the player in the center
 // we use pythag to repeatedly calculate the x and y coordinates of the edge of the circle
 // applying cos to the angle gives us the x coordinate for the pixel

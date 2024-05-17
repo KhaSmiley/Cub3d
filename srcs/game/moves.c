@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:42:29 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/16 20:40:22 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/17 20:48:37 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void	move_right(t_mlx *mlx_struct, t_player *player)
 // calculating in degrees
 void	rotate_player(t_player *player)
 {
-	// right
-	if (player->rot == 1)
+	if (player->rot == 1) // right
 	{
 		player->direction += ROTATION_SPEED;
 		if (player->direction > 359)
 			player->direction -= 359;
 		ft_printf("rotating right\n");
+		printf("player direction = %f\n", player->direction);
 	}
 	else if (player->rot == -1) // left
 	{
@@ -79,6 +79,7 @@ void	rotate_player(t_player *player)
 		if (player->direction < 0)
 			player->direction += 359;
 		ft_printf("rotating left\n");
+		printf("player direction = %f\n", player->direction);
 	}
 }
 
