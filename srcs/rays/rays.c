@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/17 21:34:13 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/18 00:09:44 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	cast_rays(t_data *data)
 	// calculate distances to walls to have both collisions - x and y
 	// distance to wall variable = first collision (shortest hypothenuse)
 
-	//display_circle(data->mlx);
 	put_rays_fov(data, data->ray, distance_to_wall);
+	calculate_collisions(data, data->player);
 
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/17 20:43:30 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/18 00:12:21 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		display_circle(t_mlx *mlx);
 
 float		deg_to_rad(int deg);
 int			rad_to_deg(float rad);
-void		calculate_angle(t_player *player);
+void		calculate_collisions(t_data *data, t_player *player);
 
 /* rays.c */
 
