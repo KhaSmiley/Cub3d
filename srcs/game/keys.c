@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/16 20:33:51 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/19 00:08:03 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,77 @@
 // hook on function listening to key press
 // set variable to 1 when key being pressed
 
-int	key_press(int keycode, t_data *data)
+int	key_press_castrays(t_data *data)
 {
-	if (keycode == KEY_ESC)
+
+	// mlx_clear_window(data->mlx->mlx_ptr, data->mlx->mlx_win);
+	// img_background(data->mlx);
+	// display_map(data);
+	cast_rays(data);
+	if (data->mlx->player->w == 1)
+		move_forwards(data->mlx, data->mlx->player);
+	if (data->mlx->player->a == 1)
+		move_left(data->mlx, data->mlx->player);
+	if (data->mlx->player->s == 1)
+		move_backwards(data->mlx, data->mlx->player);
+	if (data->mlx->player->d == 1)
+		move_right(data->mlx, data->mlx->player);
+	if (data->mlx->player->left == 1)
+	{
+		data->mlx->player->rot = -1;
+		rotate_player(data->mlx->player);
+	}
+	if (data->mlx->player->right == 1)
+	{
+		data->mlx->player->rot = 1;
+		rotate_player(data->mlx->player);
+	}
+	if (data->mlx->player->esc == 1 || data->mlx->player->q == 1)
 	{
 		mlx_destroy_window(data->mlx->mlx_ptr, data->mlx->mlx_win);
 		mlx_destroy_display(data->mlx->mlx_ptr);
 		free(data->mlx->mlx_ptr);
 		exit(0);
 	}
-	// ft_printf("Keycode: %d\n", keycode);
+	return (1);
+}
+
+
+int	key_press(int keycode, t_mlx *mlx_struct)
+{
 	if (keycode == KEY_W)
-		move_forwards(data->mlx, data->mlx->player);
+		mlx_struct->player->w = 1;
 	if (keycode == KEY_A)
-		move_left(data->mlx, data->mlx->player);
+		mlx_struct->player->a = 1;
 	if (keycode == KEY_S)
-		move_backwards(data->mlx, data->mlx->player);
+		mlx_struct->player->s = 1;
 	if (keycode == KEY_D)
-		move_right(data->mlx, data->mlx->player);
+		mlx_struct->player->d = 1;
 	if (keycode == KEY_LEFT)
-	{
-		data->player->rot = -1;
-		rotate_player(data->player);
-	}
+		mlx_struct->player->left = 1;
 	if (keycode == KEY_RIGHT)
-	{
-		data->player->rot = 1;
-		rotate_player(data->player);
-	}
+		mlx_struct->player->right = 1;
+	if (keycode == KEY_ESC)
+		mlx_struct->player->esc = 1;
 	return (1);
 }
 
 int	key_release(int keycode, t_mlx *mlx_struct)
 {
 	if (keycode == KEY_W)
-		mlx_struct->player->f_b = 0;
+		mlx_struct->player->w = 0;
 	if (keycode == KEY_A)
-		mlx_struct->player->l_r = 0;
+		mlx_struct->player->a = 0;
 	if (keycode == KEY_S)
-		mlx_struct->player->f_b = 0;
+		mlx_struct->player->s = 0;
 	if (keycode == KEY_D)
-		mlx_struct->player->l_r = 0;
+		mlx_struct->player->d = 0;
+	if (keycode == KEY_LEFT)
+		mlx_struct->player->left = 0;
+	if (keycode == KEY_RIGHT)
+		mlx_struct->player->right = 0;
+	if (keycode == KEY_ESC)
+		mlx_struct->player->esc = 0;
 	return (1);
 }
 

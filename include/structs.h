@@ -6,11 +6,14 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/17 20:29:03 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/18 23:34:12 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+typedef double t_moha2f	__attribute((ext_vector_type(2)));
+typedef int t_moha2i	__attribute__((ext_vector_type(2)));
 
 typedef struct s_ray //the ray structure
 {
@@ -28,6 +31,15 @@ typedef struct s_player //the player structure
 	int			rot; // rotation flag
 	int			l_r; // left right flag
 	int			f_b; // fowards backwards flag
+
+	int w;
+	int s;
+	int a;
+	int d;
+	int left;
+	int right;
+	int esc;
+	int q;
 }	t_player;
 
 typedef struct s_mlx //the mlx structure

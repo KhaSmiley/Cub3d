@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/18 00:09:44 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/19 00:32:10 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,23 @@ void	put_ray(t_data *data, t_player *player, float ray_end_x, float ray_end_y)
 	{
 		//printf("drawing ray\n");
 		// just a thing to calculate spacing between pixels relative to length of ray
+		t_moha2i pos;
+		pos.x = player->player_x + ratio * (ray_end_x - player->player_x) + 4;
+		pos.y = player->player_y + ratio * (ray_end_y - player->player_y) + 4;
+		// COLLISIONS
+		if (data->map[(int)(pos.y / TILE_SIZE)][(int)(pos.x / TILE_SIZE)] == '1')
+		{
+			// stock coord to have distance to wall
+			break ;
+		}
+
 		ratio = (double)i / (double)(pixels - 1);
 		mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, player->player_x + ratio * (ray_end_x - player->player_x) + 4,
 			player->player_y + ratio * (ray_end_y - player->player_y) + 4, ray_colour);
 		i++;
 	}
 }
+// replace with plane rays
 
 void	put_rays_fov(t_data *data, t_ray *ray, float distance_to_wall)
 {
@@ -64,6 +75,8 @@ int	cast_rays(t_data *data)
 	// distance to wall variable = first collision (shortest hypothenuse)
 
 	put_rays_fov(data, data->ray, distance_to_wall);
+	// display_circle(data->mlx);
+	printf("player direction = %f\n", data->player->direction);
 	calculate_collisions(data, data->player);
 
 	return (0);

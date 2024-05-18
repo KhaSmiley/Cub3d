@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/17 20:45:24 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/19 01:27:21 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	init_data(t_data *data)
 {
 	get_map_width_height(data);
 	set_player_start_position(data);
-	ft_printf("Player start position: x = %d, y = %d, direction = %c\n", data->start_x, data->start_y, data->player_dir);
-	ft_printf("Map width = %d, height = %d\n", data->w_map, data->h_map);
+	ft_printf("%sPlayer start position: x = %d, y = %d, direction = %c%s\n", IBLUE, data->start_x, data->start_y, data->player_dir, RESET);
+	ft_printf("%sMap width = %d, height = %d%s\n", IMAGENTA, data->w_map, data->h_map, RESET);
 	// floor_colour;
 	// ceiling_colour;
 	// north texture
@@ -153,28 +153,3 @@ void	init_game(t_data *data, t_mlx *mlx_struct)
 	display_map(data);
 	put_player(mlx_struct->mlx_ptr, mlx_struct->mlx_win, data->player->player_x, data->player->player_y);
 }
-
-// void	init_mlx(t_data *data)
-// {
-// 	static t_mlx	mlx_struct = {0};
-
-// 	mlx->struct.mlx_ptr = mlx_init();
-// 	mlx.img_ptr = mlx_new_image(mlx.mlx_ptr, S_W, S_H);
-// 	mlx.dt = data;
-// 	mlx.ply = malloc(sizeof(t_player));
-// 	mlx.ray = malloc(sizeof(t_ray));
-// 	mlx.ply->player_x = data->start_x * TILE_SIZE + TILE_SIZE / 2;
-// 	mlx.ply->player_y = data->start_y * TILE_SIZE + TILE_SIZE / 2;
-// 	mlx.ply->angle = 0;
-// 	// mlx.ply->fov_rd = FOV * M_PI / 180;
-// 	mlx.ply->rot = 0;
-// 	mlx.ply->l_r = 0;
-// 	mlx.ply->u_d = 0;
-// 	mlx.ray->ray_ngl = 0;
-// 	mlx.ray->distance = 0;
-// 	mlx.ray->flag = 0;
-// 	// mlx_hook(mlx.win, 2, 1L << 0, key_hook, &mlx);
-// 	// mlx_hook(mlx.win, 17, 1L << 17, close_win, &mlx);
-// 	// mlx_loop_hook(mlx.mlx_ptr, draw, &mlx);
-// 	mlx_loop(mlx.mlx_ptr);
-// }

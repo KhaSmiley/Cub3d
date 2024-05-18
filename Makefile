@@ -47,7 +47,7 @@ CC				=	cc
 
 CDFLAGS 		= 	-MMD -MP
 
-CFLAGS			=	-g3 -Wall -Werror -Wextra -v
+CFLAGS			=	-g3 -Wall -Werror -Wextra
 
 all:	${NAME}
 

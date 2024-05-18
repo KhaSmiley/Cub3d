@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/18 00:42:11 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/19 01:26:42 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	calculate_collisions(t_data *data, t_player *player)
 	int x_collision = player->player_x + (y_collision - player->player_y) / tan(player->direction);
 
 	mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, x_collision, y_collision, 0x000099FF);
-	printf("y_collision = %d\n", y_collision);
-	printf("x_collision = %d\n", x_collision);
+	printf("%sy_collision = %d%s\n", GREEN, y_collision, RESET);
+	printf("%sx_collision = %d%s\n", GREEN, x_collision, RESET);
 
 	// y step
 	float y_step = TILE_SIZE;
@@ -50,8 +50,11 @@ void	calculate_collisions(t_data *data, t_player *player)
 	// x step
 	float x_step = TILE_SIZE / tan(player->direction);
 
-	printf("y_step = %f\n", y_step);
-	printf("x_step = %f\n", x_step);
+	(void)y_step;
+	(void)x_step;
+
+	printf("%sy_step = %f%s\n", RED, y_step, RESET);
+	printf("%sx_step = %f%s\n", RED, x_step, RESET);
 
 	// distance to y collision (length of hypotheneuse)
 

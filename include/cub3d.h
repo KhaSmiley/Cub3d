@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/18 00:12:21 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/19 00:22:01 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <X11/keysym.h>
 #include <math.h>
 #include "structs.h"
+#include "colors.h"
 
 # define FALSE -1
 # define TRUE 0
@@ -31,7 +32,7 @@
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
 # define ROTATION_SPEED 1 // rotation speed
-# define PLAYER_SPEED 4 // player speed
+# define PLAYER_SPEED 0.05 // player speed
 
 /* KEYCODES */
 # define KEY_ESC		65307 // exit
@@ -93,8 +94,9 @@ void		put_ray(t_data *data, t_player *player, float ray_end_x, float ray_end_y);
 
 /* keys.c */
 
-int			key_press(int keycode, t_data *data);
+int			key_press(int keycode, t_mlx *mlx_struct);
 int			key_release(int keycode, t_mlx *mlx_struct);
+int			key_press_castrays(t_data *data);
 
 /* moves.c */
 
