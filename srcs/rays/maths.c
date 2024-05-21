@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/19 01:26:42 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/21 00:51:54 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,18 @@ void	calculate_collisions(t_data *data, t_player *player)
 	// calculate next y axes collision
 
 	// collision y coord
-	int y_collision = (int)(player->player_y / TILE_SIZE) * TILE_SIZE;
+	float y_collision = (player->player_y / TILE_SIZE) * TILE_SIZE;
 	// collision x coord
-	int x_collision = player->player_x + (y_collision - player->player_y) / tan(player->direction);
+	float x_collision = player->player_x + (y_collision - player->player_y) / tan(player->direction);
 
 	mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, x_collision, y_collision, 0x000099FF);
-	printf("%sy_collision = %d%s\n", GREEN, y_collision, RESET);
-	printf("%sx_collision = %d%s\n", GREEN, x_collision, RESET);
+	printf("%sy_collision = %f%s\n", GREEN, y_collision, RESET);
+	printf("%sx_collision = %f%s\n", GREEN, x_collision, RESET);
+
+
+	// distance
+	float distance = sqrt(pow(player->player_x - x_collision, 2) + pow(player->player_y - y_collision, 2));
+	printf("%sdistance = %f%s\n", GREEN, distance, RESET);
 
 	// y step
 	float y_step = TILE_SIZE;
@@ -53,16 +58,11 @@ void	calculate_collisions(t_data *data, t_player *player)
 	(void)y_step;
 	(void)x_step;
 
-	printf("%sy_step = %f%s\n", RED, y_step, RESET);
-	printf("%sx_step = %f%s\n", RED, x_step, RESET);
+	//printf("%sy_step = %f%s\n", RED, y_step, RESET);
+	//printf("%sx_step = %f%s\n", RED, x_step, RESET);
 
 	// distance to y collision (length of hypotheneuse)
-
-
 }
-
-
-
 
 // float	nor_angle(float angle)	// normalize the angle
 // {

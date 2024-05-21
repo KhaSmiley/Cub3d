@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/19 00:22:01 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/21 00:23:02 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define S_H 800 // screen height
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
-# define ROTATION_SPEED 1 // rotation speed
-# define PLAYER_SPEED 0.05 // player speed
+# define ROTATION_SPEED 0.01 // rotation speed
+# define PLAYER_SPEED 0.01 // player speed
 
 /* KEYCODES */
 # define KEY_ESC		65307 // exit
@@ -100,11 +100,12 @@ int			key_press_castrays(t_data *data);
 
 /* moves.c */
 
-void		move_forwards(t_mlx *mlx_struct, t_player *player);
-void		move_backwards(t_mlx *mlx_struct, t_player *player);
-void		move_left(t_mlx *mlx_struct, t_player *player);
-void		move_right(t_mlx *mlx_struct, t_player *player);
+void		move_forwards(t_mlx *mlx_struct, t_data *data, t_player *player);
+void		move_backwards(t_mlx *mlx_struct, t_data *data, t_player *player);
+void		move_left(t_mlx *mlx_struct, t_data *data, t_player *player);
+void		move_right(t_mlx *mlx_struct, t_data *data, t_player *player);
 void		rotate_player(t_player *player);
+int			check_for_walls_move(t_data *data, float player_x, float player_y, char move);
 
 /* game.c */
 

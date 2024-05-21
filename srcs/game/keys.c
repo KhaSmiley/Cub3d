@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/19 00:08:03 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/21 00:22:09 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	key_press_castrays(t_data *data)
 	// display_map(data);
 	cast_rays(data);
 	if (data->mlx->player->w == 1)
-		move_forwards(data->mlx, data->mlx->player);
+		move_forwards(data->mlx, data, data->mlx->player);
 	if (data->mlx->player->a == 1)
-		move_left(data->mlx, data->mlx->player);
+		move_left(data->mlx, data, data->mlx->player);
 	if (data->mlx->player->s == 1)
-		move_backwards(data->mlx, data->mlx->player);
+		move_backwards(data->mlx, data, data->mlx->player);
 	if (data->mlx->player->d == 1)
-		move_right(data->mlx, data->mlx->player);
+		move_right(data->mlx, data, data->mlx->player);
 	if (data->mlx->player->left == 1)
 	{
 		data->mlx->player->rot = -1;

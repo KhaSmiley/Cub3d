@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:12:14 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/17 20:50:11 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/21 00:29:23 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	put_player(void *mlx_ptr, void *win_ptr, int x, int y)
 		j = y;
 		while (j < y + 8)
 		{
-			mlx_pixel_put(mlx_ptr, win_ptr, i, j, 0x00CCFF00);
+			mlx_pixel_put(mlx_ptr, win_ptr, i, j, 0x00FF6600);
 			j++;
 		}
 		i++;
