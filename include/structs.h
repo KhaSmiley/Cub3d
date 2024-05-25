@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 15:38:25 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 19:14:37 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ typedef struct s_player //the player structure
 	int			l_r; // left right flag
 	int			f_b; // fowards backwards flag
 	t_keys		key_flags; // array of key flags
+
+
+	//
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
 }	t_player;
 
 typedef struct s_mlx //the mlx structure

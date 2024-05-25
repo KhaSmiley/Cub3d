@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 17:31:40 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 20:05:15 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,28 @@ int	calculations(t_data *data)
 	int	x;
 
 	x = 0;
-	double pl_dir_y = 0; // replace with pl direction
-	double pl_dir_x = -1; // ?
-	double planeX = 0;
-	double planeY = 0.66;
-	double posX = 12; // replace with player pos
-	double posY = 5; // replace with player pos
+	// double pl_dir_y = 0; // replace with pl direction
+	// double pl_dir_x = -1; // ?
+	// double planeX = 0;
+	// double planeY = 0.66;
+	// if (data->player_dir == 'W')
+	// {
+	// 	// pl_dir_y = 0;
+	// 	// pl_dir_x = 1;
+	// 	planeY = -0.66;
+	// }
+	// double posX = 12; // replace with player pos
+	double posX = data->player->posX;
+	// double posY = 5;
+	double posY = data->player->posY; // replace with player pos
 	while (x < S_W)
 	{
 		double cameraX = 2 * x / (double)S_W - 1;
-		double rayDirX = pl_dir_x + planeX * cameraX;
-		double rayDirY = pl_dir_y + planeY * cameraX;
-		printf("rayDirX = %f\n", rayDirX);
-		printf("rayDirY = %f\n", rayDirY);
-
+		double rayDirX = data->player->dirX + data->player->planeX * cameraX;
+		double rayDirY = data->player->dirY + data->player->planeY * cameraX;
+		// printf("rayDirX = %f\n", rayDirX);
+		// printf("rayDirY = %f\n", rayDirY);
+//
 		int mapX = (int)posX;
 		int mapY = (int)posY;
 
@@ -114,7 +122,8 @@ int	calculations(t_data *data)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (data->map[mapX][mapY] == '1')
+
+			if (data->map[mapY][mapX] == '1')
 			{
 				hit = 1;
 			}
@@ -131,11 +140,11 @@ int	calculations(t_data *data)
 		int drawStart = -lineHeight / 2 + S_H / 2;
 		if(drawStart < 0)
 			drawStart = 0;
-		printf("drawStart = %d\n", drawStart);
+		// printf("drawStart = %d\n", drawStart);
 		int drawEnd = lineHeight / 2 + S_H / 2;
 		if(drawEnd >= S_H)
 			drawEnd = S_H - 1;
-		printf("drawEnd = %d\n", drawEnd);
+		// printf("drawEnd = %d\n", drawEnd);
 
 		int	color;
 		if (data->map[mapY][mapX] == '1')
@@ -147,6 +156,8 @@ int	calculations(t_data *data)
 			color = color / 2;
 
 		put_line(data, x, drawStart, drawEnd, color);
+		put_line(data, x, 0, drawStart, 0x123AAA);
+		put_line(data, x, drawEnd, S_H, 0x432411);
 
 		x++;
 	}

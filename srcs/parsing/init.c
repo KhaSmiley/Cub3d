@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/22 19:33:41 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 19:50:19 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ void	init_player(t_data *data)
 	player.rot = 0;
 	player.l_r = 0;
 	player.f_b = 0;
+	player.dirY = 0; // replace with pl direction
+	player.dirX = -1; // ?
+	player.planeY = 0.66;
+	player.planeX = 0;
+	player.posX = data->start_pos.x + 0.5;
+	player.posY = data->start_pos.y+ 0.5;
 	data->player = &player;
 	set_start_direction(data->player, data->player_dir);
 	ft_memset(&data->player->key_flags, 0, sizeof(t_keys));
@@ -72,6 +78,7 @@ void	set_player_start_position(t_data *data)
 				data->start_pos.x = j;
 				data->start_pos.y = i;
 				data->player_dir = data->map[i][j];
+				data->map[i][j] = '0';
 				return ;
 			}
 			j++;

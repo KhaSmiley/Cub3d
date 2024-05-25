@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 17:22:51 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 19:29:24 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 int	move_rotate(t_data *data)
 {
-	calculations(data);
 	if (data->player->key_flags.w == 1)
 		move_forwards(data->mlx, data, data->mlx->player);
 	if (data->player->key_flags.a == 1)
@@ -43,6 +42,7 @@ int	move_rotate(t_data *data)
 		free(data->mlx->mlx_ptr);
 		exit(0);
 	}
+	calculations(data);
 	return (1);
 }
 

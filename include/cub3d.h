@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 17:02:13 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 19:45:56 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define S_H 800 // screen height
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
-# define ROTATION_SPEED 0.01 // rotation speed
-# define PLAYER_SPEED 0.01 // player speed
+# define ROTATION_SPEED .09 // rotation speed
+# define PLAYER_SPEED 0.09// player speed
 
 /* KEYCODES */
 # define KEY_ESC		65307 // exit
