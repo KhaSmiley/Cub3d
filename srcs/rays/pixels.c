@@ -6,11 +6,23 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:12:14 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/21 00:29:23 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 17:05:24 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	put_line(t_data *data, int x, int y1, int y2, int color)
+{
+	int	y;
+
+	y = y1;
+	while (y <= y2)
+	{
+		mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, x, y, color);
+		y++;
+	}
+}
 
 void	put_tiles(void *mlx_ptr, void *win_ptr, int x, int y)
 {
@@ -84,13 +96,13 @@ void	display_circle(t_mlx *mlx)
 	float x;
 	float y;
 
-	x = mlx->player->player_x + cos(angle) * 10;
-	y = mlx->player->player_y + sin(angle) * 10;
+	x = mlx->player->pos.x + cos(angle) * 10;
+	y = mlx->player->pos.y + sin(angle) * 10;
 
 	while (angle < 360)
 	{
-		x = mlx->player->player_x + cos(angle) * distance;
-		y = mlx->player->player_y + sin(angle) * distance;
+		x = mlx->player->pos.x + cos(angle) * distance;
+		y = mlx->player->pos.y + sin(angle) * distance;
 		mlx_pixel_put(mlx->mlx_ptr, mlx->mlx_win, x, y, 0x00FF0000);
 		angle++;
 	}

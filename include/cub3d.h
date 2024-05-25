@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/21 00:23:02 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 17:02:13 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ size_t		ft_strlen_until_char(char *str, char c);
 /* utils.c */
 
 void		print_arr(char **arr);
+void		*ft_memset(void *s, int c, size_t n);
 
 /* init.c */
 
@@ -79,24 +80,25 @@ void		put_background(t_mlx *mlx_struct);
 void		put_player(void *mlx_ptr, void *win_ptr, int x, int y);
 void		img_background(t_mlx *mlx_struct);
 void		display_circle(t_mlx *mlx);
+void		put_line(t_data *data, int x, int y1, int y2, int color);
 
 /* maths.c */
 
 float		deg_to_rad(int deg);
 int			rad_to_deg(float rad);
-void		calculate_collisions(t_data *data, t_player *player);
+int			calculations(t_data *data);
 
 /* rays.c */
 
 int			cast_rays(t_data *data);
-void		put_rays_fov(t_data *data, t_ray *ray, float distance_to_wall);
+void		put_rays_fov(t_data *data, t_ray *ray);
 void		put_ray(t_data *data, t_player *player, float ray_end_x, float ray_end_y);
 
 /* keys.c */
 
 int			key_press(int keycode, t_mlx *mlx_struct);
 int			key_release(int keycode, t_mlx *mlx_struct);
-int			key_press_castrays(t_data *data);
+int			move_rotate(t_data *data);
 
 /* moves.c */
 
@@ -105,7 +107,6 @@ void		move_backwards(t_mlx *mlx_struct, t_data *data, t_player *player);
 void		move_left(t_mlx *mlx_struct, t_data *data, t_player *player);
 void		move_right(t_mlx *mlx_struct, t_data *data, t_player *player);
 void		rotate_player(t_player *player);
-int			check_for_walls_move(t_data *data, float player_x, float player_y, char move);
 
 /* game.c */
 

@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/21 20:33:34 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 15:33:16 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	put_ray(t_data *data, t_player *player, float ray_end_x, float ray_end_y)
 		// just a thing to calculate spacing between pixels relative to length of ray
 		ratio = (double)i / (double)(pixels - 1);
 
-		pos.x = player->player_x + ratio * (ray_end_x - player->player_x) + 4;
-		pos.y = player->player_y + ratio * (ray_end_y - player->player_y) + 4;
+		pos.x = player->pos.x + ratio * (ray_end_x - player->pos.x) + 4;
+		pos.y = player->pos.y + ratio * (ray_end_y - player->pos.y) + 4;
 		if (pos.x < 0 || pos.x > S_W || pos.y < 0 || pos.y > S_H)
 			break ;
 		// COLLISIONS
@@ -36,24 +36,26 @@ void	put_ray(t_data *data, t_player *player, float ray_end_x, float ray_end_y)
 			break ;
 		}
 
-		mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, player->player_x + ratio * (ray_end_x - player->player_x) + 4,
-			player->player_y + ratio * (ray_end_y - player->player_y) + 4, ray_colour);
+		mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, player->pos.x + ratio * (ray_end_x - player->pos.x) + 4,
+			player->pos.y + ratio * (ray_end_y - player->pos.y) + 4, ray_colour);
 		i++;
 	}
 }
-// replace with plane rays
 
-void	put_rays_fov(t_data *data, t_ray *ray, float distance_to_wall)
+void	put_rays_fov(t_data *data, t_ray *ray)
 {
 	float	ray_end_x;
 	float	ray_end_y;
+
+	// replace
+	float distance_to_wall = 100;
 
 	ray->ray_dir = data->player->direction;
 	// printing 30 rays right of player direction
 	while (ray->ray_dir - data->player->direction < FOV / 2)
 	{
-		ray_end_x = data->player->player_x + cos(deg_to_rad(ray->ray_dir)) * distance_to_wall;
-		ray_end_y = data->player->player_y + sin(deg_to_rad(ray->ray_dir)) * distance_to_wall;
+		ray_end_x = data->player->pos.x + cos(deg_to_rad(ray->ray_dir)) * distance_to_wall;
+		ray_end_y = data->player->pos.y + sin(deg_to_rad(ray->ray_dir)) * distance_to_wall;
 		put_ray(data, data->player, ray_end_x, ray_end_y);
 		// printf("ray direction = %f\n", ray->ray_dir);
 		ray->ray_dir += 1;
@@ -62,8 +64,8 @@ void	put_rays_fov(t_data *data, t_ray *ray, float distance_to_wall)
 	ray->ray_dir = data->player->direction;
 	while (data->player->direction - ray->ray_dir < FOV / 2)
 	{
-		ray_end_x = data->player->player_x + cos(deg_to_rad(ray->ray_dir)) * distance_to_wall;
-		ray_end_y = data->player->player_y + sin(deg_to_rad(ray->ray_dir)) * distance_to_wall;
+		ray_end_x = data->player->pos.x + cos(deg_to_rad(ray->ray_dir)) * distance_to_wall;
+		ray_end_y = data->player->pos.y + sin(deg_to_rad(ray->ray_dir)) * distance_to_wall;
 		put_ray(data, data->player, ray_end_x, ray_end_y);
 		// printf("ray direction = %f\n", ray->ray_dir);
 		ray->ray_dir -= 1;
@@ -72,13 +74,9 @@ void	put_rays_fov(t_data *data, t_ray *ray, float distance_to_wall)
 
 int	cast_rays(t_data *data)
 {
-	float	distance_to_wall = 200;
-	// calculate distances to walls to have both collisions - x and y
-	// distance to wall variable = first collision (shortest hypothenuse)
-
-	put_rays_fov(data, data->ray, distance_to_wall);
-	//printf("player direction = %f\n", data->player->direction);
-	calculate_collisions(data, data->player);
-
+	// at some point take out the put rays fov pixel putting- only needed for calculations
+	printf("player direction = %f\n", data->player->direction);
+	put_rays_fov(data, data->ray);
+	// calculations
 	return (0);
 }

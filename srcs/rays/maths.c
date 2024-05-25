@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/21 00:51:54 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/25 17:31:40 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,6 @@ int	rad_to_deg(float rad)
 	return (deg);
 }
 
-void	calculate_collisions(t_data *data, t_player *player)
-{
-	(void)data;
-	// calculate next y axes collision
-
-	// collision y coord
-	float y_collision = (player->player_y / TILE_SIZE) * TILE_SIZE;
-	// collision x coord
-	float x_collision = player->player_x + (y_collision - player->player_y) / tan(player->direction);
-
-	mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, x_collision, y_collision, 0x000099FF);
-	printf("%sy_collision = %f%s\n", GREEN, y_collision, RESET);
-	printf("%sx_collision = %f%s\n", GREEN, x_collision, RESET);
-
-
-	// distance
-	float distance = sqrt(pow(player->player_x - x_collision, 2) + pow(player->player_y - y_collision, 2));
-	printf("%sdistance = %f%s\n", GREEN, distance, RESET);
-
-	// y step
-	float y_step = TILE_SIZE;
-
-	// x step
-	float x_step = TILE_SIZE / tan(player->direction);
-
-	(void)y_step;
-	(void)x_step;
-
-	//printf("%sy_step = %f%s\n", RED, y_step, RESET);
-	//printf("%sx_step = %f%s\n", RED, x_step, RESET);
-
-	// distance to y collision (length of hypotheneuse)
-}
-
 // float	nor_angle(float angle)	// normalize the angle
 // {
 // 	if (angle < 0)
@@ -72,3 +38,117 @@ void	calculate_collisions(t_data *data, t_player *player)
 // 		angle -= (2 * M_PI);
 // 	return (angle);
 // }
+
+int	calculations(t_data *data)
+{
+	int	x;
+
+	x = 0;
+	double pl_dir_y = 0; // replace with pl direction
+	double pl_dir_x = -1; // ?
+	double planeX = 0;
+	double planeY = 0.66;
+	double posX = 12; // replace with player pos
+	double posY = 5; // replace with player pos
+	while (x < S_W)
+	{
+		double cameraX = 2 * x / (double)S_W - 1;
+		double rayDirX = pl_dir_x + planeX * cameraX;
+		double rayDirY = pl_dir_y + planeY * cameraX;
+		printf("rayDirX = %f\n", rayDirX);
+		printf("rayDirY = %f\n", rayDirY);
+
+		int mapX = (int)posX;
+		int mapY = (int)posY;
+
+		//length of ray from current position to next x or y-side
+		double sideDistX;
+		double sideDistY;
+
+		 //length of ray from one x or y-side to next x or y-side
+		double deltaDistX = fabs(1 / rayDirX);
+		double deltaDistY = fabs(1 / rayDirY);
+		double perpWallDist;
+
+		//what direction to step in x or y-direction (either +1 or -1)
+		int stepX;
+		int stepY;
+
+		int hit = 0; //was there a wall hit?
+		int side; //was a NS or a EW wall hit?
+
+		if (rayDirX < 0)
+		{
+			stepX = -1;
+			sideDistX = (posX - mapX) * deltaDistX;
+		}
+		else
+		{
+			stepX = 1;
+			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+		}
+		if (rayDirY < 0)
+		{
+			stepY = -1;
+			sideDistY = (posY - mapY) * deltaDistY;
+		}
+		else
+		{
+			stepY = 1;
+			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+		}
+
+		while (hit == 0)
+		{
+			//jump to next map square, OR in x-direction, OR in y-direction
+			if (sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				mapX += stepX;
+				side = 0;
+			}
+			else
+			{
+				sideDistY += deltaDistY;
+				mapY += stepY;
+				side = 1;
+			}
+			//Check if ray has hit a wall
+			if (data->map[mapX][mapY] == '1')
+			{
+				hit = 1;
+			}
+		}
+		if (side == 0)
+			perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
+		else
+			perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
+
+		//Calculate height of line to draw on screen
+		int lineHeight = (int)(S_H / perpWallDist);
+
+		//calculate lowest and highest pixel to fill in current stripe
+		int drawStart = -lineHeight / 2 + S_H / 2;
+		if(drawStart < 0)
+			drawStart = 0;
+		printf("drawStart = %d\n", drawStart);
+		int drawEnd = lineHeight / 2 + S_H / 2;
+		if(drawEnd >= S_H)
+			drawEnd = S_H - 1;
+		printf("drawEnd = %d\n", drawEnd);
+
+		int	color;
+		if (data->map[mapY][mapX] == '1')
+			color = 0xFF0000;
+		else
+			color = 0xFFFF00;
+
+		if (side == 1)
+			color = color / 2;
+
+		put_line(data, x, drawStart, drawEnd, color);
+
+		x++;
+	}
+	return (0);
+}

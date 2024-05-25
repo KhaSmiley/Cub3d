@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/19 01:27:21 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/22 19:33:41 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ void	init_ray(t_data *data)
 	static t_ray	ray = {0};
 
 	ray.ray_dir = data->player->direction;
-	ray.distance_to_wall = 0;
-	ray.flag = 0;
+	ray.next_step.x = cos(deg_to_rad(ray.ray_dir));
+	ray.next_step.y = sin(deg_to_rad(ray.ray_dir));
+	ray.ray_end.x = data->player->pos.x;
+	ray.ray_end.y = data->player->pos.y;
+	ray.distance_to_wall.x = sqrt(1 + pow(ray.next_step.y / ray.next_step.x, 2));
+	ray.distance_to_wall.y = sqrt(1 + pow(ray.next_step.x / ray.next_step.y, 2));
+	ray.side_flag = 0;
 	data->ray = &ray;
 }
 
@@ -28,14 +33,15 @@ void	init_player(t_data *data)
 {
 	static t_player	player = {0};
 
-	player.player_x = data->start_x * TILE_SIZE + TILE_SIZE / 2;
-	player.player_y = data->start_y * TILE_SIZE + TILE_SIZE / 2;
+	player.pos.x = data->start_pos.x * TILE_SIZE + TILE_SIZE / 2;
+	player.pos.y = data->start_pos.y * TILE_SIZE + TILE_SIZE / 2;
 	player.fov_rd = (FOV * M_PI) / 180;
 	player.rot = 0;
 	player.l_r = 0;
 	player.f_b = 0;
 	data->player = &player;
 	set_start_direction(data->player, data->player_dir);
+	ft_memset(&data->player->key_flags, 0, sizeof(t_keys));
 }
 
 void	set_start_direction(t_player *player, char dir)
@@ -63,8 +69,8 @@ void	set_player_start_position(t_data *data)
 		{
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
-				data->start_x = j;
-				data->start_y = i;
+				data->start_pos.x = j;
+				data->start_pos.y = i;
 				data->player_dir = data->map[i][j];
 				return ;
 			}
@@ -116,7 +122,7 @@ void	init_data(t_data *data)
 {
 	get_map_width_height(data);
 	set_player_start_position(data);
-	ft_printf("%sPlayer start position: x = %d, y = %d, direction = %c%s\n", IBLUE, data->start_x, data->start_y, data->player_dir, RESET);
+	ft_printf("%sPlayer start position: x = %d, y = %d, direction = %c%s\n", IBLUE, data->start_pos.x, data->start_pos.y, data->player_dir, RESET);
 	ft_printf("%sMap width = %d, height = %d%s\n", IMAGENTA, data->w_map, data->h_map, RESET);
 	// floor_colour;
 	// ceiling_colour;
@@ -151,5 +157,5 @@ void	init_game(t_data *data, t_mlx *mlx_struct)
 {
 	mlx_put_image_to_window(mlx_struct->mlx_ptr, mlx_struct->mlx_win, mlx_struct->bckgrd_ptr, (0 + S_W / 2) - (835 / 2), (0 + S_H / 2) - (626 / 2));
 	display_map(data);
-	put_player(mlx_struct->mlx_ptr, mlx_struct->mlx_win, data->player->player_x, data->player->player_y);
+	put_player(mlx_struct->mlx_ptr, mlx_struct->mlx_win, data->player->pos.x, data->player->pos.y);
 }
