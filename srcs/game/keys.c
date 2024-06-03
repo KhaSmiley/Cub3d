@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 19:29:24 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/03 22:59:13 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ int	move_rotate(t_data *data)
 		free(data->mlx->mlx_ptr);
 		exit(0);
 	}
-	calculations(data);
+	if (data->player->key_flags.w == 1 || data->player->key_flags.a == 1 || data->player->key_flags.s == 1 || data->player->key_flags.d == 1 || data->player->key_flags.left == 1 || data->player->key_flags.right == 1)
+	{
+		mlx_clear_window(data->mlx->mlx_ptr, data->mlx->mlx_win);
+		calculations(data);
+	}
 	return (1);
 }
 

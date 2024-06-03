@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 20:05:15 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/03 23:06:16 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,66 +69,94 @@ int	calculations(t_data *data)
 		int mapX = (int)posX;
 		int mapY = (int)posY;
 
-		//length of ray from current position to next x or y-side
+		// collisions avec murs ou pas - distances entre les intersections
+		
+		//length of ray from current position to next x or y-side (le reste du carré)
 		double sideDistX;
 		double sideDistY;
 
-		 //length of ray from one x or y-side to next x or y-side
-		double deltaDistX = fabs(1 / rayDirX);
+		 //length of ray from one x or y-side to next x or y-side 
+		 // on est pas dans ces carrés la (un cote du triangle tjrs fixe a 1)
+		double deltaDistX = fabs(1 / rayDirX); // fabs puts negative floats to positive
 		double deltaDistY = fabs(1 / rayDirY);
+		
 		double perpWallDist;
 
-		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
+		//what direction to step in x or y-direction (either +1 [right or down] or -1 [left or up])
+		int stepX; // que des flags
+		int stepY; // on va pas check tous les murs, on va juste check les murs qui sont sur le chemin du rayon
 
 		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
+		char texture; //which wall hit? for textures
 
 		if (rayDirX < 0)
 		{
-			stepX = -1;
-			sideDistX = (posX - mapX) * deltaDistX;
+			stepX = -1; // going left
+			sideDistX = (posX - mapX) * deltaDistX; 
 		}
 		else
 		{
-			stepX = 1;
+			stepX = 1; // going right
 			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
 		}
 		if (rayDirY < 0)
 		{
-			stepY = -1;
+			stepY = -1; // going up
 			sideDistY = (posY - mapY) * deltaDistY;
 		}
 		else
 		{
-			stepY = 1;
+			stepY = 1; // going down
 			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
 		}
-
+		
+		 // juste un truc pour avancer de sidedistx ou y selon quelle
+		 // intersection et le plus proche, et on regarde si on a un 1 dans cette case
 		while (hit == 0)
 		{
-			//jump to next map square, OR in x-direction, OR in y-direction
+			//jump to next map square, either in x-direction, OR in y-direction
 			if (sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
+				if (stepX == -1)
+					texture = 'W';
+				else
+					texture = 'E';
+				
+				if (mapX + 1 < data->w_map)
+					mapX += stepX;
+				else
+				{
+					hit = 1;
+					break;
+				}
+
 			}
 			else
 			{
 				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
+				if (stepY == -1)
+					texture = 'N';
+				else
+					texture = 'S';
+				if (mapY + 1 < data->nb_line)
+					mapY += stepY;
+				else
+				{
+					hit = 1;
+					break;
+				}
 			}
 			//Check if ray has hit a wall
-
+			printf("mapX = %d\n", mapX);
+			printf("mapY = %d\n", mapY);
 			if (data->map[mapY][mapX] == '1')
 			{
 				hit = 1;
 			}
 		}
-		if (side == 0)
+		// calculate distance to closest wall
+		if (texture == 'W' || texture == 'E')
 			perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
 		else
 			perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
@@ -146,14 +174,21 @@ int	calculations(t_data *data)
 			drawEnd = S_H - 1;
 		// printf("drawEnd = %d\n", drawEnd);
 
+		// replace with wall textures
 		int	color;
 		if (data->map[mapY][mapX] == '1')
-			color = 0xFF0000;
+		{
+			if (texture == 'N')
+				color = 0x00FF00;
+			else if (texture == 'S')
+				color = 0x0000FF;
+			else if (texture == 'W')
+				color = 0xFF0000;
+			else
+				color = 0xFFFF00;
+		}
 		else
-			color = 0xFFFF00;
-
-		if (side == 1)
-			color = color / 2;
+			color = 0x00FFFF;
 
 		put_line(data, x, drawStart, drawEnd, color);
 		put_line(data, x, 0, drawStart, 0x123AAA);
