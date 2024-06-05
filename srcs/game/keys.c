@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/03 22:59:13 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/06 00:33:19 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	move_rotate(t_data *data)
 	if (data->player->key_flags.left == 1)
 	{
 		data->player->rot = -1;
-		rotate_player(data->mlx->player);
+		rotate_player(data->mlx->player, data);
 	}
 	if (data->player->key_flags.right == 1)
 	{
 		data->player->rot = 1;
-		rotate_player(data->mlx->player);
+		rotate_player(data->mlx->player, data);
 	}
 	if (data->player->key_flags.esc == 1)
 	{
@@ -42,11 +42,11 @@ int	move_rotate(t_data *data)
 		free(data->mlx->mlx_ptr);
 		exit(0);
 	}
-	if (data->player->key_flags.w == 1 || data->player->key_flags.a == 1 || data->player->key_flags.s == 1 || data->player->key_flags.d == 1 || data->player->key_flags.left == 1 || data->player->key_flags.right == 1)
-	{
-		mlx_clear_window(data->mlx->mlx_ptr, data->mlx->mlx_win);
-		calculations(data);
-	}
+	// if (data->player->key_flags.w == 1 || data->player->key_flags.a == 1 || data->player->key_flags.s == 1 || data->player->key_flags.d == 1 || data->player->key_flags.left == 1 || data->player->key_flags.right == 1)
+	// {
+	// 	mlx_clear_window(data->mlx->mlx_ptr, data->mlx->mlx_win);
+	// }
+	calculations(data);
 	return (1);
 }
 

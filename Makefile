@@ -53,7 +53,7 @@ all:	${NAME}
 
 $(NAME): $(DIR_OBJS) $(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) -o $(NAME) $(INC) $(OBJS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
-	@ echo "help me pls sefir :'("  | toilet -f future -F border --gay
+	@ echo "debug me baby"  | toilet -f future -F border --gay
 
 $(LIBFT):
 		make -C libft

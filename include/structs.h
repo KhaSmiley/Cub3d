@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 19:14:37 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 00:43:30 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,30 @@ typedef struct s_keys // key flags for movement
 typedef struct s_ray //the ray structure
 {
 	// fixed angle variable
-	double		ray_dir; // ray direction in degrees- init to player direction
-	t_moha2d	ray_end; // ray end coordinates
-	t_moha2d	next_step; // coordinates for next (first closest) intersection with an x or y axis
-	t_moha2d	step_size; // size of steps between x and y intersections (based on payer position and direction)
-	t_moha2d	distance_to_wall; // coordinates for distance to the wall (hyptheneuse)
-	t_moha2d	ray_len; // length of ray
-	double		draw_len; // length of ray to draw
-	int			side_flag;  // flag for the wall
+	double		ray_dir_deg; // ray direction in degrees- init to player direction
+	t_moha2d	ray_dir; // ray direction vector
+	t_moha2d	plane; // player plane vector
+	t_moha2d	first_step; // coordinates for first closest intersection with an x or y axis
+	t_moha2d	next_step; // coordinates for next intersections with an x or y axis
+	double		distance_to_wall; // distance to the closest wall (shortest hyptheneuse)
+	t_moha2i	map; // map position of the wall
+	t_moha2i	step_flag; // which direction to step in for x and y
+	char		texture; // texture of next closest wall
+	int			wall_len; // wall height - length of ray to draw (used to calc ceiling + floor too)
+	int			draw_start;
+	int			draw_end;
 }	t_ray;
 
 typedef struct s_player //the player structure
 {
 	t_moha2d	pos; // player position in pixels
-	float		direction; // in degrees
+	float		dir_deg; // player direction in degrees
 	float		fov_rd; // field of view in radians
 	int			rot; // rotation flag
 	int			l_r; // left right flag
 	int			f_b; // fowards backwards flag
 	t_keys		key_flags; // array of key flags
-
-
-	//
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
+	t_moha2d	dir; // player direction vector
 }	t_player;
 
 typedef struct s_mlx //the mlx structure

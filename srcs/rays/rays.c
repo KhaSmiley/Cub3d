@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 15:33:16 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 00:27:30 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,32 +50,32 @@ void	put_rays_fov(t_data *data, t_ray *ray)
 	// replace
 	float distance_to_wall = 100;
 
-	ray->ray_dir = data->player->direction;
+	ray->ray_dir_deg = data->player->dir_deg;
 	// printing 30 rays right of player direction
-	while (ray->ray_dir - data->player->direction < FOV / 2)
+	while (ray->ray_dir_deg - data->player->dir_deg < FOV / 2)
 	{
-		ray_end_x = data->player->pos.x + cos(deg_to_rad(ray->ray_dir)) * distance_to_wall;
-		ray_end_y = data->player->pos.y + sin(deg_to_rad(ray->ray_dir)) * distance_to_wall;
+		ray_end_x = data->player->pos.x + cos(deg_to_rad(ray->ray_dir_deg)) * distance_to_wall;
+		ray_end_y = data->player->pos.y + sin(deg_to_rad(ray->ray_dir_deg)) * distance_to_wall;
 		put_ray(data, data->player, ray_end_x, ray_end_y);
-		// printf("ray direction = %f\n", ray->ray_dir);
-		ray->ray_dir += 1;
+		// printf("ray direction = %f\n", ray->ray_dir_deg);
+		ray->ray_dir_deg += 1;
 	}
 	//printing 30 rays left of player direction
-	ray->ray_dir = data->player->direction;
-	while (data->player->direction - ray->ray_dir < FOV / 2)
+	ray->ray_dir_deg = data->player->dir_deg;
+	while (data->player->dir_deg - ray->ray_dir_deg < FOV / 2)
 	{
-		ray_end_x = data->player->pos.x + cos(deg_to_rad(ray->ray_dir)) * distance_to_wall;
-		ray_end_y = data->player->pos.y + sin(deg_to_rad(ray->ray_dir)) * distance_to_wall;
+		ray_end_x = data->player->pos.x + cos(deg_to_rad(ray->ray_dir_deg)) * distance_to_wall;
+		ray_end_y = data->player->pos.y + sin(deg_to_rad(ray->ray_dir_deg)) * distance_to_wall;
 		put_ray(data, data->player, ray_end_x, ray_end_y);
-		// printf("ray direction = %f\n", ray->ray_dir);
-		ray->ray_dir -= 1;
+		// printf("ray direction = %f\n", ray->ray_dir_deg);
+		ray->ray_dir_deg -= 1;
 	}
 }
 
 int	cast_rays(t_data *data)
 {
 	// at some point take out the put rays fov pixel putting- only needed for calculations
-	printf("player direction = %f\n", data->player->direction);
+	printf("player direction = %f\n", data->player->dir_deg);
 	put_rays_fov(data, data->ray);
 	// calculations
 	return (0);

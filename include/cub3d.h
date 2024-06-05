@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 19:45:56 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 00:33:33 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		move_forwards(t_mlx *mlx_struct, t_data *data, t_player *player);
 void		move_backwards(t_mlx *mlx_struct, t_data *data, t_player *player);
 void		move_left(t_mlx *mlx_struct, t_data *data, t_player *player);
 void		move_right(t_mlx *mlx_struct, t_data *data, t_player *player);
-void		rotate_player(t_player *player);
+void		rotate_player(t_player *player, t_data *data);
 
 /* game.c */
 

@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 19:50:19 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 00:44:47 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ void	init_ray(t_data *data)
 {
 	static t_ray	ray = {0};
 
-	ray.ray_dir = data->player->direction;
-	ray.next_step.x = cos(deg_to_rad(ray.ray_dir));
-	ray.next_step.y = sin(deg_to_rad(ray.ray_dir));
-	ray.ray_end.x = data->player->pos.x;
-	ray.ray_end.y = data->player->pos.y;
-	ray.distance_to_wall.x = sqrt(1 + pow(ray.next_step.y / ray.next_step.x, 2));
-	ray.distance_to_wall.y = sqrt(1 + pow(ray.next_step.x / ray.next_step.y, 2));
-	ray.side_flag = 0;
+	ray.ray_dir = data->player->dir_deg;
+	ray.next_step.x = 0; //cos(deg_to_rad(ray.ray_dir));
+	ray.next_step.y = 0; //sin(deg_to_rad(ray.ray_dir));
+	ray.plane.x = 0.66;
+	ray.plane.y = 0;
+
+	// step size
+	// draw len
+	ray.distance_to_wall = 0;
 	data->ray = &ray;
 }
 
@@ -39,27 +40,39 @@ void	init_player(t_data *data)
 	player.rot = 0;
 	player.l_r = 0;
 	player.f_b = 0;
-	player.dirY = 0; // replace with pl direction
-	player.dirX = -1; // ?
-	player.planeY = 0.66;
-	player.planeX = 0;
-	player.posX = data->start_pos.x + 0.5;
-	player.posY = data->start_pos.y+ 0.5;
+	player.pos.x = data->start_pos.x + 0.5;
+	player.pos.y = data->start_pos.y+ 0.5;
 	data->player = &player;
 	set_start_direction(data->player, data->player_dir);
 	ft_memset(&data->player->key_flags, 0, sizeof(t_keys));
 }
-
+// init dir x and y correctly
 void	set_start_direction(t_player *player, char dir)
 {
 	if (dir == 'N')
-		player->direction = 90;
+	{
+		player->dir.x = 0;
+		player->dir.y = 1;
+		player->dir_deg = 90;
+	}
 	else if (dir == 'S')
-		player->direction = 270;
+	{
+		player->dir.x = 0;
+		player->dir.y = -1;
+		player->dir_deg = 270;
+	}
 	else if (dir == 'W')
-		player->direction = 180;
+	{
+		player->dir.x = -1;
+		player->dir.y = 0;
+		player->dir_deg = 180;
+	}
 	else if (dir == 'E')
-		player->direction = 0;
+	{
+		player->dir.x = 1;
+		player->dir.y = 0;
+		player->dir_deg = 0;
+	}
 }
 
 void	set_player_start_position(t_data *data)
