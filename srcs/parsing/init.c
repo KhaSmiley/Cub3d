@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/06 00:44:47 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:42:46 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	init_ray(t_data *data)
 {
 	static t_ray	ray = {0};
 
-	ray.ray_dir = data->player->dir_deg;
+	ray.ray_dir_deg = data->player->dir_deg;
 	ray.next_step.x = 0; //cos(deg_to_rad(ray.ray_dir));
 	ray.next_step.y = 0; //sin(deg_to_rad(ray.ray_dir));
+
+	// check this
 	ray.plane.x = 0.66;
 	ray.plane.y = 0;
 
@@ -27,115 +29,19 @@ void	init_ray(t_data *data)
 	ray.distance_to_wall = 0;
 	data->ray = &ray;
 }
-
-// (lines 25/26) By adding half of the tile size to the calculated positions, the player is placed at the center of the tile,
-// which is a common convention in tile-based games. This positioning ensures smoother movement and collision detection.
-void	init_player(t_data *data)
+ void	init_player(t_data *data)
 {
 	static t_player	player = {0};
 
-	player.pos.x = data->start_pos.x * TILE_SIZE + TILE_SIZE / 2;
-	player.pos.y = data->start_pos.y * TILE_SIZE + TILE_SIZE / 2;
 	player.fov_rd = (FOV * M_PI) / 180;
 	player.rot = 0;
 	player.l_r = 0;
 	player.f_b = 0;
 	player.pos.x = data->start_pos.x + 0.5;
-	player.pos.y = data->start_pos.y+ 0.5;
+	player.pos.y = data->start_pos.y + 0.5;
 	data->player = &player;
 	set_start_direction(data->player, data->player_dir);
 	ft_memset(&data->player->key_flags, 0, sizeof(t_keys));
-}
-// init dir x and y correctly
-void	set_start_direction(t_player *player, char dir)
-{
-	if (dir == 'N')
-	{
-		player->dir.x = 0;
-		player->dir.y = 1;
-		player->dir_deg = 90;
-	}
-	else if (dir == 'S')
-	{
-		player->dir.x = 0;
-		player->dir.y = -1;
-		player->dir_deg = 270;
-	}
-	else if (dir == 'W')
-	{
-		player->dir.x = -1;
-		player->dir.y = 0;
-		player->dir_deg = 180;
-	}
-	else if (dir == 'E')
-	{
-		player->dir.x = 1;
-		player->dir.y = 0;
-		player->dir_deg = 0;
-	}
-}
-
-void	set_player_start_position(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < data->nb_line)
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'W' || data->map[i][j] == 'E')
-			{
-				data->start_pos.x = j;
-				data->start_pos.y = i;
-				data->player_dir = data->map[i][j];
-				data->map[i][j] = '0';
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	get_map_width_height(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	data->w_map = 0;
-	data->h_map = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-			j++;
-		if (j > data->w_map)
-			data->w_map = j;
-		i++;
-	}
-	data->h_map = i;
-}
-void	display_map(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == '1')
-				put_tiles(data->mlx->mlx_ptr, data->mlx->mlx_win, j * TILE_SIZE, i * TILE_SIZE);
-			j++;
-		}
-		i++;
-	}
 }
 
 void	init_data(t_data *data)

@@ -16,10 +16,12 @@ DIR_OBJS		=	.objs
 SRCS_NAMES		=	parsing/parsing.c \
 					parsing/parsing_utils.c \
 					parsing/init.c \
+					parsing/init_utils.c \
 					utils/utils.c \
 					rays/pixels.c \
 					rays/maths.c \
 					rays/rays.c \
+					rays/walls.c \
 					game/keys.c \
 					game/moves.c \
 					game/game.c \

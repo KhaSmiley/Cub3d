@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:42:29 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/06 00:41:35 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:30:00 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,36 +57,35 @@ void	move_right(t_mlx *mlx_struct, t_data *data, t_player *player)
 		player->pos.y -= player->dir.x * PLAYER_SPEED;
 }
 
-// calculating in degrees
 void	rotate_player(t_player *player, t_data *data)
 {
-	if (player->rot == -1) // left
+	double	old_dir_x;
+	double	old_plane_x;
+
+	if (player->rot == 1) // right
 	{
 		player->dir_deg += ROTATION_SPEED;
 		if (player->dir_deg > 359)
 			player->dir_deg -= 359;
-		// ft_printf("%srotating right%s\n", RED, RESET);
-		double oldDirX = player->dir.x;
+		old_dir_x = player->dir.x;
 		player->dir.x = player->dir.x * cos(-ROTATION_SPEED) - player->dir.y * sin(-ROTATION_SPEED);
-		player->dir.y = oldDirX * sin(-ROTATION_SPEED) + player->dir.y * cos(-ROTATION_SPEED);
-		double oldPlaneX = data->ray->plane.x;
+		player->dir.y = old_dir_x * sin(-ROTATION_SPEED) + player->dir.y * cos(-ROTATION_SPEED);
+		old_plane_x = data->ray->plane.x;
 		data->ray->plane.x = data->ray->plane.x * cos(-ROTATION_SPEED) - data->ray->plane.y * sin(-ROTATION_SPEED);
-		data->ray->plane.y = oldPlaneX * sin(-ROTATION_SPEED) + data->ray->plane.y * cos(-ROTATION_SPEED);
+		data->ray->plane.y = old_plane_x * sin(-ROTATION_SPEED) + data->ray->plane.y * cos(-ROTATION_SPEED);
 
 	}
-	else if (player->rot == 1) // right
+	else if (player->rot == -1) // left
 	{
 		player->dir_deg -= ROTATION_SPEED;
 		if (player->dir_deg < 0)
 			player->dir_deg += 359;
-		double oldDirX = player->dir.x;
+		old_dir_x = player->dir.x;
 		player->dir.x = player->dir.x * cos(ROTATION_SPEED) - player->dir.y * sin(ROTATION_SPEED);
-		player->dir.y = oldDirX * sin(ROTATION_SPEED) + player->dir.y * cos(ROTATION_SPEED);
-		double oldPlaneX = data->ray->plane.x;
+		player->dir.y = old_dir_x * sin(ROTATION_SPEED) + player->dir.y * cos(ROTATION_SPEED);
+		old_plane_x = data->ray->plane.x;
 		data->ray->plane.x = data->ray->plane.x * cos(ROTATION_SPEED) - data->ray->plane.y * sin(ROTATION_SPEED);
-		data->ray->plane.y = oldPlaneX * sin(ROTATION_SPEED) + data->ray->plane.y * cos(ROTATION_SPEED);
-
-		// ft_printf("%srotating left%s\n", BLUE, RESET);
+		data->ray->plane.y = old_plane_x * sin(ROTATION_SPEED) + data->ray->plane.y * cos(ROTATION_SPEED);
 	}
 	printf("%splayer direction = %f%s\n",BGREEN,  player->dir_deg, RESET);
 }
