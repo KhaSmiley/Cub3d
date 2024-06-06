@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 00:13:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/06 00:20:46 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/22 18:26:55 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,19 @@ void	print_arr(char **arr)
 		ft_printf("%s\n",arr[i]);
 		i++;
 	}
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*dst;
+	size_t			i;
+
+	dst = s;
+	i = 0;
+	while (i < n)
+	{
+		dst[i] = c;
+		i++;
+	}
+	return (s);
 }

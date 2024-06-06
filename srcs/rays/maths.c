@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/16 19:56:30 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:25:07 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,36 @@ int	rad_to_deg(float rad)
 	return (deg);
 }
 
+void	init_camera_position(t_data *data, int x)
+{
+	double	camera_x;
 
-// float	nor_angle(float angle)	// normalize the angle
-// {
-// 	if (angle < 0)
-// 		angle += (2 * M_PI);
-// 	if (angle > (2 * M_PI))
-// 		angle -= (2 * M_PI);
-// 	return (angle);
-// }
+	camera_x = 2 * x / (double)S_W - 1;
+	data->ray->ray_dir.x = data->player->dir.x + data->ray->plane.x * camera_x;
+	data->ray->ray_dir.y = data->player->dir.y + data->ray->plane.y * camera_x;
+}
+
+int	calculations(t_data *data)
+{
+	int	x;
+
+	x = 0;
+	while (x < S_W)
+	{
+		init_camera_position(data, x);
+		data->ray->map.x = (int)data->player->pos.x;
+		data->ray->map.y = (int)data->player->pos.y;
+		calculate_steps(data);
+		find_next_wall(data);
+		// calculate distance to closest wall
+		if (data->ray->texture == 'W' || data->ray->texture == 'E')
+			data->ray->distance_to_wall = (data->ray->map.x - data->player->pos.x + (1 - data->ray->step_flag.x) / 2) / data->ray->ray_dir.x;
+		else
+			data->ray->distance_to_wall = (data->ray->map.y - data->player->pos.y + (1 - data->ray->step_flag.y) / 2) / data->ray->ray_dir.y;
+		calculate_wall_len(data);
+		// replace with wall textures / buffer fill funcs (no more put pixel)
+		draw_walls(data, x);
+		x++;
+	}
+	return (0);
+}

@@ -16,10 +16,12 @@ DIR_OBJS		=	.objs
 SRCS_NAMES		=	parsing/parsing.c \
 					parsing/parsing_utils.c \
 					parsing/init.c \
+					parsing/init_utils.c \
 					utils/utils.c \
 					rays/pixels.c \
 					rays/maths.c \
 					rays/rays.c \
+					rays/walls.c \
 					game/keys.c \
 					game/moves.c \
 					game/game.c \
@@ -47,13 +49,13 @@ CC				=	cc
 
 CDFLAGS 		= 	-MMD -MP
 
-CFLAGS			=	-g3 -Wall -Werror -Wextra -v
+CFLAGS			=	-g3 -Wall -Werror -Wextra
 
 all:	${NAME}
 
 $(NAME): $(DIR_OBJS) $(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) -o $(NAME) $(INC) $(OBJS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
-	@ echo "EYUP MATE YALRIGHT?"  | toilet -f future -F border --gay
+	@ echo "debug me baby"  | toilet -f future -F border --gay
 
 $(LIBFT):
 		make -C libft

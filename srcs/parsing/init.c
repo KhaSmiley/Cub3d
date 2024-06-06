@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/17 20:45:24 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:42:46 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,108 +16,40 @@ void	init_ray(t_data *data)
 {
 	static t_ray	ray = {0};
 
-	ray.ray_dir = data->player->direction;
+	ray.ray_dir_deg = data->player->dir_deg;
+	ray.next_step.x = 0; //cos(deg_to_rad(ray.ray_dir));
+	ray.next_step.y = 0; //sin(deg_to_rad(ray.ray_dir));
+
+	// check this
+	ray.plane.x = 0.66;
+	ray.plane.y = 0;
+
+	// step size
+	// draw len
 	ray.distance_to_wall = 0;
-	ray.flag = 0;
 	data->ray = &ray;
 }
-
-// (lines 25/26) By adding half of the tile size to the calculated positions, the player is placed at the center of the tile,
-// which is a common convention in tile-based games. This positioning ensures smoother movement and collision detection.
-void	init_player(t_data *data)
+ void	init_player(t_data *data)
 {
 	static t_player	player = {0};
 
-	player.player_x = data->start_x * TILE_SIZE + TILE_SIZE / 2;
-	player.player_y = data->start_y * TILE_SIZE + TILE_SIZE / 2;
 	player.fov_rd = (FOV * M_PI) / 180;
 	player.rot = 0;
 	player.l_r = 0;
 	player.f_b = 0;
+	player.pos.x = data->start_pos.x + 0.5;
+	player.pos.y = data->start_pos.y + 0.5;
 	data->player = &player;
 	set_start_direction(data->player, data->player_dir);
-}
-
-void	set_start_direction(t_player *player, char dir)
-{
-	if (dir == 'N')
-		player->direction = 90;
-	else if (dir == 'S')
-		player->direction = 270;
-	else if (dir == 'W')
-		player->direction = 180;
-	else if (dir == 'E')
-		player->direction = 0;
-}
-
-void	set_player_start_position(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < data->nb_line)
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'W' || data->map[i][j] == 'E')
-			{
-				data->start_x = j;
-				data->start_y = i;
-				data->player_dir = data->map[i][j];
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	get_map_width_height(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	data->w_map = 0;
-	data->h_map = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-			j++;
-		if (j > data->w_map)
-			data->w_map = j;
-		i++;
-	}
-	data->h_map = i;
-}
-void	display_map(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == '1')
-				put_tiles(data->mlx->mlx_ptr, data->mlx->mlx_win, j * TILE_SIZE, i * TILE_SIZE);
-			j++;
-		}
-		i++;
-	}
+	ft_memset(&data->player->key_flags, 0, sizeof(t_keys));
 }
 
 void	init_data(t_data *data)
 {
 	get_map_width_height(data);
 	set_player_start_position(data);
-	ft_printf("Player start position: x = %d, y = %d, direction = %c\n", data->start_x, data->start_y, data->player_dir);
-	ft_printf("Map width = %d, height = %d\n", data->w_map, data->h_map);
+	ft_printf("%sPlayer start position: x = %d, y = %d, direction = %c%s\n", IBLUE, data->start_pos.x, data->start_pos.y, data->player_dir, RESET);
+	ft_printf("%sMap width = %d, height = %d%s\n", IMAGENTA, data->w_map, data->h_map, RESET);
 	// floor_colour;
 	// ceiling_colour;
 	// north texture
@@ -151,30 +83,5 @@ void	init_game(t_data *data, t_mlx *mlx_struct)
 {
 	mlx_put_image_to_window(mlx_struct->mlx_ptr, mlx_struct->mlx_win, mlx_struct->bckgrd_ptr, (0 + S_W / 2) - (835 / 2), (0 + S_H / 2) - (626 / 2));
 	display_map(data);
-	put_player(mlx_struct->mlx_ptr, mlx_struct->mlx_win, data->player->player_x, data->player->player_y);
+	put_player(mlx_struct->mlx_ptr, mlx_struct->mlx_win, data->player->pos.x, data->player->pos.y);
 }
-
-// void	init_mlx(t_data *data)
-// {
-// 	static t_mlx	mlx_struct = {0};
-
-// 	mlx->struct.mlx_ptr = mlx_init();
-// 	mlx.img_ptr = mlx_new_image(mlx.mlx_ptr, S_W, S_H);
-// 	mlx.dt = data;
-// 	mlx.ply = malloc(sizeof(t_player));
-// 	mlx.ray = malloc(sizeof(t_ray));
-// 	mlx.ply->player_x = data->start_x * TILE_SIZE + TILE_SIZE / 2;
-// 	mlx.ply->player_y = data->start_y * TILE_SIZE + TILE_SIZE / 2;
-// 	mlx.ply->angle = 0;
-// 	// mlx.ply->fov_rd = FOV * M_PI / 180;
-// 	mlx.ply->rot = 0;
-// 	mlx.ply->l_r = 0;
-// 	mlx.ply->u_d = 0;
-// 	mlx.ray->ray_ngl = 0;
-// 	mlx.ray->distance = 0;
-// 	mlx.ray->flag = 0;
-// 	// mlx_hook(mlx.win, 2, 1L << 0, key_hook, &mlx);
-// 	// mlx_hook(mlx.win, 17, 1L << 17, close_win, &mlx);
-// 	// mlx_loop_hook(mlx.mlx_ptr, draw, &mlx);
-// 	mlx_loop(mlx.mlx_ptr);
-// }
