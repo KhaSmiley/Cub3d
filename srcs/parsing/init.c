@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 18:32:36 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 21:55:22 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	init_mlx(t_data *data)
 		ft_printf("mlx ptr creation failed\n");
 		return ;
 	}
-	mlx_struct.mlx_win = mlx_new_window(mlx_struct.mlx_ptr, S_W, S_H, "Cub3D");
+	mlx_struct.mlx_win = mlx_new_window(mlx_struct.mlx_ptr, S_W, S_H, "Khalau World");
 	if (!mlx_struct.mlx_win)
 	{
 		ft_printf("mlx window creation failed\n");
