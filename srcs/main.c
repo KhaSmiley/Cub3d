@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 18:30:11 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 22:14:41 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,14 @@ int	main(int argc, char **argv)
 	printf("Khalau World\n");
 
 	static t_data data = {0};
+	data.path = argv[1];
 	data.nb_line = 0;
 	if (argc == 2)
 	{
+		data.map_start = 0;
+		data.nb_line = 0;
+		data.len_max = 0;
+		data.nb_player = 0;
 		if (parsing(&data, argv[1]))
 			return (0);
 		print_arr(data.map);

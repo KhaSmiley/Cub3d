@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:57:34 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/04/05 04:07:04 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:47:57 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char				*ft_strjoin_gnl(char *s1, char *s2);
 int					ft_atoi(const char *str);
 void				free_tab(char **tab);
 int					ft_isalnum(int c);
+void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_strdup(const char *s);

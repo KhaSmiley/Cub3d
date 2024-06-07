@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 21:55:22 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 22:18:22 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ void	init_ray(t_data *data)
 	// check this
 	ray.plane.x = 0.66 * (data->player->dir.y);
 	ray.plane.y = 0.66 * (-1 * data->player->dir.x);
-
-	ray.first_step.x = 0;
-	ray.first_step.y = 0;
 	ray.next_step.x = 0; //cos(deg_to_rad(ray.ray_dir));
 	ray.next_step.y = 0; //sin(deg_to_rad(ray.ray_dir));
 	ray.distance_to_wall = 0;
@@ -39,6 +36,7 @@ void	init_ray(t_data *data)
 	ray.draw_end = 0;
 	data->ray = &ray;
 }
+
  void	init_player(t_data *data)
 {
 	static t_player	player = {0};

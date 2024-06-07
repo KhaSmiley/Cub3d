@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:22:09 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/04/25 23:25:28 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:23:58 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 size_t	ft_strlen_until_char(char *str, char c)
 {
 	size_t	i;
-
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] && str[i] != c)
 		i++;
@@ -48,4 +49,52 @@ int	check_extension(char *argv)
 	}
 	ft_printf("Error\nWrong extension\n");
 	return (FALSE);
+}
+
+int	invalid_char_in_map(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (ft_strchr("0NEWS1 ", data->map[i][j]) == NULL)
+			{
+				ft_printf("Error\nWrong char in map\n");
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+int		invalid_nb_player(t_data *data)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while(data->map[i])
+	{
+		j = 0;
+		while(data->map[i][j])
+		{
+			if (ft_strchr("NEWS", data->map[i][j]))
+				data->nb_player++;
+			j++;
+		}
+		i++;
+	}
+	if (data->nb_player != 1)
+	{
+		ft_printf("Error\nWrong number of player\n");
+		return (1);
+	}
+	return (0);
+	
 }
