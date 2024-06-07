@@ -18,6 +18,7 @@ SRCS_NAMES		=	parsing/parsing.c \
 					parsing/init.c \
 					parsing/init_utils.c \
 					utils/utils.c \
+					utils/clean.c\
 					rays/pixels.c \
 					rays/maths.c \
 					rays/rays.c \

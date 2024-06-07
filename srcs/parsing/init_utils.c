@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:20:48 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/06 17:21:12 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 16:39:44 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	set_start_direction(t_player *player, char dir)
 	if (dir == 'N')
 	{
 		player->dir.x = 0;
-		player->dir.y = 1;
+		player->dir.y = -1;
 		player->dir_deg = 90;
 	}
 	else if (dir == 'S')
 	{
 		player->dir.x = 0;
-		player->dir.y = -1;
+		player->dir.y = 1;
 		player->dir_deg = 270;
 	}
 	else if (dir == 'W')

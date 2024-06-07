@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/06 00:43:30 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 14:47:11 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ typedef struct s_ray //the ray structure
 typedef struct s_player //the player structure
 {
 	t_moha2d	pos; // player position in pixels
+	t_moha2d	dir; // player direction vector
 	float		dir_deg; // player direction in degrees
 	float		fov_rd; // field of view in radians
 	int			rot; // rotation flag
 	int			l_r; // left right flag
 	int			f_b; // fowards backwards flag
-	t_keys		key_flags; // array of key flags
-	t_moha2d	dir; // player direction vector
+	t_keys		*key_flags; // array of key flags
 }	t_player;
 
 typedef struct s_mlx //the mlx structure
