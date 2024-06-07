@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:24:47 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/06 17:24:58 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 17:59:31 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,31 @@
 
 void	draw_walls(t_data *data, int x)
 {
-		int	color;
+	int	color;
 
-		if (data->map[data->ray->map.y][data->ray->map.x] == '1')
-		{
-			if (data->ray->texture == 'N')
-				color = 0x00FF00;
-			else if (data->ray->texture == 'S')
-				color = 0x0000FF;
-			else if (data->ray->texture == 'W')
-				color = 0xFF0000;
-			else
-				color = 0xFFFF00;
-		}
+	// protections ? if == 2 || < 0
+	if (data->map[data->ray->map.y][data->ray->map.x] == '1')
+	{
+		if (data->ray->texture == 'N')
+			color = 0x00FF00;
+		else if (data->ray->texture == 'S')
+			color = 0x0000FF;
+		else if (data->ray->texture == 'W')
+			color = 0xFF0000;
 		else
-			color = 0x00FFFF;
-		put_line(data, x, data->ray->draw_start, data->ray->draw_end, color);
-		put_line(data, x, 0, data->ray->draw_start, 0x123AAA);
-		put_line(data, x, data->ray->draw_end, S_H, 0x432411);
+			color = 0xFFFF00;
+	}
+	else
+		color = 0x00FFFF;
+	put_line(data, x, data->ray->draw_start, data->ray->draw_end, color);
+	put_line(data, x, 0, data->ray->draw_start, 0x123AAA);
+	put_line(data, x, data->ray->draw_end, S_H, 0x432411);
 }
 
 void	calculate_wall_len(t_data *data)
 {
+	// protections ? if == 2 || < 0
+
 	//Calculate height of line to draw on screen
 	data->ray->wall_len = (int)(S_H / data->ray->distance_to_wall);
 
@@ -60,42 +63,25 @@ void	find_next_wall(t_data *data)
 		if (data->ray->first_step.x < data->ray->first_step.y)
 		{
 			data->ray->first_step.x += data->ray->next_step.x;
+			data->ray->map.x += data->ray->step_flag.x;
 			if (data->ray->step_flag.x == -1)
 				data->ray->texture = 'W';
 			else
 				data->ray->texture = 'E';
-			// change protections
-			if (data->ray->map.x + 1 < data->w_map && data->ray->map.x - 1 >= 0)
-				data->ray->map.x += data->ray->step_flag.x;
-			else
-			{
-				hit = 1;
-				break;
-			}
 		}
 		else
 		{
 			data->ray->first_step.y += data->ray->next_step.y;
+			data->ray->map.y += data->ray->step_flag.y;
 			if (data->ray->step_flag.y == -1)
 				data->ray->texture = 'N';
 			else
 				data->ray->texture = 'S';
-			// change protections
-			if (data->ray->map.y + 1 < data->nb_line && data->ray->map.y - 1 >= 0)
-				data->ray->map.y += data->ray->step_flag.y;
-			else
-			{
-				hit = 1;
-				break;
-			}
 		}
+		// protections ? if == 2 || < 0
 		//Check if ray has hit a wall
-		// printf("map.x = %d\n", data->ray->map.x);
-		// printf("map.y = %d\n", data->ray->map.y);
 		if (data->map[data->ray->map.y][data->ray->map.x] == '1')
-		{
 			hit = 1;
-		}
 	}
 
 }
@@ -104,6 +90,7 @@ void	find_next_wall(t_data *data)
 // next step = length of ray from one x or y-side to next x or y-side (un cote du triangle tjrs fixe a 1)
 void	calculate_steps(t_data *data)
 {
+	// protections ? if == 2 || < 0
 	data->ray->next_step.x = fabs(1 / data->ray->ray_dir.x); // fabs puts negative floats to positive
 	data->ray->next_step.y = fabs(1 / data->ray->ray_dir.y);
 

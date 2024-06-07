@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/06 17:28:53 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:26:14 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ size_t		ft_strlen_until_char(char *str, char c);
 void		print_arr(char **arr);
 void		*ft_memset(void *s, int c, size_t n);
 
+/* clean.c */
+
+int			on_destroy(t_data *data);
+
 /* init.c */
 
 void		init_data(t_data *data);
@@ -80,7 +84,7 @@ void		display_map(t_data *data);
 
 void		put_tiles(void *mlx_ptr, void *win_ptr, int x, int y);
 void		put_background(t_mlx *mlx_struct);
-void		put_player(void *mlx_ptr, void *win_ptr, int x, int y);
+void		put_player(void *mlx_ptr, void *win_ptr, double x, double y);
 void		img_background(t_mlx *mlx_struct);
 void		display_circle(t_mlx *mlx);
 void		put_line(t_data *data, int x, int y1, int y2, int color);

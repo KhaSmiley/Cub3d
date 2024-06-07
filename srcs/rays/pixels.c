@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:12:14 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/25 17:05:24 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:22:21 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	put_tiles(void *mlx_ptr, void *win_ptr, int x, int y)
 	}
 }
 
-void	put_player(void *mlx_ptr, void *win_ptr, int x, int y)
+void	put_player(void *mlx_ptr, void *win_ptr, double x, double y)
 {
-	int	i;
-	int	j;
+	double	i;
+	double	j;
 
 	i = x;
 	while (i < x + 8)
@@ -83,6 +83,11 @@ void	img_background(t_mlx *mlx_struct)
 	int i = 0;
 	int j = 0;
 	mlx_struct->bckgrd_ptr = mlx_xpm_file_to_image(mlx_struct->mlx_ptr, "./textures/khalidou.xpm", &i, &j);
+	if (!mlx_struct->bckgrd_ptr)
+	{
+		ft_printf("failed to load image\n");
+		return ;
+	}
 }
 
 // imagining a unit circle (radius = 1 unit) with the player in the center

@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/17 20:34:17 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:30:11 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 		init_mlx(&data);
 		init_game(&data, data.mlx);
 		play_game(&data);
-		free_tab(data.map);
 	}
 	else
 		ft_printf("Error number of args\n");
