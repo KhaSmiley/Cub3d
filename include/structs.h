@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/08 17:32:44 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/06 04:15:18 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,17 @@ typedef struct s_mlx //the mlx structure
 
 typedef struct s_data // parsing info
 {
-	char		**map;
-	int			nb_line;
+	char		**map; // the map
+	char		**info; // the info
+	char		**texture;
+	char		**color;
+	int			rgb_f;
+	int			rgb_c;
+	char		*path; // path to the .cub file
+	int			map_start; // map start line (after parsing info)
+	int 		len_max; // max length of the map
+	int			nb_line; // number of lines in the map
+	int			nb_player; // number of players
 	int			w_map; // map width
 	int			h_map; // map height
 	int			start_x; // player start x poisiton in the map

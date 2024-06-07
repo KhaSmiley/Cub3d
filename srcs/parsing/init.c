@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/08 17:34:26 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/15 20:24:08 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_player_start_position(t_data *data)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = data->map_start;
 	while (i < data->nb_line)
 	{
 		j = 0;
@@ -71,11 +71,7 @@ void	get_map_width_height(t_data *data)
 	data->h_map = i;
 }
 
-int	init_data(t_data *data)
-{
-	data->nb_line = 0;
-	return (0);
-}
+
 
 void	init_game(t_data *data)
 {

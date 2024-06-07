@@ -14,7 +14,9 @@ DIR_SUBDIRS		=	parsing \
 DIR_OBJS		=	.objs
 
 SRCS_NAMES		=	parsing/parsing.c \
+					parsing/parsing_info.c \
 					parsing/parsing_utils.c \
+					parsing/parsing_map_spaces.c \
 					parsing/init.c \
 					utils/utils.c \
 					rays/pixels.c \
@@ -44,7 +46,7 @@ CC				=	cc
 
 CDFLAGS 		= 	-MMD -MP
 
-CFLAGS			=	-g3 -Wall -Werror -Wextra -v
+CFLAGS			=	-g3 -Wall -Werror -Wextra
 
 all:	${NAME}
 
