@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 18:30:11 by lbarry           ###   ########.fr       */
+/*   Created: 2024/05/06 18:44:54 by lbarry            #+#    #+#             */
+/*   Updated: 2024/06/07 18:33:56 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
-int	main(int argc, char **argv)
+int	on_destroy(t_data *data)
 {
-	printf("Khalau World\n");
-
-	static t_data data = {0};
-	data.nb_line = 0;
-	if (argc == 2)
-	{
-		if (parsing(&data, argv[1]))
-			return (0);
-		print_arr(data.map);
-		init_data(&data);
-		init_player(&data);
-		init_ray(&data);
-		init_mlx(&data);
-		init_game(&data, data.mlx);
-		play_game(&data);
-	}
-	else
-		ft_printf("Error number of args\n");
+	if (data->mlx->mlx_win)
+		mlx_destroy_window(data->mlx->mlx_ptr, data->mlx->mlx_win);
+	if (data->mlx->mlx_ptr)
+		mlx_destroy_display(data->mlx->mlx_ptr);
+	free(data->mlx->mlx_ptr);
+	free_tab(data->map);
+	exit(0);
 	return (0);
 }

@@ -1,19 +1,31 @@
 NAME			=	cub3d
 
-LIBFT			=	libft.a
+LIBFT			=	libft/libft.a
 
 MLX				=	mlx/libmlx_Linux.a
 
 DIR_SRCS		=	srcs
 
-DIR_SUBDIRS		=	parsing
+DIR_SUBDIRS		=	parsing \
+					utils \
+					rays \
+					game \
 
 DIR_OBJS		=	.objs
 
 SRCS_NAMES		=	parsing/parsing.c \
 					parsing/parsing_utils.c \
 					parsing/init.c \
-					utils.c \
+					parsing/init_utils.c \
+					utils/utils.c \
+					utils/clean.c\
+					rays/pixels.c \
+					rays/maths.c \
+					rays/rays.c \
+					rays/walls.c \
+					game/keys.c \
+					game/moves.c \
+					game/game.c \
 					main.c \
 
 OBJS_NAMES		=	${SRCS_NAMES:.c=.o}
@@ -24,7 +36,13 @@ SRCS			=	$(addprefix $(DIR_SRCS)/,$(SRCS_NAMES))
 
 OBJS			=	$(addprefix $(DIR_OBJS)/,$(OBJS_NAMES))
 
-INC				=	-Iinclude -Ilibft/include -Imlx #-I/usr/include -I.
+INC				=	-Iinclude -Ilibft/include -Imlx -I/usr/include
+# check our incl flags- this makefile error:
+# ignoring nonexistent directory "libft/include"
+# ignoring nonexistent directory "/include"
+# ignoring duplicate directory "/usr/include"
+
+MFLAGS			=	-lmlx_Linux -lXext -lX11 -lm -lz -Lmlx -L/usr/lib
 
 LIB				=	-Llibft -lft
 
@@ -32,15 +50,13 @@ CC				=	cc
 
 CDFLAGS 		= 	-MMD -MP
 
-MFLAGS			=	-lmlx_Linux -lXext -lX11 -lm -lz -Lmlx -L/usr/lib
-
 CFLAGS			=	-g3 -Wall -Werror -Wextra
 
 all:	${NAME}
 
 $(NAME): $(DIR_OBJS) $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) ${INC} $(CDFLAGS) $(MFLAGS) $(OBJS) $(LIB) -o $(NAME)
-	@ echo "EYUP MATE YALRIGHT?"  | toilet -f future -F border --gay
+	$(CC) $(CFLAGS) -o $(NAME) $(INC) $(OBJS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
+	@ echo "debug me baby"  | toilet -f future -F border --gay
 
 $(LIBFT):
 		make -C libft
