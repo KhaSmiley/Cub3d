@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
 /*   Updated: 2024/06/07 18:30:11 by lbarry           ###   ########.fr       */
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	printf("Khalau World\n");
+	data.path = argv[1];
 
 	static t_data data = {0};
 	data.nb_line = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 18:26:14 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/05/21 21:05:15 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,27 @@
 
 /* parsing .c */
 
-int			invalid_char_in_map(t_data *data);
-int			check_map_right_and_size(t_data *data, char *path);
-void		push_map_to_struct(t_data *data, char *path);
-int			parsing(t_data *data, char *arg);
+int parsing(t_data *data, char *arg);
+int init_data(t_data *data);
+char **push_map_to_struct(t_data *data);
+int map_is_flooded(t_data *data);
+
+/* parsing_map_spaces.c */
+
+char **ft_add_space_to_map(t_data *data);
+void find_size_to_malloc_add_spaces(t_data *data);
+char *ft_strcpy_cube(char *dest, char *src);
 
 /* parsing_utils.c */
 
-int			check_extension(char *argv);
-size_t		ft_strlen_until_char(char *str, char c);
+size_t ft_strlen_until_char(char *str, char c);
+int check_extension(char *argv);
+int invalid_char_in_map(t_data *data);
+int invalid_nb_player(t_data *data);
+
+/* parsing_info.c */
+
+int check_info_map(t_data *data);
 
 /* utils.c */
 
