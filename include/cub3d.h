@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/21 21:05:15 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:15:18 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 /* parsing .c */
 
 int parsing(t_data *data, char *arg);
-int init_data(t_data *data);
+// int init_data(t_data *data);
 char **push_map_to_struct(t_data *data);
 int map_is_flooded(t_data *data);
 

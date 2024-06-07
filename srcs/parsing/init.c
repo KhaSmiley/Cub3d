@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/15 20:24:08 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:18:22 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	init_ray(t_data *data)
 	// check this
 	ray.plane.x = 0.66 * (data->player->dir.y);
 	ray.plane.y = 0.66 * (-1 * data->player->dir.x);
-  ray.first_step.x = 0;
-	ray.first_step.y = 0;
 	ray.next_step.x = 0; //cos(deg_to_rad(ray.ray_dir));
 	ray.next_step.y = 0; //sin(deg_to_rad(ray.ray_dir));
 	ray.distance_to_wall = 0;
@@ -37,30 +35,6 @@ void	init_ray(t_data *data)
 	ray.draw_start = 0;
 	ray.draw_end = 0;
 	data->ray = &ray;
-}
-
-void	set_player_start_position(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = data->map_start;
-	while (i < data->nb_line)
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'W' || data->map[i][j] == 'E')
-			{
-				data->start_x = j;
-				data->start_y = i;
-				data->player_dir = data->map[i][j];
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
 }
 
  void	init_player(t_data *data)

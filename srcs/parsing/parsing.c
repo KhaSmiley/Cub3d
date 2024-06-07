@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:55:24 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/05/24 17:26:22 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/07 23:31:02 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int map_is_flooded(t_data *data)
         {
             if (data->map[i][j] == '0')
             {
-                if (data->map[i][j + 1] == ' ')
+                if (data->map[i][j + 1] == '2')
                     return (ft_printf("Error\nMap is not flooded\n", data->map[i]), 1);
-                else if(data->map[i][j - 1] == ' ')
+                else if(data->map[i][j - 1] == '2')
                     return (ft_printf("Error\nMap is not flooded\n", data->map[i]), 1);
-                else if(data->map[i + 1][j] == ' ')
+                else if(data->map[i + 1][j] == '2')
                     return (ft_printf("Error\nMap is not flooded\n", data->map[i]), 1);
-                else if(data->map[i - 1][j] == ' ')
+                else if(data->map[i - 1][j] == '2')
                     return (ft_printf("Error\nMap is not flooded\n", data->map[i], i, j), 1);
             }
             j++;
@@ -43,7 +43,6 @@ int map_is_flooded(t_data *data)
 
 int	parsing(t_data *data, char *arg)
 {
-    (void)arg;
     if (check_extension(arg))
         return (1);
     else if (check_info_map(data))
@@ -51,20 +50,11 @@ int	parsing(t_data *data, char *arg)
 	else if (invalid_char_in_map(data))
 		return (1);
 	data->map = ft_add_space_to_map(data);
-    for(int i = 0; data->map[i]; i++)
-        printf("%s\n", data->map[i]);
+    // for(int i = 0; data->map[i]; i++)
+    //     printf("%s\n", data->map[i]);
     if (map_is_flooded(data))
         return (1);
     return (0);
-}
-
-int	init_data(t_data *data)
-{
-	data->map_start = 0;
-	data->nb_line = 0;
-	data->len_max = 0;
-	data->nb_player = 0;
-	return (0);
 }
 
 char **push_map_to_struct(t_data *data)
@@ -99,5 +89,5 @@ char **push_map_to_struct(t_data *data)
     data->map[i] = NULL;
     free(line);
     close(fd);
-    return (data->map);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    return (data->map);
 }

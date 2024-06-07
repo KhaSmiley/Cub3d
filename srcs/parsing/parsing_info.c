@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:23 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/07 21:11:17 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/08 00:57:10 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void stock_map_to_struct(t_data *data, int size)
     int i;
     char *line;
     int fd;
-    
+
     i = 0;
     data->map = ft_calloc(sizeof(char *), size + 1);
     fd = open(data->path, O_RDONLY);
@@ -85,25 +85,25 @@ void stock_map_2(t_data *data, char *line, int *i)
             data->map_start++;
             (*i)++;
             data->texture[1] = ft_substr(&line[ft_find_i(line)], 0, ft_strlen_until_char(line, '\n'));
-        }    
+        }
         else if (!ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "WE	", 3))
         {
             data->map_start++;
             (*i)++;
             data->texture[2] = ft_substr(&line[ft_find_i(line)], 0, ft_strlen_until_char(line, '\n'));
-        }    
+        }
         else if (!ft_strncmp(line, "EA ", 3) || !ft_strncmp(line, "EA	", 3))
         {
             data->map_start++;
             (*i)++;
             data->texture[3] = ft_substr(&line[ft_find_i(line)], 0, ft_strlen_until_char(line, '\n'));
-        }    
+        }
         else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "F	", 3))
         {
             data->map_start++;
             (*i)++;
             data->color[0] = ft_substr(&line[ft_find_i(line)], 0, ft_strlen_until_char(line, '\n'));
-        }    
+        }
         else if (!ft_strncmp(line, "C ", 2) || !ft_strncmp(line, "C	", 3))
         {
             data->map_start++;
@@ -116,12 +116,12 @@ int    stock_info_map(t_data *data, int fd)
 {
     int i;
     char *line;
-    
+
     i = 0;
     data->texture = ft_calloc(sizeof(char *), 5);
     data->color = ft_calloc(sizeof(char *), 3);
     while(i != 6)
-    {   
+    {
         line = get_next_line(fd);
         if (!line)
             break ;
@@ -143,25 +143,25 @@ int    stock_info_map(t_data *data, int fd)
         //     data->map_start++;
         //     i++;
         //     data->texture[1] = ft_substr(&line[ft_find_i(line)], 0, ft_strlen_until_char(line, '\n'));
-        // }    
+        // }
         // else if (!ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "WE	", 3))
         // {
         //     data->map_start++;
         //     i++;
         //     data->texture[2] = ft_substr(&line[ft_find_i(line)], 0, ft_strlen_until_char(line, '\n'));
-        // }    
+        // }
         // else if (!ft_strncmp(line, "EA ", 3) || !ft_strncmp(line, "EA	", 3))
         // {
         //     data->map_start++;
         //     i++;
         //     data->texture[3] = ft_substr(&line[ft_find_i(line)], 0, ft_strlen_until_char(line, '\n'));
-        // }    
+        // }
         // else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "F	", 3))
         // {
         //     data->map_start++;
         //     i++;
         //     data->color[0] = ft_substr(&line[ft_find_i(line)], 0, ft_strlen_until_char(line, '\n'));
-        // }    
+        // }
         // else if (!ft_strncmp(line, "C ", 2) || !ft_strncmp(line, "C	", 3))
         // {
         //     data->map_start++;
@@ -247,8 +247,8 @@ int convert_color(t_data *data)
     char **tab_texture;
     int gb_f[3];
     int gb_c[3];
-    
-    i = 0;
+
+	i = 0;
     tab_colors = ft_split(data->color[0], ',');
     while(tab_colors[i])
     {
@@ -257,12 +257,11 @@ int convert_color(t_data *data)
             return (ft_printf("Error\nColor is not valid\n"), 1);
         i++;
     }
-    // free_tab(tab_colors);
     i = 0;
     tab_texture = ft_split(data->color[1], ',');
     while(tab_texture[i])
     {
-        gb_c[i] = ft_atoi(tab_colors[i]);
+        gb_c[i] = ft_atoi(tab_texture[i]);
         if (gb_c[i] > 255 || gb_c[i] < 0)
             return (ft_printf("Error\nColor is not valid\n"), 1);
         i++;
@@ -272,6 +271,8 @@ int convert_color(t_data *data)
     free_tab(tab_colors);
     free_tab(tab_texture);
     free_tab(data->color);
+	printf("F = %d\n", data->rgb_f);
+	printf("C = %d\n", data->rgb_c);
     return (0);
 }
 
