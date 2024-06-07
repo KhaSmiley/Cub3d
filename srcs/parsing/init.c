@@ -78,7 +78,7 @@ void	init_mlx(t_data *data)
 		ft_printf("mlx ptr creation failed\n");
 		return ;
 	}
-	mlx_struct.mlx_win = mlx_new_window(mlx_struct.mlx_ptr, S_W, S_H, "Cub3D");
+	mlx_struct.mlx_win = mlx_new_window(mlx_struct.mlx_ptr, S_W, S_H, "Khalau World");
 	if (!mlx_struct.mlx_win)
 	{
 		ft_printf("mlx window creation failed\n");
