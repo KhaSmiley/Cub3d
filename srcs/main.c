@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 21:17:27 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:30:11 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 
 int	main(int argc, char **argv)
 {
-	static t_data data = {0};
-
 	printf("Khalau World\n");
 	data.path = argv[1];
+
+	static t_data data = {0};
+	data.nb_line = 0;
 	if (argc == 2)
 	{
-		if (init_data(&data))
-			return (0);
 		if (parsing(&data, argv[1]))
 			return (0);
-		printf("%d\n", data.rgb_c);
-		printf("%d\n", data.rgb_f);
-		// init_player(&data);
-		// print_arr(data.map);
-		// init_game(&data);
-		free_tab(data.info);
-		free_tab(data.map);
+		print_arr(data.map);
+		init_data(&data);
+		init_player(&data);
+		init_ray(&data);
+		init_mlx(&data);
+		init_game(&data, data.mlx);
+		play_game(&data);
 	}
 	else
 		ft_printf("Error number of args\n");

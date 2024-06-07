@@ -18,10 +18,16 @@ SRCS_NAMES		=	parsing/parsing.c \
 					parsing/parsing_utils.c \
 					parsing/parsing_map_spaces.c \
 					parsing/init.c \
+					parsing/init_utils.c \
 					utils/utils.c \
+					utils/clean.c\
 					rays/pixels.c \
+					rays/maths.c \
+					rays/rays.c \
+					rays/walls.c \
 					game/keys.c \
 					game/moves.c \
+					game/game.c \
 					main.c \
 
 OBJS_NAMES		=	${SRCS_NAMES:.c=.o}
@@ -52,7 +58,7 @@ all:	${NAME}
 
 $(NAME): $(DIR_OBJS) $(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) -o $(NAME) $(INC) $(OBJS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
-	@ echo "EYUP MATE YALRIGHT?"  | toilet -f future -F border --gay
+	@ echo "debug me baby"  | toilet -f future -F border --gay
 
 $(LIBFT):
 		make -C libft

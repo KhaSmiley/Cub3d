@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 00:13:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/22 18:26:55 by lbarry           ###   ########.fr       */
+/*   Created: 2024/05/16 17:10:37 by lbarry            #+#    #+#             */
+/*   Updated: 2024/06/07 18:37:53 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
-void	print_arr(char **arr)
+void	play_game(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		ft_printf("%s\n",arr[i]);
-		i++;
-	}
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	unsigned char	*dst;
-	size_t			i;
-
-	dst = s;
-	i = 0;
-	while (i < n)
-	{
-		dst[i] = c;
-		i++;
-	}
-	return (s);
+	mlx_loop_hook(data->mlx->mlx_ptr, &move_rotate, data);
+	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, &key_press, data->mlx);
+	mlx_hook(data->mlx->mlx_win, 3, 1L << 1, &key_release, data->mlx);
+	//mlx_hook(data->mlx->mlx_win, DestroyNotify, StructureNotifyMask, &on_destroy, &data);
+	mlx_loop(data->mlx->mlx_ptr);
 }
