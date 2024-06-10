@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 19:12:56 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/10 22:44:00 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	calculations(t_data *data)
 		else
 			data->ray->distance_to_wall = (data->ray->map.y - data->player->pos.y + (1 - data->ray->step_flag.y) / 2) / data->ray->ray_dir.y;
 		calculate_wall_len(data);
-		// draw_walls_colours(data, x);
+		//draw_walls_colors(data, x);
 		draw_walls_textures(data, x);
 		x++;
 	}

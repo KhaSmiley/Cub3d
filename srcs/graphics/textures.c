@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 19:29:45 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/11 00:17:08 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ void	setup_textures(t_data *data)
 	if (!textures.img)
 		printf("test texture not initialised\n");
 	textures.addr = (int *)mlx_get_data_addr(textures.img, &(textures.bpp), &(textures.line_l), &(textures.endian));
+	printf("%stextures addr %p%s\n", GREEN, textures.addr, RESET);
+	printf("%stextures bpp %d%s\n", GREEN, textures.bpp, RESET);
+	printf("%stextures line_l %d%s\n", GREEN, textures.line_l, RESET);
+	printf("%stextures endian %d%s\n", GREEN, textures.endian, RESET);
 }
 
 // mlx new img to get img ptr for screen, get data addr using this ptr - creates buffer
-
 void	setup_screen_buffer(t_data *data)
 {
 	static	t_textures screen_buffer = {0};
@@ -36,6 +39,10 @@ void	setup_screen_buffer(t_data *data)
 		printf("screen buffer not initialised\n");
 	data->mlx->screen_buffer->addr = (int *)mlx_get_data_addr(data->mlx->screen_ptr, \
 		&(data->mlx->screen_buffer->bpp), &(data->mlx->screen_buffer->line_l), &(data->mlx->screen_buffer->endian));
+	printf("%sscreen buffer addr %p%s\n", CYAN, data->mlx->screen_buffer->addr, RESET);
+	printf("%sscreen buffer bpp %d%s\n", CYAN, data->mlx->screen_buffer->bpp, RESET);
+	printf("%sscreen buffer line_l %d%s\n", CYAN, data->mlx->screen_buffer->line_l, RESET);
+	printf("%sscreen buffer endian %d%s\n", CYAN, data->mlx->screen_buffer->endian, RESET);
 }
 
 // NEXT
@@ -54,36 +61,34 @@ void	setup_screen_buffer(t_data *data)
 // same calculations within texture array to find corresponding exact pixel color value
 // 4. draw floor --> screen height
 
+
+void	draw_ceiling(t_data *data, int x)
+{
+	int		ceiling;
+
+	ceiling = 0;
+	while (ceiling < data->ray->draw_start)
+	{
+		printf("%sceiling %d%s\n", BLUE, ceiling, RESET);
+		printf("%sray draw start %d%s\n", YELLOW, data->ray->draw_start, RESET);
+		printf("trying to put ceiling colour %d at buffer addr %d\n", data->rgb_ceiling, (ceiling * data->mlx->screen_buffer->line_l / 4 + x));
+		data->mlx->screen_buffer->addr[ceiling * data->mlx->screen_buffer->line_l / 4 + x] = data->rgb_ceiling;
+		ceiling++;
+	}
+}
 void	draw_walls_textures(t_data *data, int x)
 {
-	// int		wall;
-	int		ceiling;
-	// int		floor;
-	// double	text_pos;
-	// double	step;
-	// int		texture_x;
-	// int		texture_y;
-	// double	wall_hit_x;
+	int		wall;
+	int		floor;
 
-	// wall = data->ray->draw_start;
-	ceiling = 0;
+	wall = data->ray->draw_start;
+	floor = data->ray->draw_end;
 
-	// (void)x;
-	// (void)texture_x;
-	// (void)texture_y;
-	// (void)text_pos;
-	// (void)step;
-	// (void)wall_hit_x;
-	// (void)floor;
+	(void)x;
 
 	// draw ceiling
 	// put_line(data, x, 0, data->ray->draw_start, data->rgb_ceiling);
-	while (ceiling < data->ray->draw_start)
-	{
-		printf("trying to put ceiling colour %d at buffer addr %d\n", data->rgb_ceiling, (ceiling * data->mlx->screen_buffer->line_l / 4 + ceiling));
-		data->mlx->screen_buffer->addr[ceiling * data->mlx->screen_buffer->line_l / 4 + ceiling] = data->rgb_ceiling;
-		ceiling++;
-	}
+	draw_ceiling(data, x);
 /*
 	// stuff in amir's init game textures func
 	// find which texture, which direction we're facting (ray_dir -1 or 1)
@@ -114,7 +119,7 @@ void	draw_walls_textures(t_data *data, int x)
 	}
 */
 
-	put_line(data, x, data->ray->draw_end, S_H, data->rgb_floor);
+	// put_line(data, x, data->ray->draw_end, S_H, data->rgb_floor);
 	// floor = data->ray->draw_end;
 	// while (floor < S_H)
 	// {

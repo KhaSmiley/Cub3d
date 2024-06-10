@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 17:47:39 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/10 22:56:04 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ typedef struct s_ray // ray casting
 	int			wall_len; // wall height - length of ray to draw (used to calc ceiling + floor too)
 	int			draw_start; // top of wall
 	int			draw_end; // bottom of wall
+	double		text_pos; // current texture position
+	double		text_step; // step to increase text_pos on y axis of texture
+	t_moha2i	text_coord; // texture coordinates
+	double		wall_x; // exact x coordinate of the wall hit
 }	t_ray;
 
 typedef struct s_player

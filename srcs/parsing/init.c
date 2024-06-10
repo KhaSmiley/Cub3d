@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 17:54:24 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/10 22:57:20 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	init_ray(t_data *data)
 	ray.wall_len = 0;
 	ray.draw_start = 0;
 	ray.draw_end = 0;
+	ray.text_pos = 0;
+	ray.text_step = 0;
+	ray.text_coord.x = 0;
+	ray.text_coord.y = 0;
+	ray.wall_x = 0;
 	data->ray = &ray;
 }
 
