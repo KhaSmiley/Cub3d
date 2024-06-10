@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/06 17:25:07 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:12:56 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	calculations(t_data *data)
 		calculate_steps(data);
 		find_next_wall(data);
 		// calculate distance to closest wall
-		if (data->ray->texture == 'W' || data->ray->texture == 'E')
+		if (data->ray->texture == 'W' || data->ray->texture == 'E') // side == 0
 			data->ray->distance_to_wall = (data->ray->map.x - data->player->pos.x + (1 - data->ray->step_flag.x) / 2) / data->ray->ray_dir.x;
 		else
 			data->ray->distance_to_wall = (data->ray->map.y - data->player->pos.y + (1 - data->ray->step_flag.y) / 2) / data->ray->ray_dir.y;
 		calculate_wall_len(data);
-		// replace with wall textures / buffer fill funcs (no more put pixel)
-		draw_walls(data, x);
+		// draw_walls_colours(data, x);
+		draw_walls_textures(data, x);
 		x++;
 	}
 	return (0);

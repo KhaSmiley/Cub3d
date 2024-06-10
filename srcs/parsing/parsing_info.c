@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:23 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/08 00:57:10 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:40:03 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,13 +266,13 @@ int convert_color(t_data *data)
             return (ft_printf("Error\nColor is not valid\n"), 1);
         i++;
     }
-    data->rgb_f = convert_to_rgb(gb_f[0], gb_f[1], gb_f[2]);
-    data->rgb_c = convert_to_rgb(gb_c[0], gb_c[1], gb_c[2]);
+    data->rgb_floor = convert_to_rgb(gb_f[0], gb_f[1], gb_f[2]);
+    data->rgb_ceiling = convert_to_rgb(gb_c[0], gb_c[1], gb_c[2]);
     free_tab(tab_colors);
     free_tab(tab_texture);
     free_tab(data->color);
-	printf("F = %d\n", data->rgb_f);
-	printf("C = %d\n", data->rgb_c);
+	printf("F = %d\n", data->rgb_floor);
+	printf("C = %d\n", data->rgb_ceiling);
     return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 22:18:22 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:54:24 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,8 @@ void	init_mlx(t_data *data)
 	data->mlx = &mlx_struct;
 }
 
-void	init_game(t_data *data, t_mlx *mlx_struct)
+void	init_textures(t_data *data)
 {
-	display_map(data);
-	put_player(mlx_struct->mlx_ptr, mlx_struct->mlx_win, data->player->pos.x, data->player->pos.y);
-	// ft_printf("%sput player: y = %d, x = %d direction = %c%s\n", YELLOW, (int)data->player->pos.x, (int)data->player->pos.y, data->player_dir, RESET);
+	setup_textures(data);
+	setup_screen_buffer(data);
 }

@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 22:15:18 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:13:14 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		init_data(t_data *data);
 void		init_player(t_data *data);
 void		init_ray(t_data *data);
 void		init_mlx(t_data *data);
-void		init_game(t_data *data, t_mlx *mlx_struct);
+void		init_textures(t_data *data);
 
 /* init_utils.c */
 
@@ -92,7 +92,7 @@ void		set_start_direction(t_player *player, char dir);
 void		get_map_width_height(t_data *data);
 void		display_map(t_data *data);
 
-/* pixels.c */
+/* pixels.c */ // playing around at the start
 
 void		put_tiles(void *mlx_ptr, void *win_ptr, int x, int y);
 void		put_background(t_mlx *mlx_struct);
@@ -108,18 +108,18 @@ int			rad_to_deg(float rad);
 int			calculations(t_data *data);
 void		init_camera_position(t_data *data, int x);
 
-/* walls.c */ // real 3D raycasting
+/* raycasting.c */
 
-void		draw_walls(t_data *data, int x);
+void		draw_walls_colors(t_data *data, int x);
+void		draw_walls_textures(t_data *data, int x);
 void		calculate_wall_len(t_data *data);
 void		find_next_wall(t_data *data);
 void		calculate_steps(t_data *data);
 
-/* rays.c */ // homemade 2D raycasting
+/* textures.c */
 
-int			cast_rays(t_data *data);
-void		put_rays_fov(t_data *data, t_ray *ray);
-void		put_ray(t_data *data, t_player *player, float ray_end_x, float ray_end_y);
+void		setup_textures(t_data *data);
+void		setup_screen_buffer(t_data *data);
 
 /* keys.c */
 

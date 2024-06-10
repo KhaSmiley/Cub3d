@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/10 23:26:42 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:42:10 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-// hook on function listening to key press
-// set variable to 1 when key being pressed
 
 int	move_rotate(t_data *data)
 {
@@ -42,6 +39,7 @@ int	move_rotate(t_data *data)
 	// 	//mlx_clear_window(data->mlx->mlx_ptr, data->mlx->mlx_win);
 	// }
 	calculations(data);
+	//put_khalid(data);
 	return (1);
 }
 

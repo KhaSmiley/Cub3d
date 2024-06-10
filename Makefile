@@ -21,10 +21,10 @@ SRCS_NAMES		=	parsing/parsing.c \
 					parsing/init_utils.c \
 					utils/utils.c \
 					utils/clean.c\
-					rays/pixels.c \
-					rays/maths.c \
-					rays/rays.c \
-					rays/walls.c \
+					graphics/pixels.c \
+					graphics/maths.c \
+					graphics/raycasting.c \
+					graphics/textures.c \
 					game/keys.c \
 					game/moves.c \
 					game/game.c \
