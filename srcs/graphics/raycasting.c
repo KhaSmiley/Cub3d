@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:24:47 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 18:19:20 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/12 19:52:20 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	find_next_wall(t_data *data)
 			else
 				data->ray->texture = 'S';
 		}
-		// protections ? if == 2 || < 0
 		//Check if ray has hit a wall
 		if (data->map[data->ray->map.y][data->ray->map.x] == '1')
 			hit = 1;

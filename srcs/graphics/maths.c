@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 22:44:00 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:53:05 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	calculations(t_data *data)
 		draw_walls_textures(data, x);
 		x++;
 	}
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->mlx_win, data->mlx->screen_ptr, 0, 0);
 	return (0);
 }

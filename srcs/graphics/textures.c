@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/11 00:17:08 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/12 20:05:43 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	setup_textures(t_data *data)
 	// turn this into double tableau de struct textures - do each step 4 times
 	static t_textures textures = {0};
 	data->textures = &textures;
-	textures.img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "./textures/thisisfine.xpm", &(textures.w), &(textures.h));
+	textures.img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "./textures/new.xpm", &(textures.w), &(textures.h));
 	if (!textures.img)
 		printf("test texture not initialised\n");
 	textures.addr = (int *)mlx_get_data_addr(textures.img, &(textures.bpp), &(textures.line_l), &(textures.endian));
@@ -64,83 +64,65 @@ void	setup_screen_buffer(t_data *data)
 
 void	draw_ceiling(t_data *data, int x)
 {
-	int		ceiling;
+	int	ceiling;
 
 	ceiling = 0;
 	while (ceiling < data->ray->draw_start)
 	{
-		printf("%sceiling %d%s\n", BLUE, ceiling, RESET);
-		printf("%sray draw start %d%s\n", YELLOW, data->ray->draw_start, RESET);
-		printf("trying to put ceiling colour %d at buffer addr %d\n", data->rgb_ceiling, (ceiling * data->mlx->screen_buffer->line_l / 4 + x));
 		data->mlx->screen_buffer->addr[ceiling * data->mlx->screen_buffer->line_l / 4 + x] = data->rgb_ceiling;
 		ceiling++;
 	}
 }
+
+void	draw_floor(t_data *data, int x)
+{
+	int	floor;
+
+	floor = data->ray->draw_end;
+	while (floor < S_H)
+	{
+		data->mlx->screen_buffer->addr[floor * data->mlx->screen_buffer->line_l / 4 + x] = data->rgb_floor;
+		floor++;
+	}
+}
 void	draw_walls_textures(t_data *data, int x)
 {
-	int		wall;
-	int		floor;
+	int	wall;
 
 	wall = data->ray->draw_start;
-	floor = data->ray->draw_end;
-
-	(void)x;
-
-	// draw ceiling
-	// put_line(data, x, 0, data->ray->draw_start, data->rgb_ceiling);
 	draw_ceiling(data, x);
-/*
+	draw_floor(data, x);
+
 	// stuff in amir's init game textures func
 	// find which texture, which direction we're facting (ray_dir -1 or 1)
 	// translate N S E W into 0 1 2 3 for array index
 	// side == 0 = e w, side == 1 = n s
+
 	if (data->ray->texture == 'E' || data->ray->texture == 'W')
-		wall_hit_x = data->player->pos.y + data->ray->distance_to_wall * data->ray->ray_dir.y;
+		data->ray->wall_x = data->player->pos.y + data->ray->distance_to_wall * data->ray->ray_dir.y;
 	else
-		wall_hit_x = data->player->pos.x + data->ray->distance_to_wall * data->ray->ray_dir.x;
-	// game->t.wall_x -= floor(game->t.wall_x); <- find out what this line does- floor seems to be either 1 or -1
+		data->ray->wall_x = data->player->pos.x + data->ray->distance_to_wall * data->ray->ray_dir.x;
+	data->ray->wall_x -= floor(data->ray->wall_x); // maths.h func which leaves only fractional part of the coordinate where the wall was hit, removes int part, leaves value between 0 and 1. textures are typically accessed using normalized coordinates (between 0 and 1).
 
 	// calculations (texture step and pos) to make texture coords proportional
-	step = 1.0 * data->textures->h / data->textures->line_l;
-	texture_x = (int)(wall_hit_x * data->textures->w);
-	if (data->ray->texture == 'E' || data->ray->texture == 'W')
-		texture_x = data->textures->w - texture_x - 1;
-	text_pos = (data->ray->draw_start - S_H / 2 + data->ray->wall_len / 2) * step;
+	data->ray->text_step = 1.0 * data->textures->h / data->ray->wall_len;
+
+	data->ray->text_coord.x = (int)(data->ray->wall_x * (double)data->textures->w);
+
+	// repair flipped image problem
+	if (data->ray->texture == 'N' || data->ray->texture == 'E')
+		data->ray->text_coord.x = 64 - data->ray->text_coord.x - 1;
+
+	// get the exact texture position on collumn being drawn
+	data->ray->text_pos = (data->ray->draw_start - S_H / 2 + data->ray->wall_len / 2) * data->ray->text_step;
 
 	// while wall len
 	while (wall < data->ray->draw_end)
 	{
-		texture_y = (int)text_pos & (data->textures->h - 1); // check how this binary comp works
-		text_pos += step;
+		data->ray->text_coord.y = (int)data->ray->text_pos & (data->textures->h - 1); // check how this binary comp works
+		data->ray->text_pos += data->ray->text_step;
 		if (x < S_W && wall < S_H)
-			data->mlx->screen_buffer->addr[wall * data->mlx->screen_buffer->line_l / 4 + x] \
-				= data->textures->addr[texture_y * data->textures->line_l / 4 + texture_x];
+			data->mlx->screen_buffer->addr[wall * data->mlx->screen_buffer->line_l / 4 + x]	= data->textures->addr[data->ray->text_coord.y * data->textures->line_l / 4 + data->ray->text_coord.x];
 		wall++;
 	}
-*/
-
-	// put_line(data, x, data->ray->draw_end, S_H, data->rgb_floor);
-	// floor = data->ray->draw_end;
-	// while (floor < S_H)
-	// {
-	// 	data->mlx->screen_buffer->addr[floor * data->mlx->screen_buffer->line_l / 4 + floor] = data->rgb_floor;
-	// 	floor++;
-	// }
 }
-
-	// int		y;
-	// int		color;
-	// double	text_pos;
-	// int		tex_x;
-	// int		tex_y;
-
-	// y = data->ray->draw_start;
-	// while (y < data->ray->draw_end)
-	// {
-	// 	text_pos = (y - S_H / 2 + data->ray->wall_len / 2) * (data->textures->h / data->ray->wall_len);
-	// 	tex_x = (int)text_pos;
-	// 	tex_y = (int)data->ray->texture;
-	// 	color = data->textures->addr[tex_y * data->textures->line_l / 4 + tex_x];
-	// 	data->mlx->screen_buffer->addr[y * data->mlx->screen_buffer->line_l / 4 + x] = color;
-	// 	y++;
-	// }
