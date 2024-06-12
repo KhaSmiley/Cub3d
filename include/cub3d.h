@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 19:13:14 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/12 21:04:34 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,53 @@
 # define KEY_RIGHT		65363 // look right
 // add key press and release even no and masks as macros (press, press_mask, release, release_mask)
 
-/* parsing .c */
+/* parsing_colors */
 
-int parsing(t_data *data, char *arg);
-// int init_data(t_data *data);
-char **push_map_to_struct(t_data *data);
-int map_is_flooded(t_data *data);
+int		check_digit_space_two(t_data *data, int *i, int *j, int *flag);
+int		ft_check_digit_space(t_data *data);
+int		stock_color(t_data *data, int *i, int *j, int *x);
+int		check_colors_ok(t_data *data);
+int		convert_color(t_data *data);
 
-/* parsing_map_spaces.c */
+/* parsing_info */
 
-char **ft_add_space_to_map(t_data *data);
-void find_size_to_malloc_add_spaces(t_data *data);
-char *ft_strcpy_cube(char *dest, char *src);
+int		ft_find_i(char *str);
+void	skip_info_map(t_data *data, int fd);
+int		find_start_map(t_data *data, int fd);
+int		find_size_malloc_map(t_data *data, int fd);
+int		check_info_map(t_data *data);
+
+/* parsing_map_spaces */
+
+char	**ft_add_space_to_map(t_data *data);
+void	find_size_to_malloc_add_spaces(t_data *data);
+char	*ft_strcpy_cube(char *dest, char *src);
+
+/* parsing_utils_colors */
+
+int		convert_to_rgb(int r, int g, int b);
+int		find_first_digit(char *str);
+int		ft_count_comma(t_data *data);
+
+/* parsing_utils_map */
+
+int     check_end_map(int fd);
+int     stock_map_to_struct(t_data *data, int size);
+void    stock_map_2(t_data *data, char *line, int *i);
+int     stock_info_map(t_data *data, int fd);
 
 /* parsing_utils.c */
 
-size_t ft_strlen_until_char(char *str, char c);
-int check_extension(char *argv);
-int invalid_char_in_map(t_data *data);
-int invalid_nb_player(t_data *data);
+size_t	ft_strlen_until_char(char *str, char c);
+int		check_extension(char *argv);
+int		invalid_char_in_map(t_data *data);
+int		invalid_nb_player(t_data *data);
 
-/* parsing_info.c */
+/* parsing.c */
 
-int check_info_map(t_data *data);
+int		map_is_flooded(t_data *data);
+int		parsing(t_data *data, char *arg);
+char	**push_map_to_struct(t_data *data);
 
 /* utils.c */
 

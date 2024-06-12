@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:22:09 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/05/15 20:23:58 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/12 21:06:15 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 size_t	ft_strlen_until_char(char *str, char c)
 {
 	size_t	i;
+
 	if (!str)
 		return (0);
 	i = 0;
@@ -25,7 +26,7 @@ size_t	ft_strlen_until_char(char *str, char c)
 
 int	check_extension(char *argv)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (argv[i] != '\0')
@@ -73,16 +74,16 @@ int	invalid_char_in_map(t_data *data)
 	}
 	return (0);
 }
-int		invalid_nb_player(t_data *data)
+int	invalid_nb_player(t_data *data)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while(data->map[i])
+	while (data->map[i])
 	{
 		j = 0;
-		while(data->map[i][j])
+		while (data->map[i][j])
 		{
 			if (ft_strchr("NEWS", data->map[i][j]))
 				data->nb_player++;
@@ -96,5 +97,4 @@ int		invalid_nb_player(t_data *data)
 		return (1);
 	}
 	return (0);
-	
 }
