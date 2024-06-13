@@ -14,17 +14,20 @@ DIR_SUBDIRS		=	parsing \
 DIR_OBJS		=	.objs
 
 SRCS_NAMES		=	parsing/parsing.c \
-					parsing/parsing_info.c \
 					parsing/parsing_utils.c \
+					parsing/parsing_utils_map.c \
+					parsing/parsing_utils_colors.c \
 					parsing/parsing_map_spaces.c \
+					parsing/parsing_info.c \
+					parsing/parsing_colors.c \
 					parsing/init.c \
 					parsing/init_utils.c \
 					utils/utils.c \
 					utils/clean.c\
-					rays/pixels.c \
-					rays/maths.c \
-					rays/rays.c \
-					rays/walls.c \
+					graphics/pixels.c \
+					graphics/maths.c \
+					graphics/raycasting.c \
+					graphics/textures.c \
 					game/keys.c \
 					game/moves.c \
 					game/game.c \

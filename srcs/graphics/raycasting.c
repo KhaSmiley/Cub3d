@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   walls.c                                            :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:24:47 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/08 00:46:40 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/12 19:52:20 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	draw_walls(t_data *data, int x)
+void	draw_walls_colors(t_data *data, int x)
 {
 	int	color;
 
@@ -31,8 +31,8 @@ void	draw_walls(t_data *data, int x)
 	else
 		color = 0x00FFFF;
 	put_line(data, x, data->ray->draw_start, data->ray->draw_end, color);
-	put_line(data, x, 0, data->ray->draw_start, data->rgb_c);
-	put_line(data, x, data->ray->draw_end, S_H, data->rgb_f);
+	put_line(data, x, 0, data->ray->draw_start, data->rgb_ceiling);
+	put_line(data, x, data->ray->draw_end, S_H, data->rgb_floor);
 }
 
 void	calculate_wall_len(t_data *data)
@@ -78,7 +78,6 @@ void	find_next_wall(t_data *data)
 			else
 				data->ray->texture = 'S';
 		}
-		// protections ? if == 2 || < 0
 		//Check if ray has hit a wall
 		if (data->map[data->ray->map.y][data->ray->map.x] == '1')
 			hit = 1;

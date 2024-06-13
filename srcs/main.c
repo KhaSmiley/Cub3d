@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 22:14:41 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:54:43 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 		init_player(&data);
 		init_ray(&data);
 		init_mlx(&data);
-		init_game(&data, data.mlx);
+		init_textures(&data);
 		play_game(&data);
 	}
 	else
