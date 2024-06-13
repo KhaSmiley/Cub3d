@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
 /*   Updated: 2024/06/13 23:49:39 by lbarry           ###   ########.fr       */
@@ -71,6 +71,7 @@ char	*ft_strcpy_cube(char *dest, char *src);
 int		convert_to_rgb(int r, int g, int b);
 int		find_first_digit(char *str);
 int		ft_count_comma(t_data *data);
+int     stock_floor_ceiling(t_data *data, int i, int stock_0, int stock_1, int stock_2);
 
 /* parsing_utils_map */
 
@@ -92,6 +93,8 @@ void	ft_del_newline(t_data *data);
 int		map_is_flooded(t_data *data);
 int		parsing(t_data *data, char *arg);
 char	**push_map_to_struct(t_data *data);
+int     check_all_info(t_data *data);
+void    check_all_info_two(char *line, int *i);
 
 /* utils.c */
 

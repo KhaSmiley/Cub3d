@@ -54,7 +54,7 @@ int	find_start_map(t_data *data, int fd)
 		line = get_next_line(fd);
 		if (!line)
 		{
-			ft_printf("Error\nNo map\n");
+			ft_printf("Error\nMap not after info\n");
 			free(line);
 			close(fd);
 			return (1);
@@ -117,10 +117,10 @@ int	check_info_map(t_data *data)
 	if (stock_info_map(data, fd))
 		return (1);
 	if (find_start_map(data, fd))
-		return (1);
+		return (close(fd), free_tab(data->color), free_tab(data->texture), 1);
 	size = find_size_malloc_map(data, fd);
 	if (stock_map_to_struct(data, size))
-		return (1);
+		return (close(fd), free_tab(data->map), free_tab(data->color), free_tab(data->texture), 1);
 	close(fd);
 	ft_del_newline(data);
 	if (convert_color(data))

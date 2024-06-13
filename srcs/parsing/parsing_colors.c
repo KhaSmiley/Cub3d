@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:55:18 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/12 21:06:01 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/12 21:27:10 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ int	stock_color(t_data *data, int *i, int *j, int *x)
 				(*j)++;
 		else if (ft_isdigit(data->color[*i][*j]))
 		{
-			stock[(*x)++] = ft_atoi(&data->color[*i][*j]);
+			stock[(*x)] = ft_atoi(&data->color[*i][*j]);
+            if (stock[(*x)] < 0 || stock[(*x)] > 255)
+                return (1);
+            (*x)++;
 			while (data->color[*i][*j] && ft_isdigit(data->color[*i][*j]))
 				(*j)++;
 		}
@@ -77,6 +80,7 @@ int	stock_color(t_data *data, int *i, int *j, int *x)
 		else
 			return (1);
 	}
+	stock_floor_ceiling(data, *i, stock[0], stock[1], stock[2]);
 	if (*i == 0)
 		data->rgb_floor = convert_to_rgb(stock[0], stock[1], stock[2]);
 	else
