@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 22:57:20 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/13 22:08:14 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,14 @@ void	init_ray(t_data *data)
 	set_start_direction(data->player, data->player_dir);
 }
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, char *arg)
 {
-	get_map_width_height(data);
-	set_player_start_position(data);
-	ft_printf("%sPlayer start position: y = %d, x = %d direction = %c%s\n", BLUE, data->start_pos.x, data->start_pos.y, data->player_dir, RESET);
-	ft_printf("%sMap width = %d, height = %d%s\n", MAGENTA, data->w_map, data->h_map, RESET);
-	// floor_colour;
-	// ceiling_colour;
-	// north texture
-	// south texture
-	// west texture
-	// east texture;
+	data->path = arg;
+	data->nb_line = 0;
+	data->map_start = 0;
+	data->nb_line = 0;
+	data->len_max = 0;
+	data->nb_player = 0;
 }
 
 void	init_mlx(t_data *data)

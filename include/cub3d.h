@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/13 21:37:53 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/13 22:00:08 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int			on_destroy(t_data *data);
 
 /* init.c */
 
-void		init_data(t_data *data);
+void		init_data(t_data *data, char *arg);
 void		init_player(t_data *data);
 void		init_ray(t_data *data);
 void		init_mlx(t_data *data);

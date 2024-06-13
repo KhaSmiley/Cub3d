@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 22:56:04 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/13 23:04:34 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_data // parsing info
 	t_mlx			*mlx; // the mlx structure
 	t_player		*player; // the player structure
 	t_ray			*ray; // the ray structure
-	t_textures		*textures; // structure with img info for every texture
+	t_textures		textures[4]; // structure with img info for every texture
 }	t_data;
 
 #endif

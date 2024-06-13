@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:44:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 18:08:57 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/13 23:46:01 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 int	on_destroy(t_data *data)
 {
-	if (data->textures->img)
-		mlx_destroy_image(data->mlx->mlx_ptr, data->textures->img);
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->textures[i].img)
+			mlx_destroy_image(data->mlx->mlx_ptr, data->textures[i].img);
+		i++;
+	}
 	if (data->mlx->screen_buffer)
 		mlx_destroy_image(data->mlx->mlx_ptr, data->mlx->screen_ptr);
 	if (data->mlx->mlx_win)
