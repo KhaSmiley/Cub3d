@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/13 22:32:15 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/13 23:49:39 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ size_t	ft_strlen_until_char(char *str, char c);
 int		check_extension(char *argv);
 int		invalid_char_in_map(t_data *data);
 int		invalid_nb_player(t_data *data);
+void	ft_del_newline(t_data *data);
 
 /* parsing.c */
 
@@ -106,7 +107,7 @@ int			on_destroy(t_data *data);
 
 /* init.c */
 
-void		init_data(t_data *data);
+void		init_data(t_data *data, char *arg);
 void		init_player(t_data *data);
 void		init_ray(t_data *data);
 void		init_mlx(t_data *data);

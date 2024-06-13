@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:22:09 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/12 21:06:15 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/13 23:49:26 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,35 @@ int	invalid_nb_player(t_data *data)
 		return (1);
 	}
 	return (0);
+}
+
+void ft_del_newline(t_data *data)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (data->texture[i])
+    {
+        j = 0;
+        while (data->texture[i][j])
+        {
+            if (data->texture[i][j] == '\n')
+                data->texture[i][j] = '\0';
+            j++;
+        }
+        i++;
+    }
+    i = 0;
+    while (data->color[i])
+    {
+        j = 0;
+        while (data->color[i][j])
+        {
+            if (data->color[i][j] == '\n')
+                data->color[i][j] = '\0';
+            j++;
+        }
+        i++;
+    }
 }

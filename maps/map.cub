@@ -1,7 +1,7 @@
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-NO       ./path_to_the_north_texture
-EA ./path_to_the_east_texture
+SO textures/blackberries.xpm
+WE textures/lemon.xpm
+NO textures/peach.xpm
+EA textures/pear.xpm
 
 C 28,85,66
 F 88,96,66
