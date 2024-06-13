@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 20:42:25 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/12 21:06:13 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:41:21 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,15 @@ int	stock_info_map(t_data *data, int fd)
 	char *line;
 
 	i = 0;
+	line = NULL;
+	printf(">>>%d\n", fd);
 	data->texture = ft_calloc(sizeof(char *), 5);
 	data->color = ft_calloc(sizeof(char *), 3);
+	free(line);
 	while (i != 6)
 	{
 		line = get_next_line(fd);
+		printf(">>>>>>>>1st%s\n", line);
 		if (!line)
 			break ;
 		if (line[0] == '\n')
@@ -134,7 +138,7 @@ int	stock_info_map(t_data *data, int fd)
 	data->texture[4] = NULL;
 	data->color[2] = NULL;
 	if (i != 6)
-		return (ft_printf("Error\nMissing info\n"), free_tab(data->color),
+		return (close(fd), ft_printf("Error\nMissing infohere2\n"),
 			free_tab(data->texture), 1);
 	return (0);
 }

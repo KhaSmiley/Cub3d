@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:56:12 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/12 21:06:10 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:16:13 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,17 @@ int	ft_count_comma(t_data *data)
 		i++;
 	}
 	return (count_comma);
+}
+int	stock_floor_ceiling(t_data *data, int i, int stock_0, int stock_1, int stock_2)
+{
+	if (i == 0)
+	{
+		data->rgb_floor = convert_to_rgb(stock_0, stock_1, stock_2);
+		return (0);
+	}
+	else
+	{
+		data->rgb_ceiling = convert_to_rgb(stock_0, stock_1, stock_2);
+		return (0);
+	}
 }
