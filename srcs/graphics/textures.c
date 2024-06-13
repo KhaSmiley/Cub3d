@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/13 23:47:46 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/13 23:50:56 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	setup_textures(t_data *data)
 	i = 0;
     while (i < 4)
     {
-        printf("first texture %d = *******%s*******\n", i, data->texture[0]);
-        data->textures[i].img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, data->texture[0], &data->textures[i].w,  &data->textures[i].h);
+        printf("first texture %d = *******%s*******\n", i, data->texture[i]);
+        data->textures[i].img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, data->texture[i], &data->textures[i].w,  &data->textures[i].h);
         if (!data->textures[i].img)
             printf("texture %d not initialised\n", i);
         data->textures[i].addr = (int *)mlx_get_data_addr(data->textures[i].img, &data->textures[i].bpp, &data->textures[i].line_l, &data->textures[i].endian);

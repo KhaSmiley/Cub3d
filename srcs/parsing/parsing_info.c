@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:23 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/12 21:06:04 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/13 23:50:00 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	check_info_map(t_data *data)
 	if (stock_map_to_struct(data, size))
 		return (1);
 	close(fd);
+	ft_del_newline(data);
 	if (convert_color(data))
 		return (1);
 	return (0);
