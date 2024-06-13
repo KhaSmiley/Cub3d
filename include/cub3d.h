@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/12 21:04:34 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:37:53 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define S_H 800 // screen height
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
-# define ROTATION_SPEED .09 // rotation speed
-# define PLAYER_SPEED 0.09// player speed
+# define ROTATION_SPEED .05 // rotation speed
+# define PLAYER_SPEED 0.05 // player speed
 
 /* KEYCODES */
 # define KEY_ESC		65307 // exit

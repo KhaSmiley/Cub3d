@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/12 23:10:47 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/13 21:46:53 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	setup_textures(t_data *data)
 	// turn this into double tableau de struct textures - do each step 4 times
 	static t_textures textures = {0};
 	data->textures = &textures;
-	textures.img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "./textures/peach.xpm", &(textures.w), &(textures.h));
+	textures.img = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "./textures/pear.xpm", &(textures.w), &(textures.h));
 	if (!textures.img)
 		printf("test texture not initialised\n");
 	textures.addr = (int *)mlx_get_data_addr(textures.img, &(textures.bpp), &(textures.line_l), &(textures.endian));
@@ -52,7 +52,8 @@ void	draw_ceiling(t_data *data, int x)
 	ceiling = 0;
 	while (ceiling < data->ray->draw_start)
 	{
-		data->mlx->screen_buffer->addr[ceiling * data->mlx->screen_buffer->line_l / 4 + x] = data->rgb_ceiling;
+		if (ceiling < S_H && ceiling >= 0)
+			data->mlx->screen_buffer->addr[ceiling * data->mlx->screen_buffer->line_l / 4 + x] = data->rgb_ceiling;
 		ceiling++;
 	}
 }
@@ -64,7 +65,8 @@ void	draw_floor(t_data *data, int x)
 	floor = data->ray->draw_end;
 	while (floor < S_H)
 	{
-		data->mlx->screen_buffer->addr[floor * data->mlx->screen_buffer->line_l / 4 + x] = data->rgb_floor;
+		if (floor < S_H && floor >= 0)
+			data->mlx->screen_buffer->addr[floor * data->mlx->screen_buffer->line_l / 4 + x] = data->rgb_floor;
 		floor++;
 	}
 }
