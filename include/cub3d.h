@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 18:26:14 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/13 23:49:39 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define S_H 800 // screen height
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
-# define ROTATION_SPEED .09 // rotation speed
-# define PLAYER_SPEED 0.09// player speed
+# define ROTATION_SPEED .05 // rotation speed
+# define PLAYER_SPEED 0.05 // player speed
 
 /* KEYCODES */
 # define KEY_ESC		65307 // exit
@@ -44,17 +44,57 @@
 # define KEY_RIGHT		65363 // look right
 // add key press and release even no and masks as macros (press, press_mask, release, release_mask)
 
-/* parsing .c */
+/* parsing_colors */
 
-int			invalid_char_in_map(t_data *data);
-int			check_map_right_and_size(t_data *data, char *path);
-void		push_map_to_struct(t_data *data, char *path);
-int			parsing(t_data *data, char *arg);
+int		check_digit_space_two(t_data *data, int *i, int *j, int *flag);
+int		ft_check_digit_space(t_data *data);
+int		stock_color(t_data *data, int *i, int *j, int *x);
+int		check_colors_ok(t_data *data);
+int		convert_color(t_data *data);
+
+/* parsing_info */
+
+int		ft_find_i(char *str);
+void	skip_info_map(t_data *data, int fd);
+int		find_start_map(t_data *data, int fd);
+int		find_size_malloc_map(t_data *data, int fd);
+int		check_info_map(t_data *data);
+
+/* parsing_map_spaces */
+
+char	**ft_add_space_to_map(t_data *data);
+void	find_size_to_malloc_add_spaces(t_data *data);
+char	*ft_strcpy_cube(char *dest, char *src);
+
+/* parsing_utils_colors */
+
+int		convert_to_rgb(int r, int g, int b);
+int		find_first_digit(char *str);
+int		ft_count_comma(t_data *data);
+int     stock_floor_ceiling(t_data *data, int i, int stock_0, int stock_1, int stock_2);
+
+/* parsing_utils_map */
+
+int     check_end_map(int fd);
+int     stock_map_to_struct(t_data *data, int size);
+void    stock_map_2(t_data *data, char *line, int *i);
+int     stock_info_map(t_data *data, int fd);
 
 /* parsing_utils.c */
 
-int			check_extension(char *argv);
-size_t		ft_strlen_until_char(char *str, char c);
+size_t	ft_strlen_until_char(char *str, char c);
+int		check_extension(char *argv);
+int		invalid_char_in_map(t_data *data);
+int		invalid_nb_player(t_data *data);
+void	ft_del_newline(t_data *data);
+
+/* parsing.c */
+
+int		map_is_flooded(t_data *data);
+int		parsing(t_data *data, char *arg);
+char	**push_map_to_struct(t_data *data);
+int     check_all_info(t_data *data);
+void    check_all_info_two(char *line, int *i);
 
 /* utils.c */
 
@@ -67,11 +107,11 @@ int			on_destroy(t_data *data);
 
 /* init.c */
 
-void		init_data(t_data *data);
+void		init_data(t_data *data, char *arg);
 void		init_player(t_data *data);
 void		init_ray(t_data *data);
 void		init_mlx(t_data *data);
-void		init_game(t_data *data, t_mlx *mlx_struct);
+void		init_textures(t_data *data);
 
 /* init_utils.c */
 
@@ -80,7 +120,7 @@ void		set_start_direction(t_player *player, char dir);
 void		get_map_width_height(t_data *data);
 void		display_map(t_data *data);
 
-/* pixels.c */
+/* pixels.c */ // playing around at the start
 
 void		put_tiles(void *mlx_ptr, void *win_ptr, int x, int y);
 void		put_background(t_mlx *mlx_struct);
@@ -96,18 +136,18 @@ int			rad_to_deg(float rad);
 int			calculations(t_data *data);
 void		init_camera_position(t_data *data, int x);
 
-/* walls.c */ // real 3D raycasting
+/* raycasting.c */
 
-void		draw_walls(t_data *data, int x);
+void		draw_walls_colors(t_data *data, int x);
+void		draw_walls_textures(t_data *data, int x);
 void		calculate_wall_len(t_data *data);
 void		find_next_wall(t_data *data);
 void		calculate_steps(t_data *data);
 
-/* rays.c */ // homemade 2D raycasting
+/* textures.c */
 
-int			cast_rays(t_data *data);
-void		put_rays_fov(t_data *data, t_ray *ray);
-void		put_ray(t_data *data, t_player *player, float ray_end_x, float ray_end_y);
+void		setup_textures(t_data *data);
+void		setup_screen_buffer(t_data *data);
 
 /* keys.c */
 

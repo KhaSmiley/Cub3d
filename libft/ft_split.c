@@ -6,59 +6,75 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:47:58 by kboulkri          #+#    #+#             */
-/*   Updated: 2023/12/26 20:42:31 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/07 20:41:30 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_word(char const *s1, char c)
+#include "libft.h"
+
+static	size_t	count_str(char const *s, char c)
 {
 	size_t	i;
+	size_t	j;
 	size_t	count;
 
 	i = 0;
+	j = 0;
 	count = 0;
-	while (s1[i])
+	while (s[i])
 	{
-		if ((s1[i] != c && s1[i + 1] == '\0') || (s1[i] != c && s1[i + 1] == c))
-		{
-			count++;
+		if (s[i] == c)
 			i++;
-		}
 		else
 		{
-			i++;
+			j = i;
+			while (s[j] && s[j] != c)
+				j++;
+			i = j;
+			count++;
 		}
 	}
 	return (count);
 }
 
+static char	**make_arr(char const *s, char **arr, char c)
+{
+	size_t	i;
+	size_t	j;
+	size_t	index;
+
+	i = 0;
+	j = 0;
+	index = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			i++;
+		else
+		{
+			j = i;
+			while (s[j] && s[j] != c)
+				j++;
+			arr[index] = ft_substr(s, i, j - i);
+			i = j;
+			index++;
+		}
+	}
+	arr[index] = 0;
+	return (arr);
+}
+
 char	**ft_split(char const *s, char c)
 {
-	char	**array;
-	size_t	j;
-	size_t	len;
+	char	**arr;
 
 	if (!s)
-		return (NULL);
-	j = 0;
-	len = ft_count_word(s, c);
-	array = malloc(sizeof(char *) * (len + 1));
-	if (!array)
-		return (NULL);
-	while (*s)
-	{
-		if (*s != c)
-		{
-			len = 0;
-			while (*s && *s != c && ++len)
-				s++;
-			array[j++] = ft_substr(s - len, 0, len);
-		}
-		else
-			s++;
-	}
-	array[j] = 0;
-	return (array);
+		return (0);
+	arr = malloc(sizeof(char *) * (count_str(s, c) + 1));
+	if (!arr)
+		return (0);
+	make_arr(s, arr, c);
+	return (arr);
 }

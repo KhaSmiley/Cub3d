@@ -3,101 +3,139 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 21:29:55 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/05/06 00:37:52 by lbarry           ###   ########.fr       */
+/*   Created: 2024/05/14 19:55:24 by kboulkri          #+#    #+#             */
+/*   Updated: 2024/06/13 21:47:49 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	parsing(t_data *data, char *arg)
+void check_all_info_two(char *line, int *i)
 {
-	if (check_extension(arg) == FALSE)
-		return (1);
-	if (check_map_right_and_size(data, arg))
-		return (1);
-	push_map_to_struct(data, arg);
-	if (invalid_char_in_map(data))
-		return (1);
-	return (0);
+	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "NO		 ", 3))
+		(*i)++;
+	else if (!ft_strncmp(line, "SO ", 3) || !ft_strncmp(line, "SO	", 3))
+		(*i)++;
+	else if (!ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "WE	", 3))
+		(*i)++;
+	else if (!ft_strncmp(line, "EA ", 3) || !ft_strncmp(line, "EA	", 3))
+		(*i)++;
+	else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "F	", 3))
+		(*i)++;
+	else if (!ft_strncmp(line, "C ", 2) || !ft_strncmp(line, "C	", 3))
+		(*i)++;
 }
 
-void	push_map_to_struct(t_data *data, char *path)
+int check_all_info(t_data *data)
 {
-	int		i;
-	int		fd;
-	char	*line;
+	int fd;
+	int i;
+	char *line;
 
 	i = 0;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return ;
-	data->map = ft_calloc((data->nb_line + 1), sizeof(char *));
-	if (!data->map)
-		return ;
-	while (i < data->nb_line)
+	fd = open(data->path, O_RDONLY);
+	printf("JE SUIS FD DANS CHECK%d\n", fd);
+	while (i != 6)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		data->map[i] = ft_substr(line, 0, ft_strlen_until_char(line, '\n'));
-		i++;
+		if (line[0] == '\n')
+		{
+			free(line);
+			continue ;
+		}
+		check_all_info_two(line, &i);
 		free(line);
 	}
-	data->map[i] = NULL;
+	close(fd);
+	if (i != 6)
+		return (ft_printf("Error\nMissing infohere\n"), 1);
+	return(0);
 }
 
-int	check_map_right_and_size(t_data *data, char *path)
-{
-	int		fd;
-	char	*line;
-	int		i;
-
-	i = 0;
-	line = NULL;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (ft_printf("Error\nFile doesn't exist", -1));
-	line = get_next_line(fd);
-	if (!line)
-		exit(ft_printf("Error\nFile is empty\n"));
-	while (line)
-	{
-		if (!line)
-			break ;
-		free(line);
-		line = get_next_line(fd);
-		data->nb_line++;
-	}
-	fd = close(fd);
-	free(line);
-	return (0);
-}
-
-int	invalid_char_in_map(t_data *data)
+int	map_is_flooded(t_data *data)
 {
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 1;
 	while (data->map[i])
 	{
 		j = 0;
 		while (data->map[i][j])
 		{
-			if (data->map[i][j] != '0' && data->map[i][j] != '1'
-				&& data->map[i][j] != 'N' && data->map[i][j] != 'S'
-				&& data->map[i][j] != 'E' && data->map[i][j] != 'W'
-				&& data->map[i][j] != ' ')
+			if (data->map[i][j] == '0')
 			{
-				ft_printf("Error\nWrong char in map\n");
-				return (1);
+				if (data->map[i][j + 1] == '2')
+					return (ft_printf("Error\nMap is not flooded\n",
+							data->map[i]), 1);
+				else if (data->map[i][j - 1] == '2')
+					return (ft_printf("Error\nMap is not flooded\n",
+							data->map[i]), 1);
+				else if (data->map[i + 1][j] == '2')
+					return (ft_printf("Error\nMap is not flooded\n",
+							data->map[i]), 1);
+				else if (data->map[i - 1][j] == '2')
+					return (ft_printf("Error\nMap is not flooded\n",
+							data->map[i], i, j), 1);
 			}
 			j++;
 		}
 		i++;
 	}
 	return (0);
+}
+
+int	parsing(t_data *data, char *arg)
+{
+	if (check_extension(arg))
+		return (1);
+	if (check_all_info(data))
+		return (1);
+	if (check_info_map(data))
+		return (1);
+	else if (invalid_char_in_map(data))
+		return (1);
+	data->map = ft_add_space_to_map(data);
+	if (map_is_flooded(data))
+		return (1);
+	return (0);
+}
+
+char	**push_map_to_struct(t_data *data)
+{
+	int		i;
+	int		fd;
+	char	*line;
+
+	i = 0;
+	data->map = ft_calloc(sizeof(char *), ((data->nb_line) + 1));
+	fd = open(data->path, O_RDONLY);
+	if (fd < 0)
+		return (ft_printf("Error\nFile doesn't exist"), NULL);
+	while (i < data->map_start)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		free(line);
+		i++;
+	}
+	i = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		data->map[i] = ft_substr(line, 0, ft_strlen_until_char(line, '\n'));
+		free(line);
+		i++;
+	}
+	data->map[i] = NULL;
+	free(line);
+	close(fd);
+	return (data->map);
 }

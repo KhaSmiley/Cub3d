@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 18:32:36 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/13 22:08:14 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ void	init_ray(t_data *data)
 	// check this
 	ray.plane.x = 0.66 * (data->player->dir.y);
 	ray.plane.y = 0.66 * (-1 * data->player->dir.x);
-
-	ray.first_step.x = 0;
-	ray.first_step.y = 0;
 	ray.next_step.x = 0; //cos(deg_to_rad(ray.ray_dir));
 	ray.next_step.y = 0; //sin(deg_to_rad(ray.ray_dir));
 	ray.distance_to_wall = 0;
@@ -37,8 +34,14 @@ void	init_ray(t_data *data)
 	ray.wall_len = 0;
 	ray.draw_start = 0;
 	ray.draw_end = 0;
+	ray.text_pos = 0;
+	ray.text_step = 0;
+	ray.text_coord.x = 0;
+	ray.text_coord.y = 0;
+	ray.wall_x = 0;
 	data->ray = &ray;
 }
+
  void	init_player(t_data *data)
 {
 	static t_player	player = {0};
@@ -55,18 +58,14 @@ void	init_ray(t_data *data)
 	set_start_direction(data->player, data->player_dir);
 }
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, char *arg)
 {
-	get_map_width_height(data);
-	set_player_start_position(data);
-	ft_printf("%sPlayer start position: y = %d, x = %d direction = %c%s\n", BLUE, data->start_pos.x, data->start_pos.y, data->player_dir, RESET);
-	ft_printf("%sMap width = %d, height = %d%s\n", MAGENTA, data->w_map, data->h_map, RESET);
-	// floor_colour;
-	// ceiling_colour;
-	// north texture
-	// south texture
-	// west texture
-	// east texture;
+	data->path = arg;
+	data->nb_line = 0;
+	data->map_start = 0;
+	data->nb_line = 0;
+	data->len_max = 0;
+	data->nb_player = 0;
 }
 
 void	init_mlx(t_data *data)
@@ -80,7 +79,7 @@ void	init_mlx(t_data *data)
 		ft_printf("mlx ptr creation failed\n");
 		return ;
 	}
-	mlx_struct.mlx_win = mlx_new_window(mlx_struct.mlx_ptr, S_W, S_H, "Cub3D");
+	mlx_struct.mlx_win = mlx_new_window(mlx_struct.mlx_ptr, S_W, S_H, "Khalau World");
 	if (!mlx_struct.mlx_win)
 	{
 		ft_printf("mlx window creation failed\n");
@@ -89,9 +88,8 @@ void	init_mlx(t_data *data)
 	data->mlx = &mlx_struct;
 }
 
-void	init_game(t_data *data, t_mlx *mlx_struct)
+void	init_textures(t_data *data)
 {
-	display_map(data);
-	put_player(mlx_struct->mlx_ptr, mlx_struct->mlx_win, data->player->pos.x, data->player->pos.y);
-	// ft_printf("%sput player: y = %d, x = %d direction = %c%s\n", YELLOW, (int)data->player->pos.x, (int)data->player->pos.y, data->player_dir, RESET);
+	setup_textures(data);
+	setup_screen_buffer(data);
 }
