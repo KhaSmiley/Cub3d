@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/12 15:53:05 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/14 17:58:51 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_camera_position(t_data *data, int x)
 	data->ray->ray_dir.y = data->player->dir.y + data->ray->plane.y * camera_x;
 }
 
-int	calculations(t_data *data)
+int	calculations(t_data *data, t_ray *ray)
 {
 	int	x;
 
@@ -47,20 +47,21 @@ int	calculations(t_data *data)
 	while (x < S_W)
 	{
 		init_camera_position(data, x);
-		data->ray->map.x = (int)data->player->pos.x;
-		data->ray->map.y = (int)data->player->pos.y;
-		calculate_steps(data);
-		find_next_wall(data);
-		// calculate distance to closest wall
-		if (data->ray->texture == 'W' || data->ray->texture == 'E') // side == 0
-			data->ray->distance_to_wall = (data->ray->map.x - data->player->pos.x + (1 - data->ray->step_flag.x) / 2) / data->ray->ray_dir.x;
+		ray->map.x = (int)data->player->pos.x;
+		ray->map.y = (int)data->player->pos.y;
+		calculate_steps(data->player, data->ray);
+		find_next_wall(data, data->ray);
+		if (ray->texture == 'W' || ray->texture == 'E')
+			ray->distance_to_wall = (ray->map.x - data->player->pos.x
+					+ (1 - ray->step_flag.x) / 2) / ray->ray_dir.x;
 		else
-			data->ray->distance_to_wall = (data->ray->map.y - data->player->pos.y + (1 - data->ray->step_flag.y) / 2) / data->ray->ray_dir.y;
+			ray->distance_to_wall = (ray->map.y - data->player->pos.y
+					+ (1 - ray->step_flag.y) / 2) / ray->ray_dir.y;
 		calculate_wall_len(data);
-		//draw_walls_colors(data, x);
 		draw_walls_textures(data, x);
 		x++;
 	}
-	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->mlx_win, data->mlx->screen_ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->mlx_win,
+		data->mlx->screen_ptr, 0, 0);
 	return (0);
 }
