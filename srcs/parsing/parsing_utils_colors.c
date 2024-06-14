@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:56:12 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/13 22:16:13 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:45:10 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	find_first_digit(char *str)
 
 int	ft_count_comma(t_data *data)
 {
-	int i;
-	int count_comma;
-	int j;
+	int	i;
+	int	count_comma;
+	int	j;
 
 	i = 0;
 	while (data->color[i])
@@ -52,16 +52,30 @@ int	ft_count_comma(t_data *data)
 	}
 	return (count_comma);
 }
-int	stock_floor_ceiling(t_data *data, int i, int stock_0, int stock_1, int stock_2)
+
+int	stock_floor_ceiling(t_data *data, int i, int *stock)
 {
 	if (i == 0)
 	{
-		data->rgb_floor = convert_to_rgb(stock_0, stock_1, stock_2);
+		data->rgb_floor = convert_to_rgb(stock[0], stock[1], stock[2]);
 		return (0);
 	}
 	else
 	{
-		data->rgb_ceiling = convert_to_rgb(stock_0, stock_1, stock_2);
+		data->rgb_ceiling = convert_to_rgb(stock[0], stock[1], stock[2]);
 		return (0);
 	}
+}
+
+int	end_stock_info_map(t_data *data, int i)
+{
+	if (data->flag_double)
+		return (ft_printf("Error\nDouble info\n"), free_texture(data),
+			free_tab(data->color), 1);
+	if (i != 6)
+		return (ft_printf("Error\nMissing infohere2\n"),
+			free_tab(data->texture), 1);
+	else
+		ft_del_newline(data);
+	return (0);
 }
