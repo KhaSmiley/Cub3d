@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:20:48 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 16:39:44 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/14 16:30:46 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	set_player_start_position(t_data *data)
 		j = 0;
 		while (data->map[i][j])
 		{
-			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'W' || data->map[i][j] == 'E')
+			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
+				|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
 				data->start_pos.x = j;
 				data->start_pos.y = i;
@@ -85,6 +86,7 @@ void	get_map_width_height(t_data *data)
 	}
 	data->h_map = i;
 }
+
 void	display_map(t_data *data)
 {
 	int	i;
@@ -97,7 +99,8 @@ void	display_map(t_data *data)
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == '1')
-				put_tiles(data->mlx->mlx_ptr, data->mlx->mlx_win, j * TILE_SIZE, i * TILE_SIZE);
+				put_tiles(data->mlx->mlx_ptr, data->mlx->mlx_win, j * TILE_SIZE,
+					i * TILE_SIZE);
 			j++;
 		}
 		i++;

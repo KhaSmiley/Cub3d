@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:22:09 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/12 21:06:15 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:13:13 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,34 +52,13 @@ int	check_extension(char *argv)
 	return (FALSE);
 }
 
-int	invalid_char_in_map(t_data *data)
+int	check_nb_player(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (ft_strchr("0NEWS1 ", data->map[i][j]) == NULL)
-			{
-				ft_printf("Error\nWrong char in map\n");
-				return (1);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-int	invalid_nb_player(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
+	data->nb_player = 0;
 	while (data->map[i])
 	{
 		j = 0;
@@ -98,3 +77,55 @@ int	invalid_nb_player(t_data *data)
 	}
 	return (0);
 }
+
+int	invalid_char_in_map(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (check_nb_player(data))
+		return (free_tab(data->map), free_tab(data->texture),
+			free_tab(data->color), 1);
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (ft_strchr("0NEWS1 ", data->map[i][j]) == NULL)
+			{
+				ft_printf("Error\nWrong char in map\n");
+				return (free_tab(data->map), free_tab(data->texture),
+					free_tab(data->color), 1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+// int	invalid_nb_player(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (data->map[i])
+// 	{
+// 		j = 0;
+// 		while (data->map[i][j])
+// 		{
+// 			if (ft_strchr("NEWS", data->map[i][j]))
+// 				data->nb_player++;
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	if (data->nb_player != 1)
+// 	{
+// 		ft_printf("Error\nWrong number of player\n");
+// 		return (1);
+// 	}
+// 	return (0);
+// }

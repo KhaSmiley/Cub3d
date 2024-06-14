@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 17:54:43 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/14 17:45:59 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 	data.nb_line = 0;
 	if (argc == 2)
 	{
+		data.flag_double = 0;
 		data.map_start = 0;
 		data.nb_line = 0;
 		data.len_max = 0;

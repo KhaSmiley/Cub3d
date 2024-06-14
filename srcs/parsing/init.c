@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 22:57:20 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/14 00:25:20 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	init_ray(t_data *data)
 	// check this
 	ray.plane.x = 0.66 * (data->player->dir.y);
 	ray.plane.y = 0.66 * (-1 * data->player->dir.x);
-	ray.next_step.x = 0; //cos(deg_to_rad(ray.ray_dir));
-	ray.next_step.y = 0; //sin(deg_to_rad(ray.ray_dir));
+	ray.next_step.x = 0; // cos(deg_to_rad(ray.ray_dir));
+	ray.next_step.y = 0; // sin(deg_to_rad(ray.ray_dir));
 	ray.distance_to_wall = 0;
 	ray.map.x = (int)data->player->pos.x;
 	ray.map.y = (int)data->player->pos.y;
@@ -42,7 +42,7 @@ void	init_ray(t_data *data)
 	data->ray = &ray;
 }
 
- void	init_player(t_data *data)
+void	init_player(t_data *data)
 {
 	static t_player	player = {0};
 	static t_keys	keys = {0};
@@ -62,8 +62,10 @@ void	init_data(t_data *data)
 {
 	get_map_width_height(data);
 	set_player_start_position(data);
-	ft_printf("%sPlayer start position: y = %d, x = %d direction = %c%s\n", BLUE, data->start_pos.x, data->start_pos.y, data->player_dir, RESET);
-	ft_printf("%sMap width = %d, height = %d%s\n", MAGENTA, data->w_map, data->h_map, RESET);
+	ft_printf("%sPlayer start position: y = %d, x = %d direction = %c%s\n",
+		BLUE, data->start_pos.x, data->start_pos.y, data->player_dir, RESET);
+	ft_printf("%sMap width = %d, height = %d%s\n", MAGENTA, data->w_map,
+		data->h_map, RESET);
 	// floor_colour;
 	// ceiling_colour;
 	// north texture
@@ -83,7 +85,8 @@ void	init_mlx(t_data *data)
 		ft_printf("mlx ptr creation failed\n");
 		return ;
 	}
-	mlx_struct.mlx_win = mlx_new_window(mlx_struct.mlx_ptr, S_W, S_H, "Khalau World");
+	mlx_struct.mlx_win = mlx_new_window(mlx_struct.mlx_ptr, S_W, S_H,
+			"Khalau World");
 	if (!mlx_struct.mlx_win)
 	{
 		ft_printf("mlx window creation failed\n");
