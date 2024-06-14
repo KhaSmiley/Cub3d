@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:43:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 21:51:59 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:59:15 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_player(t_data *data)
 
 void	init_data(t_data *data, char *arg)
 {
+	data->flag_double = 0;
 	data->path = arg;
 	data->nb_line = 0;
 	data->map_start = 0;

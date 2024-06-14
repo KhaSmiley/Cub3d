@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 21:54:59 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:59:05 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_data
 	char		**info;
 	char		**texture;
 	char		**color;
+	int			flag_double;
 	int			rgb_floor;
 	int			rgb_ceiling;
 	char		*path;
