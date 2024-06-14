@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/10 22:43:58 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/14 18:22:38 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	move_rotate(t_data *data)
 {
 	if (data->player->key_flags->w == 1)
-		move_forwards(data->mlx, data, data->mlx->player);
+		move_forwards(data, data->mlx->player);
 	if (data->player->key_flags->a == 1)
-		move_left(data->mlx, data, data->mlx->player);
+		move_left(data, data->mlx->player);
 	if (data->player->key_flags->s == 1)
-		move_backwards(data->mlx, data, data->mlx->player);
+		move_backwards(data, data->mlx->player);
 	if (data->player->key_flags->d == 1)
-		move_right(data->mlx, data, data->mlx->player);
+		move_right(data, data->mlx->player);
 	if (data->player->key_flags->left == 1)
 	{
 		data->player->rot = -1;
@@ -34,10 +34,9 @@ int	move_rotate(t_data *data)
 	}
 	if (data->player->key_flags->esc == 1)
 		on_destroy(data);
-	calculations(data);
+	calculations(data, data->ray);
 	return (1);
 }
-
 
 int	key_press(int keycode, t_mlx *mlx_struct)
 {
@@ -77,7 +76,36 @@ int	key_release(int keycode, t_mlx *mlx_struct)
 	return (1);
 }
 
-// hook on function listening to key release
-// set variable to 0 when key released
+void	rotate_right(t_data *data, t_player *player)
+{
+	player->dir_deg += ROTATION_SPEED;
+	if (player->dir_deg > 359)
+		player->dir_deg -= 359;
+	player->old_dir_x = player->dir.x;
+	player->dir.x = player->dir.x * cos(-ROTATION_SPEED)
+		- player->dir.y * sin(-ROTATION_SPEED);
+	player->dir.y = player->old_dir_x * sin(-ROTATION_SPEED)
+		+ player->dir.y * cos(-ROTATION_SPEED);
+	player->old_plane_x = data->ray->plane.x;
+	data->ray->plane.x = data->ray->plane.x * cos(-ROTATION_SPEED)
+		- data->ray->plane.y * sin(-ROTATION_SPEED);
+	data->ray->plane.y = player->old_plane_x * sin(-ROTATION_SPEED)
+		+ data->ray->plane.y * cos(-ROTATION_SPEED);
+}
 
-// swap images (?)
+void	rotate_left(t_data *data, t_player *player)
+{
+	player->dir_deg -= ROTATION_SPEED;
+	if (player->dir_deg < 0)
+		player->dir_deg += 359;
+	player->old_dir_x = player->dir.x;
+	player->dir.x = player->dir.x * cos(ROTATION_SPEED)
+		- player->dir.y * sin(ROTATION_SPEED);
+	player->dir.y = player->old_dir_x * sin(ROTATION_SPEED)
+		+ player->dir.y * cos(ROTATION_SPEED);
+	player->old_plane_x = data->ray->plane.x;
+	data->ray->plane.x = data->ray->plane.x * cos(ROTATION_SPEED)
+		- data->ray->plane.y * sin(ROTATION_SPEED);
+	data->ray->plane.y = player->old_plane_x * sin(ROTATION_SPEED)
+		+ data->ray->plane.y * cos(ROTATION_SPEED);
+}

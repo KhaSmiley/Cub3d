@@ -28,6 +28,7 @@ SRCS_NAMES		=	parsing/parsing.c \
 					graphics/maths.c \
 					graphics/raycasting.c \
 					graphics/textures.c \
+					graphics/textures_utils.c \
 					game/keys.c \
 					game/moves.c \
 					game/game.c \
@@ -42,10 +43,6 @@ SRCS			=	$(addprefix $(DIR_SRCS)/,$(SRCS_NAMES))
 OBJS			=	$(addprefix $(DIR_OBJS)/,$(OBJS_NAMES))
 
 INC				=	-Iinclude -Ilibft/include -Imlx -I/usr/include
-# check our incl flags- this makefile error:
-# ignoring nonexistent directory "libft/include"
-# ignoring nonexistent directory "/include"
-# ignoring duplicate directory "/usr/include"
 
 MFLAGS			=	-lmlx_Linux -lXext -lX11 -lm -lz -Lmlx -L/usr/lib
 
@@ -61,7 +58,7 @@ all:	${NAME}
 
 $(NAME): $(DIR_OBJS) $(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) -o $(NAME) $(INC) $(OBJS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
-	@ echo "debug me baby"  | toilet -f future -F border --gay
+	@ echo "finish me off, please"  | toilet -f future -F border --gay
 
 $(LIBFT):
 		make -C libft
@@ -96,4 +93,3 @@ fclean:	clean
 re:	fclean all
 
 .PHONY:	all clean fclean re
-# .SILENT:
