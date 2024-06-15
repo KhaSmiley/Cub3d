@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:18:56 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/15 18:11:21 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/15 18:32:36 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@ void	setup_textures(t_data *data)
 		data->textures[i].img = mlx_xpm_file_to_image(data->mlx->mlx_ptr,
 				data->texture[i], &data->textures[i].w, &data->textures[i].h);
 		if (!data->textures[i].img)
-			ft_printf("texture %d not initialised\n", i);
+		{
+			printf("Error\nTexture not initialised\n");
+			on_destroy(data);
+		}
 		data->textures[i].addr = (int *)mlx_get_data_addr(data->textures[i].img,
 				&data->textures[i].bpp, &data->textures[i].line_l,
 				&data->textures[i].endian);
 		if (!data->textures[i].addr)
-			ft_printf("texture %d addr not initialised\n", i);
+		{
+			printf("Error\nTexture not initialised\n");
+			on_destroy(data);
+		}
 		i++;
 	}
 }

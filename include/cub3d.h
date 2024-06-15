@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 21:54:41 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/15 18:11:27 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
 # define FALSE -1
 # define TRUE 0
 
-# define S_W 1280 // screen width
-# define S_H 800  // screen height
+# define S_W 1280		// screen width
+# define S_H 800		// screen height
 # define TILE_SIZE 30
-# define FOV 60 // field of view
-# define ROTATION_SPEED .05
-# define PLAYER_SPEED 0.05
+# define FOV 60 		// field of view
+# define ROTATION_SPEED 0.04
+# define PLAYER_SPEED 0.04
 
 /* KEYCODES */
 # define KEY_ESC 65307   // exit
@@ -42,6 +42,7 @@
 # define KEY_D 100       // move right
 # define KEY_LEFT 65361  // look left
 # define KEY_RIGHT 65363 // look right
+# define KEY_CTRL 65507  // ctrl
 
 /* parsing_colors */
 
