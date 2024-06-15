@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 20:42:25 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/14 21:44:58 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/15 18:10:16 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	stock_map_2(t_data *data, char *line, int *i)
 		data->map_start++;
 		if (!data->texture[1])
 		{
-			printf("HERE\n");
 			data->texture[1] = ft_substr(&line[ft_find_i(line)], 0,
 					ft_strlen_until_char(line, '\n'));
 		}
