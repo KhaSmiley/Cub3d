@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:55:18 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/14 21:48:41 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:16:19 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	ft_check_digit_space(t_data *data)
 			return (free_tab(data->map), free_tab(data->texture),
 				free_tab(data->color), ft_printf("Error\n5Color not valid\n"),
 				1);
+		if (j == -2)
+			return (1);
 		while (data->color[i][j])
 		{
 			if (check_digit_space_two(data, &i, &j, &flag))

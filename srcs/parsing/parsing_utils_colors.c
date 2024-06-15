@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:56:12 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/14 21:45:10 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:20:44 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	find_first_digit(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (str[i] == ',')
+			return (-2);
 		if (ft_isdigit(str[i]))
 			return (i);
 		i++;
@@ -73,7 +75,7 @@ int	end_stock_info_map(t_data *data, int i)
 		return (ft_printf("Error\nDouble info\n"), free_texture(data),
 			free_tab(data->color), 1);
 	if (i != 6)
-		return (ft_printf("Error\nMissing infohere2\n"),
+		return (ft_printf("Error\nMissing info\n"),
 			free_tab(data->texture), 1);
 	else
 		ft_del_newline(data);

@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:23 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/14 21:53:41 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:33:18 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	find_start_map(t_data *data, int fd)
 		line = get_next_line(fd);
 		if (!line)
 		{
-			ft_printf("Error\nError with map file\n");
+			ft_printf("Error\nInvalid map\n");
 			free(line);
 			close(fd);
 			return (1);
