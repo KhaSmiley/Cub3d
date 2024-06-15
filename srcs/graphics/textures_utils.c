@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:18:56 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/15 18:32:36 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/15 18:32:47 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	setup_textures(t_data *data)
 				data->texture[i], &data->textures[i].w, &data->textures[i].h);
 		if (!data->textures[i].img)
 		{
-			printf("Error\nTexture not initialised\n");
+			ft_printf("Error\nTexture not initialised\n");
 			on_destroy(data);
 		}
 		data->textures[i].addr = (int *)mlx_get_data_addr(data->textures[i].img,
@@ -31,7 +31,7 @@ void	setup_textures(t_data *data)
 				&data->textures[i].endian);
 		if (!data->textures[i].addr)
 		{
-			printf("Error\nTexture not initialised\n");
+			ft_printf("Error\nTexture not initialised\n");
 			on_destroy(data);
 		}
 		i++;

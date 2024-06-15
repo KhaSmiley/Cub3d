@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:10:37 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/15 18:27:22 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/15 18:33:12 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	mouse_move(int x, int y, t_data *data)
 		rotate_left(data, data->player);
 	return (1);
 }
+
 void	play_game(t_data *data)
 {
 	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, &key_press, data->mlx);
@@ -36,6 +37,7 @@ void	play_game(t_data *data)
 	mlx_hook(data->mlx->mlx_win, DestroyNotify, StructureNotifyMask,
 		&on_destroy, data);
 	mlx_loop_hook(data->mlx->mlx_ptr, &move_rotate, data);
-	mlx_hook(data->mlx->mlx_win, MotionNotify, PointerMotionMask, &mouse_move, data);
+	mlx_hook(data->mlx->mlx_win, MotionNotify, PointerMotionMask,
+		&mouse_move, data);
 	mlx_loop(data->mlx->mlx_ptr);
 }
