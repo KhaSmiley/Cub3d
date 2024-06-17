@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/17 16:57:27 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/17 17:46:38 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,9 @@ void	draw_walls(t_data *data, int x, int i)
 		if (x < S_W && wall < S_H)
 			data->mlx->screen_buffer->addr[buffer_index]
 				= data->textures[i].addr[texture_index];
-		// if (buffer_index % 1000 == 0)
-		// 	ft_printf("filled buffer index %d at texture index %d\n", buffer_index, texture_index);
 		wall++;
 	}
 }
-
 
 void	draw_walls_textures(t_data *data, int x)
 {
