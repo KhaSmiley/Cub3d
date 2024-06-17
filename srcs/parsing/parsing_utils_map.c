@@ -6,32 +6,11 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 20:42:25 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/13 21:41:21 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/15 18:10:16 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	check_end_map(int fd)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		if (line[0] == '\n')
-		{
-			free(line);
-			continue ;
-		}
-		else
-			return (free(line), 1);
-	}
-	free(line);
-	return (0);
-}
 
 int	stock_map_to_struct(t_data *data, int size)
 {
@@ -59,71 +38,96 @@ int	stock_map_to_struct(t_data *data, int size)
 	if (check_end_map(fd))
 		return (ft_printf("Error\nMap not valid\n"), close(fd),
 			free_tab(data->map), 1);
-	close(fd);
-	return (0);
+	return (close(fd), 0);
 }
 
-void	stock_map_2(t_data *data, char *line, int *i)
+void	stock_map_4(t_data *data, char *line, int *i)
 {
-	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "NO		 ", 3))
+	if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "F	", 3))
 	{
 		data->map_start++;
+		if (!data->color[0])
+			data->color[0] = ft_substr(&line[ft_find_i(line)], 0,
+					ft_strlen_until_char(line, '\n'));
+		else
+			data->flag_double = 1;
 		(*i)++;
-		data->texture[0] = ft_substr(&line[ft_find_i(line)], 0,
-				ft_strlen_until_char(line, '\n'));
-	}
-	else if (!ft_strncmp(line, "SO ", 3) || !ft_strncmp(line, "SO	", 3))
-	{
-		data->map_start++;
-		(*i)++;
-		data->texture[1] = ft_substr(&line[ft_find_i(line)], 0,
-				ft_strlen_until_char(line, '\n'));
-	}
-	else if (!ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "WE	", 3))
-	{
-		data->map_start++;
-		(*i)++;
-		data->texture[2] = ft_substr(&line[ft_find_i(line)], 0,
-				ft_strlen_until_char(line, '\n'));
-	}
-	else if (!ft_strncmp(line, "EA ", 3) || !ft_strncmp(line, "EA	", 3))
-	{
-		data->map_start++;
-		(*i)++;
-		data->texture[3] = ft_substr(&line[ft_find_i(line)], 0,
-				ft_strlen_until_char(line, '\n'));
-	}
-	else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "F	", 3))
-	{
-		data->map_start++;
-		(*i)++;
-		data->color[0] = ft_substr(&line[ft_find_i(line)], 0,
-				ft_strlen_until_char(line, '\n'));
 	}
 	else if (!ft_strncmp(line, "C ", 2) || !ft_strncmp(line, "C	", 3))
 	{
 		data->map_start++;
+		if (!data->color[1])
+			data->color[1] = ft_substr(&line[ft_find_i(line)], 0,
+					ft_strlen_until_char(line, '\n'));
+		else
+			data->flag_double = 1;
 		(*i)++;
-		data->color[1] = ft_substr(&line[ft_find_i(line)], 0,
-				ft_strlen_until_char(line, '\n'));
 	}
+}
+
+void	stock_map_3(t_data *data, char *line, int *i)
+{
+	if (!ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "WE	", 3))
+	{
+		data->map_start++;
+		if (!data->texture[2])
+			data->texture[2] = ft_substr(&line[ft_find_i(line)], 0,
+					ft_strlen_until_char(line, '\n'));
+		else
+			data->flag_double = 1;
+		(*i)++;
+	}
+	else if (!ft_strncmp(line, "EA ", 3) || !ft_strncmp(line, "EA	", 3))
+	{
+		data->map_start++;
+		if (!data->texture[3])
+			data->texture[3] = ft_substr(&line[ft_find_i(line)], 0,
+					ft_strlen_until_char(line, '\n'));
+		else
+			data->flag_double = 1;
+		(*i)++;
+	}
+	stock_map_4(data, line, i);
+}
+
+void	stock_map_2(t_data *data, char *line, int *i)
+{
+	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "NO			", 3))
+	{
+		data->map_start++;
+		if (!data->texture[0])
+			data->texture[0] = ft_substr(&line[ft_find_i(line)], 0,
+					ft_strlen_until_char(line, '\n'));
+		else
+			data->flag_double = 1;
+		(*i)++;
+	}
+	else if (!ft_strncmp(line, "SO ", 3) || !ft_strncmp(line, "SO	", 3))
+	{
+		data->map_start++;
+		if (!data->texture[1])
+		{
+			data->texture[1] = ft_substr(&line[ft_find_i(line)], 0,
+					ft_strlen_until_char(line, '\n'));
+		}
+		else
+			data->flag_double = 1;
+		(*i)++;
+	}
+	stock_map_3(data, line, i);
 }
 
 int	stock_info_map(t_data *data, int fd)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = 0;
-	line = NULL;
-	printf(">>>%d\n", fd);
 	data->texture = ft_calloc(sizeof(char *), 5);
 	data->color = ft_calloc(sizeof(char *), 3);
-	free(line);
 	while (i != 6)
 	{
 		line = get_next_line(fd);
-		printf(">>>>>>>>1st%s\n", line);
 		if (!line)
 			break ;
 		if (line[0] == '\n')
@@ -137,8 +141,7 @@ int	stock_info_map(t_data *data, int fd)
 	}
 	data->texture[4] = NULL;
 	data->color[2] = NULL;
-	if (i != 6)
-		return (close(fd), ft_printf("Error\nMissing infohere2\n"),
-			free_tab(data->texture), 1);
+	if (end_stock_info_map(data, i))
+		return (close(fd), 1);
 	return (0);
 }

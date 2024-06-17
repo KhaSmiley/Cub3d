@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 18:29:38 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/15 18:34:16 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
 # define FALSE -1
 # define TRUE 0
 
-# define S_W 1280 // screen width
-# define S_H 800  // screen height
+# define S_W 1280		// screen width
+# define S_H 800		// screen height
 # define TILE_SIZE 30
-# define FOV 60 // field of view
-# define ROTATION_SPEED .05
-# define PLAYER_SPEED 0.05
+# define FOV 60 		// field of view
+# define ROTATION_SPEED 0.04
+# define PLAYER_SPEED 0.04
 
 /* KEYCODES */
 # define KEY_ESC 65307   // exit
@@ -42,6 +42,7 @@
 # define KEY_D 100       // move right
 # define KEY_LEFT 65361  // look left
 # define KEY_RIGHT 65363 // look right
+# define KEY_CTRL 65507  // ctrl
 
 /* parsing_colors */
 
@@ -64,13 +65,15 @@ int		check_info_map(t_data *data);
 char	**ft_add_space_to_map(t_data *data);
 void	find_size_to_malloc_add_spaces(t_data *data);
 char	*ft_strcpy_cube(char *dest, char *src);
+void	ft_del_newline(t_data *data);
 
 /* parsing_utils_colors */
 
 int		convert_to_rgb(int r, int g, int b);
 int		find_first_digit(char *str);
 int		ft_count_comma(t_data *data);
-int     stock_floor_ceiling(t_data *data, int i, int stock_0, int stock_1, int stock_2);
+int		stock_floor_ceiling(t_data *data, int i, int *stock);
+int		end_stock_info_map(t_data *data, int i);
 
 /* parsing_utils_map */
 
@@ -91,9 +94,9 @@ void	ft_del_newline(t_data *data);
 
 int		map_is_flooded(t_data *data);
 int		parsing(t_data *data, char *arg);
-char	**push_map_to_struct(t_data *data);
-int     check_all_info(t_data *data);
-void    check_all_info_two(char *line, int *i);
+int		check_all_info(t_data *data);
+void	free_texture(t_data *data);
+int		check_all_info_two(char *line, int *i);
 
 /* utils.c */
 
@@ -176,5 +179,6 @@ void	rotate_player(t_player *player, t_data *data);
 /* game.c */
 
 void	play_game(t_data *data);
+int		mouse_move(int x, int y, t_data *data);
 
 #endif

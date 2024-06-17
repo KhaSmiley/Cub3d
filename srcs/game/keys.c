@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:33:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 18:22:38 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/15 18:22:09 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	key_press(int keycode, t_mlx *mlx_struct)
 		mlx_struct->player->key_flags->right = 1;
 	if (keycode == KEY_ESC)
 		mlx_struct->player->key_flags->esc = 1;
+	if (keycode == KEY_CTRL)
+		mlx_struct->player->key_flags->ctrl = 1;
 	return (1);
 }
 
@@ -73,6 +75,8 @@ int	key_release(int keycode, t_mlx *mlx_struct)
 		mlx_struct->player->key_flags->right = 0;
 	if (keycode == KEY_ESC)
 		mlx_struct->player->key_flags->esc = 0;
+	if (keycode == KEY_CTRL)
+		mlx_struct->player->key_flags->ctrl = 0;
 	return (1);
 }
 

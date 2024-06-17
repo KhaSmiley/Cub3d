@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:07 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 18:41:33 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/15 18:10:29 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_keys
 	int			left;
 	int			right;
 	int			esc;
+	int			ctrl;
 }	t_keys;
 
 typedef struct s_ray
@@ -89,6 +90,7 @@ typedef struct s_data
 	char		**info;
 	char		**texture;
 	char		**color;
+	int			flag_double;
 	int			rgb_floor;
 	int			rgb_ceiling;
 	char		*path;
