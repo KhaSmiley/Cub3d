@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:03:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 17:58:51 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/17 17:09:17 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_camera_position(t_data *data, int x)
 {
 	double	camera_x;
 
-	camera_x = 2 * x / (double)S_W - 1;
+	camera_x = 2 * (S_W - x) / (double)S_W - 1;
 	data->ray->ray_dir.x = data->player->dir.x + data->ray->plane.x * camera_x;
 	data->ray->ray_dir.y = data->player->dir.y + data->ray->plane.y * camera_x;
 }

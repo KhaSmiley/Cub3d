@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 21:42:55 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/15 18:12:59 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:17:51 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int	main(int argc, char **argv)
 		play_game(&data);
 	}
 	else
-		ft_printf("Error: One map required\n");
+		ft_printf("Error\nOne map required\n");
 	return (0);
 }
