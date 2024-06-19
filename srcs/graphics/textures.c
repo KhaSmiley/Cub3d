@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:08:28 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 17:19:43 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/17 17:46:38 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ void	draw_floor(t_data *data, int x)
 // + x to go to right pixel
 // same calculations within texture array to find corresponding
 // exact pixel color value
+
 void	draw_walls(t_data *data, int x, int i)
 {
 	int	wall;
+	int	buffer_index;
+	int	texture_index;
 
 	wall = data->ray->draw_start;
 	while (wall < data->ray->draw_end)
@@ -58,11 +61,12 @@ void	draw_walls(t_data *data, int x, int i)
 		data->ray->text_coord.y = (int)data->ray->text_pos
 			& (data->textures[i].h - 1);
 		data->ray->text_pos += data->ray->text_step;
+		buffer_index = wall * data->mlx->screen_buffer->line_l / 4 + x;
+		texture_index = data->ray->text_coord.y
+			* data->textures[i].line_l / 4 + data->ray->text_coord.x;
 		if (x < S_W && wall < S_H)
-			data->mlx->screen_buffer->addr[wall
-				* data->mlx->screen_buffer->line_l / 4 + x]
-				= data->textures[i].addr[data->ray->text_coord.y
-				* data->textures[i].line_l / 4 + data->ray->text_coord.x];
+			data->mlx->screen_buffer->addr[buffer_index]
+				= data->textures[i].addr[texture_index];
 		wall++;
 	}
 }

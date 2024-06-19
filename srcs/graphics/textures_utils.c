@@ -6,7 +6,7 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:18:56 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/15 18:32:47 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/17 17:49:30 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	setup_screen_buffer(t_mlx *mlx)
 // using normalized coordinates (between 0 and 1).
 // repair flipped image problem
 // get the exact texture position on collumn being drawn
+
 void	calculate_text_x_coord(t_data *data, t_ray *ray, int i)
 {
 	if (ray->texture == 'E' || ray->texture == 'W')
@@ -71,7 +72,7 @@ void	calculate_text_x_coord(t_data *data, t_ray *ray, int i)
 	ray->wall_x -= floor(ray->wall_x);
 	ray->text_step = 1.0 * data->textures[i].h / data->ray->wall_len;
 	ray->text_coord.x = (int)(ray->wall_x * (double)data->textures[i].w);
-	if (data->ray->texture == 'N' || data->ray->texture == 'E')
+	if (data->ray->texture == 'S' || data->ray->texture == 'W')
 		ray->text_coord.x = 64 - ray->text_coord.x - 1;
 	ray->text_pos = (ray->draw_start - S_H / 2 + ray->wall_len / 2)
 		* ray->text_step;

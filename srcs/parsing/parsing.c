@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:55:24 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/15 19:30:50 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:41:47 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	check_all_info(t_data *data)
 			continue ;
 		}
 		else if (check_all_info_two(line, &i))
-			return (free(line), close(fd), ft_printf("Error\nInvalid information\n"),
-				1);
+			return (free(line), close(fd),
+				ft_printf("Error\nInvalid information\n"), 1);
 		free(line);
 	}
 	if (i != 6)
@@ -75,8 +75,8 @@ int	map_is_flooded(t_data *data)
 				if (data->map[i][j + 1] == '2' || data->map[i][j - 1] == '2')
 					return (ft_printf("Error\nMap is not closed\n",
 							data->map[i]), 1);
-				else if (data->map[i + 1][j] == '2' || data->map[i
-					- 1][j] == '2')
+				else if (data->map[i + 1][j] == '2'
+					|| data->map[i - 1][j] == '2')
 					return (ft_printf("Error\nMap is not closed\n",
 							data->map[i]), 1);
 			}
