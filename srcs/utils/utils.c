@@ -6,11 +6,11 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 00:13:03 by lbarry            #+#    #+#             */
-/*   Updated: 2024/05/22 18:26:55 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/14 18:42:23 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 void	print_arr(char **arr)
 {
@@ -19,7 +19,7 @@ void	print_arr(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		ft_printf("%s\n",arr[i]);
+		ft_printf("%s\n", arr[i]);
 		i++;
 	}
 }

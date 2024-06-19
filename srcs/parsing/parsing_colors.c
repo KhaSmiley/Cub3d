@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:55:18 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/12 21:27:10 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:16:19 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int	check_digit_space_two(t_data *data, int *i, int *j, int *flag)
 			if (*flag == 0)
 				return (1);
 			*flag = 0;
-			(*j)++;
 		}
 		(*j)++;
 	}
+	if (*flag == 0)
+		return (1);
 	return (0);
 }
+
 int	ft_check_digit_space(t_data *data)
 {
 	int	i;
@@ -46,6 +48,12 @@ int	ft_check_digit_space(t_data *data)
 	{
 		flag = 0;
 		j = find_first_digit(data->color[i]);
+		if (j == -1)
+			return (free_tab(data->map), free_tab(data->texture),
+				free_tab(data->color), ft_printf("Error\n5Color not valid\n"),
+				1);
+		if (j == -2)
+			return (1);
 		while (data->color[i][j])
 		{
 			if (check_digit_space_two(data, &i, &j, &flag))
@@ -61,7 +69,7 @@ int	stock_color(t_data *data, int *i, int *j, int *x)
 {
 	int	stock[3];
 
-	while (data->color[*i][*j] && data->color[*i][*j] != '\n')
+	while (data->color[*i][*j])
 	{
 		if (data->color[*i][*j] == ' ' || data->color[*i][*j] == '\t')
 			while (data->color[*i][*j] == ' ' || data->color[*i][*j] == '\t')
@@ -69,9 +77,9 @@ int	stock_color(t_data *data, int *i, int *j, int *x)
 		else if (ft_isdigit(data->color[*i][*j]))
 		{
 			stock[(*x)] = ft_atoi(&data->color[*i][*j]);
-            if (stock[(*x)] < 0 || stock[(*x)] > 255)
-                return (1);
-            (*x)++;
+			if (stock[(*x)] < 0 || stock[(*x)] > 255)
+				return (1);
+			(*x)++;
 			while (data->color[*i][*j] && ft_isdigit(data->color[*i][*j]))
 				(*j)++;
 		}
@@ -80,13 +88,10 @@ int	stock_color(t_data *data, int *i, int *j, int *x)
 		else
 			return (1);
 	}
-	stock_floor_ceiling(data, *i, stock[0], stock[1], stock[2]);
-	if (*i == 0)
-		data->rgb_floor = convert_to_rgb(stock[0], stock[1], stock[2]);
-	else
-		data->rgb_ceiling = convert_to_rgb(stock[0], stock[1], stock[2]);
+	stock_floor_ceiling(data, *i, &stock[0]);
 	return (0);
 }
+
 int	check_colors_ok(t_data *data)
 {
 	int	i;
@@ -100,9 +105,13 @@ int	check_colors_ok(t_data *data)
 		x = 0;
 		j = find_first_digit(data->color[i]);
 		if (j == -1)
-			return (ft_printf("Error\nColor not valid\n"), 1);
+			return (free_tab(data->map), free_tab(data->texture),
+				free_tab(data->color), ft_printf("Error\nColor not valid\n"),
+				1);
 		if (stock_color(data, &i, &j, &x))
-			return (ft_printf("Error\nColor not valid\n"), 1);
+			return (free_tab(data->map), free_tab(data->texture),
+				free_tab(data->color), ft_printf("Error\nColor not valid\n"),
+				1);
 		i++;
 	}
 	return (0);
@@ -111,9 +120,11 @@ int	check_colors_ok(t_data *data)
 int	convert_color(t_data *data)
 {
 	if (ft_count_comma(data) != 2)
-		return (ft_printf("Error\nColor not valid\n"), 1);
+		return (free_tab(data->map), free_tab(data->texture),
+			free_tab(data->color), ft_printf("Error\nColor not valid\n"), 1);
 	if (ft_check_digit_space(data))
-		return (ft_printf("Error\nColor not valid\n"), 1);
+		return (free_tab(data->map), free_tab(data->color),
+			free_tab(data->texture), ft_printf("Error\nColor not valid\n", 1));
 	if (check_colors_ok(data))
 		return (1);
 	return (0);

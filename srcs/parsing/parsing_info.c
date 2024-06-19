@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:23 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/13 23:50:00 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/15 19:33:18 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	find_start_map(t_data *data, int fd)
 		line = get_next_line(fd);
 		if (!line)
 		{
-			ft_printf("Error\nMap not after info\n");
+			ft_printf("Error\nInvalid map\n");
 			free(line);
 			close(fd);
 			return (1);
@@ -120,7 +120,7 @@ int	check_info_map(t_data *data)
 		return (close(fd), free_tab(data->color), free_tab(data->texture), 1);
 	size = find_size_malloc_map(data, fd);
 	if (stock_map_to_struct(data, size))
-		return (close(fd), free_tab(data->map), free_tab(data->color), free_tab(data->texture), 1);
+		return (close(fd), free_tab(data->color), free_tab(data->texture), 1);
 	close(fd);
 	ft_del_newline(data);
 	if (convert_color(data))

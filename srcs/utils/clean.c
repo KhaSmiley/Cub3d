@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:44:54 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/13 23:46:01 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/14 21:53:00 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	on_destroy(t_data *data)
 	}
 	free_tab(data->map);
 	free_tab(data->texture);
+	free_tab(data->color);
 	exit(0);
 	return (0);
 }

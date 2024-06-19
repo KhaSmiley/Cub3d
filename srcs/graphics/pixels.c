@@ -6,23 +6,25 @@
 /*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:12:14 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/07 18:22:21 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/14 18:45:48 by lbarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	put_line(t_data *data, int x, int y1, int y2, int color)
+/*
+void	put_line(t_data *data, int x, int y1, int y2, int colour)
 {
 	int	y;
 
 	y = y1;
 	while (y <= y2)
 	{
-		mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, x, y, color);
+		mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->mlx_win, x, y, colour);
 		y++;
 	}
 }
+*/
 
 void	put_tiles(void *mlx_ptr, void *win_ptr, int x, int y)
 {
@@ -59,30 +61,16 @@ void	put_player(void *mlx_ptr, void *win_ptr, double x, double y)
 		i++;
 	}
 }
-// lol this is a homemade function which is satisfying but completely useless
-void	put_background(t_mlx *mlx_struct)
+
+void	img_background(t_mlx *mlx_struct)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < S_W)
-	{
-		j = 0;
-		while (j < S_W)
-		{
-			mlx_pixel_put(mlx_struct->mlx_ptr, mlx_struct->mlx_win, i, j, 0x000FCCFF);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	img_background(t_mlx *mlx_struct)
-{
-	int i = 0;
-	int j = 0;
-	mlx_struct->bckgrd_ptr = mlx_xpm_file_to_image(mlx_struct->mlx_ptr, "./textures/khalidou.xpm", &i, &j);
+	j = 0;
+	mlx_struct->bckgrd_ptr = mlx_xpm_file_to_image(mlx_struct->mlx_ptr,
+			"./textures/khalidou.xpm", &i, &j);
 	if (!mlx_struct->bckgrd_ptr)
 	{
 		ft_printf("failed to load image\n");
@@ -91,19 +79,21 @@ void	img_background(t_mlx *mlx_struct)
 }
 
 // imagining a unit circle (radius = 1 unit) with the player in the center
-// we use pythag to repeatedly calculate the x and y coordinates of the edge of the circle
+// we use pythag to repeatedly calculate the x and
+// y coordinates of the edge of the circle
 // applying cos to the angle gives us the x coordinate for the pixel
 // applying sin to the angle gives us the y coordinate for the pixel
 void	display_circle(t_mlx *mlx)
 {
-	int	angle = 0;
-	int	distance = 50;
-	float x;
-	float y;
+	int		angle;
+	int		distance;
+	float	x;
+	float	y;
 
+	angle = 0;
+	distance = 50;
 	x = mlx->player->pos.x + cos(angle) * 10;
 	y = mlx->player->pos.y + sin(angle) * 10;
-
 	while (angle < 360)
 	{
 		x = mlx->player->pos.x + cos(angle) * distance;
