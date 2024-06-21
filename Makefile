@@ -1,5 +1,7 @@
 NAME			=	cub3D
 
+NAME_BONUS		=	cub3D_bonus
+
 LIBFT			=	libft/libft.a
 
 MLX				=	mlx/libmlx_Linux.a
@@ -89,8 +91,11 @@ $(NAME): $(DIR_OBJS) $(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) -o $(NAME) $(INC) $(OBJS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
 	@ echo "cub3D : Khalau World"  | toilet -f future -F border --gay
 
-bonus: clean ${OBJS_BONUS} $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) -o $(NAME) $(INC) $(OBJS_BONUS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
+bonus:	${NAME_BONUS}
+
+$(NAME_BONUS): $(DIR_OBJS) $(OBJS_BONUS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME_BONUS) $(INC) $(OBJS_BONUS) $(MFLAGS) $(CDFLAGS) $(LIB) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
+	rm -rf $(NAME)
 	@ echo "bonus"  | toilet -f future -F border --gay
 
 $(LIBFT):
@@ -120,8 +125,6 @@ clean:
 	make clean -C libft
 	make clean -C mlx
 	rm -rf ${DIR_OBJS}
-	rm -rf ${DEPS}
-	rm -rf ${DEPS_BONUS}
 
 fclean:	clean
 	make fclean -C libft
