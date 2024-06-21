@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:23 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/15 19:33:18 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:15:33 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ int	check_info_map(t_data *data)
 		return (close(fd), free_tab(data->color), free_tab(data->texture), 1);
 	close(fd);
 	ft_del_newline(data);
+	if (check_xpm_extension(data))
+		return (free_tab(data->map), free_tab(data->color),
+			free_tab(data->texture), 1);
 	if (convert_color(data))
 		return (1);
 	return (0);

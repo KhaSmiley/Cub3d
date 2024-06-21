@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:16:24 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/15 18:34:16 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/21 16:15:48 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # define FALSE -1
 # define TRUE 0
 
-# define S_W 1280		// screen width
-# define S_H 800		// screen height
+# define S_W 1280 // screen width
+# define S_H 800  // screen height
 # define TILE_SIZE 30
-# define FOV 60 		// field of view
+# define FOV 60 // field of view
 # define ROTATION_SPEED 0.04
 # define PLAYER_SPEED 0.04
 
@@ -87,8 +87,8 @@ int		stock_info_map(t_data *data, int fd);
 size_t	ft_strlen_until_char(char *str, char c);
 int		check_extension(char *argv);
 int		invalid_char_in_map(t_data *data);
-int		invalid_nb_player(t_data *data);
 void	ft_del_newline(t_data *data);
+int		check_xpm_extension(t_data *data);
 
 /* parsing.c */
 
@@ -121,6 +121,7 @@ void	set_player_start_position(t_data *data);
 void	set_start_direction(t_player *player, char dir);
 void	get_map_width_height(t_data *data);
 void	display_map(t_data *data);
+int		check_char(t_data *data, int i, int j);
 
 /* pixels.c */ // playing around at the start
 
@@ -129,7 +130,7 @@ void	put_background(t_mlx *mlx_struct);
 void	put_player(void *mlx_ptr, void *win_ptr, double x, double y);
 void	img_background(t_mlx *mlx_struct);
 void	display_circle(t_mlx *mlx);
-//void	put_line(t_data *data, int x, int y1, int y2, int colour);
+// void	put_line(t_data *data, int x, int y1, int y2, int colour);
 
 /* maths.c */
 

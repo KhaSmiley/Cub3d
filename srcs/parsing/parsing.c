@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbarry <lbarry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:55:24 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/17 17:41:47 by lbarry           ###   ########.fr       */
+/*   Updated: 2024/06/21 16:14:25 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	check_all_info(t_data *data)
 
 	i = 0;
 	fd = open(data->path, O_RDONLY);
+	if (fd == -1)
+		return (ft_printf("Error\nMap File\n"), 1);
 	while (i != 6)
 	{
 		line = get_next_line(fd);
@@ -50,8 +52,7 @@ int	check_all_info(t_data *data)
 			continue ;
 		}
 		else if (check_all_info_two(line, &i))
-			return (free(line), close(fd),
-				ft_printf("Error\nInvalid information\n"), 1);
+			return (free(line), close(fd), ft_printf("Error\nInvalid info\n"), 1);
 		free(line);
 	}
 	if (i != 6)
@@ -64,25 +65,21 @@ int	map_is_flooded(t_data *data)
 	int	i;
 	int	j;
 
-	i = 1;
-	while (data->map[i])
+	i = 0;
+	while (data->map[++i])
 	{
 		j = 0;
 		while (data->map[i][j])
 		{
-			if (data->map[i][j] == '0')
+			if (data->map[i][j] == '0' || data->map[i][j] == 'N'
+				|| data->map[i][j] == 'S' || data->map[i][j] == 'W'
+				|| data->map[i][j] == 'E')
 			{
-				if (data->map[i][j + 1] == '2' || data->map[i][j - 1] == '2')
-					return (ft_printf("Error\nMap is not closed\n",
-							data->map[i]), 1);
-				else if (data->map[i + 1][j] == '2'
-					|| data->map[i - 1][j] == '2')
-					return (ft_printf("Error\nMap is not closed\n",
-							data->map[i]), 1);
+				if (check_char(data, i, j))
+					return (1);
 			}
 			j++;
 		}
-		i++;
 	}
 	return (0);
 }

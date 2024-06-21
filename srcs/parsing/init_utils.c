@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:20:48 by lbarry            #+#    #+#             */
-/*   Updated: 2024/06/14 21:52:13 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:16:09 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,21 @@ void	display_map(t_data *data)
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == '1')
-				put_tiles(data->mlx->mlx_ptr, data->mlx->mlx_win,
-					j * TILE_SIZE, i * TILE_SIZE);
+				put_tiles(data->mlx->mlx_ptr, data->mlx->mlx_win, j * TILE_SIZE,
+					i * TILE_SIZE);
 			j++;
 		}
 		i++;
 	}
+}
+
+int	check_char(t_data *data, int i, int j)
+{
+	if (data->map[i][j + 1] == '2' || data->map[i][j - 1] == '2'
+		|| data->map[i][j + 1] == ' ' || data->map[i][j - 1] == ' ')
+		return (ft_printf("Error\nMap is not closed\n", data->map[i]), 1);
+	else if (data->map[i + 1][j] == '2' || data->map[i - 1][j] == '2'
+		|| data->map[i + 1][j] == ' ' || data->map[i - 1][j] == ' ')
+		return (ft_printf("Error\nMap is not closed\n", data->map[i]), 1);
+	return (0);
 }

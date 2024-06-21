@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:56:12 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/15 19:20:44 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:31:33 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	ft_count_comma(t_data *data)
 				count_comma++;
 			j++;
 		}
+		if (count_comma != 2)
+			return (1);
 		i++;
 	}
 	return (count_comma);

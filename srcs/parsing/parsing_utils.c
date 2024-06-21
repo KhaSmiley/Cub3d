@@ -6,7 +6,7 @@
 /*   By: kboulkri <kboulkri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:22:09 by kboulkri          #+#    #+#             */
-/*   Updated: 2024/06/14 21:53:27 by kboulkri         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:16:20 by kboulkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,27 +105,22 @@ int	invalid_char_in_map(t_data *data)
 	return (0);
 }
 
-// int	invalid_nb_player(t_data *data)
-// {
-// 	int	i;
-// 	int	j;
+int	check_xpm_extension(t_data *data)
+{
+	int	i;
+	int	j;
 
-// 	i = 0;
-// 	while (data->map[i])
-// 	{
-// 		j = 0;
-// 		while (data->map[i][j])
-// 		{
-// 			if (ft_strchr("NEWS", data->map[i][j]))
-// 				data->nb_player++;
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	if (data->nb_player != 1)
-// 	{
-// 		ft_printf("Error\nWrong number of player\n");
-// 		return (1);
-// 	}
-// 	return (0);
-// }
+	i = 0;
+	j = 0;
+	while (data->texture[i])
+	{
+		j = ft_strlen(data->texture[i]);
+		if (j < 4)
+			return (ft_printf("Error\nTexture not valid\n"), 1);
+		if (ft_strncmp(&data->texture[i][ft_strlen(data->texture[i]) - 4],
+			".xpm", 4))
+			return (ft_printf("Error\nTexture extension not xpm\n"), 1);
+		i++;
+	}
+	return (0);
+}
